@@ -30,6 +30,12 @@ You can find more visualizations on [![project page](https://img.shields.io/badg
 - [2024.06.11] Image tokenizers and AR models for class-conditional image generation are released !
 - [2024.06.11] Code and Demo are released !
 
+```
+Huggingface download: https://huggingface.co/Qwen/Qwen2.5-1.5B
+
+```
+
+
 ## 🌿 Introduction
 We introduce LlamaGen, a new family of image generation models that apply original ``next-token prediction`` paradigm of large language models to visual generation domain. It is an affirmative answer to whether vanilla autoregressive models, e.g., Llama, ``without inductive biases`` on visual signals can achieve state-of-the-art image generation performance if scaling properly. We reexamine design spaces of image tokenizers, scalability properties of image generation models, and their training data quality.
 

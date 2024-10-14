@@ -465,3 +465,138 @@ GPT_models = {
     'GPT-B': GPT_B, 'GPT-L': GPT_L, 'GPT-XL': GPT_XL, 'GPT-XXL': GPT_XXL, 'GPT-XXXL': GPT_XXXL,
     'GPT-1B': GPT_1B, 'GPT-3B': GPT_3B, 'GPT-7B': GPT_7B, 
 }
+
+
+
+if __name__ == "__main__":
+
+    parser = argparse.ArgumentParser()
+    # dataset & dataloader
+    # parser.add_argument("--dataset", type=str, required=True)
+    # parser.add_argument("--data", type=str, required='')
+    parser.add_argument("--video_meta_info_file", type=str, default='/storage/zhubin/liuyihang/add_aes/output/sucai_aes_1000.json')
+    # parser.add_argument("--sample_rate", type=int, default=1)
+    # parser.add_argument("--cache_dir", type=str, required='')
+    parser.add_argument("--t5-model-path", type=str, default='./pretrained_models/t5-ckpt')
+    parser.add_argument("--t5-model-type", type=str, default='flan-t5-xl')
+    parser.add_argument("--max_height", type=int, default=256)
+    parser.add_argument("--max_width", type=int, default=256)
+    parser.add_argument("--precision", type=str, default='bf16')
+    parser.add_argument("--model_max_length", type=int, default=512)
+    parser.add_argument("--start_frame_ind", type=int, default=25)
+    parser.add_argument("--num_frames", type=int, default=17)
+    parser.add_argument("--data_root", type=str, default='/storage/dataset')
+
+    parser.add_argument("--image_size", type=int, default=256)
+    parser.add_argument("--downsample-size", type=int, choices=[8, 16], default=16)
+    parser.add_argument("--t-downsample-size", type=int, choices=[4, 8], default=4)
+
+    parser.add_argument("--vae-model", type=str, choices=list(VAE_models.keys()), default="VAE-16")
+    parser.add_argument("--vae-ckpt", type=str, default='/storage/zhubin/LlamaGen/CausalVideoVAE/vae_ckpt/432322048', help="ckpt path for vq model")
+    parser.add_argument('--enable_tiling', action='store_true')
+    parser.add_argument("--tile_overlap_factor", type=float, default=0.25)
+    parser.add_argument("--t5-path", type=str, required=True) # t5 model path
+
+    args = parser.parse_args()
+
+    resize = [CenterCropResizeVideo((args.max_height, args.max_width)), ]
+    # norm_fun = ae_norm[args.ae]
+    norm_fun = Lambda(lambda x: 2. * x - 1.)
+    transform = transforms.Compose([
+        ToTensorVideo(),
+        *resize, 
+        # RandomHorizontalFlipVideo(p=0.5),  # in case their caption have position decription
+        norm_fun
+    ])
+    from dataset.augmentation import center_crop_arr
+    assert os.path.exists(args.t5_model_path)
+    device='cuda'
+    precision = {'none': torch.float32, 'bf16': torch.bfloat16, 'fp16': torch.float16}[args.precision]
+
+    t5_xxl = T5Embedder(
+        device=device, 
+        local_cache=True, 
+        cache_dir=args.t5_model_path, 
+        dir_or_name=args.t5_model_type,
+        torch_dtype=precision
+    )
+
+    dataset = T2V_dataset(args, transform, t5_xxl)
+    dataloader = DataLoader(dataset, batch_size=2, shuffle=True, num_workers=0)
+    # return dict(video=video, input_ids=input_ids, cond_mask=cond_mask)
+    CausalVAEModel = VAE_models[args.vae_model] 
+    vae = CausalVAEModel.from_pretrained(args.vae_ckpt)
+    if args.enable_tiling:
+        vae.enable_tiling()
+        vae.tile_overlap_factor = args.tile_overlap_factor
+    vae = vae.to(device) # .to(data_type)
+    vae.eval()
+
+    # import ipdb; ipdb.set_trace()
+    latent_size = args.image_size // args.downsample_size
+    for sample in dataloader:
+        x, y, attn_mask, valid = sample['video_data']['video'], sample['video_data']['t5_feat_padding'], sample['video_data']['attn_mask'], sample['video_data']['valid']
+       
+        x = x.to(device)
+        y = y.to(device)
+        attn_mask = attn_mask.to(device)
+        valid = valid.to(device)
+
+        c_indices = y.reshape(y.shape[0], y.shape[-2], y.shape[-1]) # torch.Size([2, 120, 2048])
+        """
+        x: torch.Size([2, 3, 17, 256, 256])
+        y: torch.Size([2, 1, 120, 2048])
+        attn_mask: torch.Size([2, 1, 1400, 1400])
+        valid: torch.Size([2])
+        """
+        with torch.no_grad():
+            z = vae.encode(x).sample()
+        # torch.Size([2, 2048, 5, 16, 16])
+        video_latent =  z.flatten(2).transpose(1, 2) # (b, c, t, h, w)  ->  (b, t*h*w, c)
+        cond_embed = c_indices
+
+        model = GPT_models['GPT-B'](
+            vocab_size=16384,
+            block_size=latent_size**2,
+            num_classes=1000,
+            cls_token_num=120,
+            resid_dropout_p=0.1,
+            ffn_dropout_p=0.1,
+            token_dropout_p=0.1,
+            model_type='t2v',
+            vae_embed_dim = 2048, 
+            num_frames = args.num_frames,
+            t_downsample_size = args.t_downsample_size, 
+        ).to(device)
+
+        attn_mask = attn_mask.reshape(attn_mask.shape[0], 1, attn_mask.shape[-2], attn_mask.shape[-1]) # (bs, n_head, seq_len, seq_len)
+        
+        # import ipdb; ipdb.set_trace()
+        
+        with torch.cuda.amp.autocast(dtype=precision):  
+            _, loss = model(
+                    idx = None,
+                    cond_idx=None,
+                    targets=None,
+                    # cond_idx=c_indices,
+                    # idx=z_indices[:, :-1],
+                    # targets=z_indices,
+                    mask=attn_mask[:, :, :-1, :-1], # torch.Size([2, 1, 1400, 1400])
+                    valid=valid, # torch.Size([2])
+                    video_latent=video_latent[:, :-1], # torch.Size([2, 1280, 2048])
+                    targets_video=video_latent,
+                    cond_embed=cond_embed, # torch.Size([2, 120, 2048])
+                    )
+           
+            print(loss)
+
+    """ 
+    source  /storage/miniconda3/etc/profile.d/conda.sh 
+    conda activate motionctrl
+    export CUDA_VISIBLE_DEVICES=5
+    cd /storage/zhubin/LlamaGen 
+    python autoregressive/models/gpt_video.py --t5-path  /storage/zhubin/LlamaGen/dataset/storage_datasets_npy \
+    --video_meta_info_file  /storage/zhubin/video_statistics_data/task1.5/Final_format_dataset_data_v2/step1.5_istock_final_815070_random_3000.json \
+    --num_frames 1  
+    
+    """
