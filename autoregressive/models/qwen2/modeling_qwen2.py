@@ -1193,7 +1193,7 @@ class Qwen2VisionModel(Qwen2Model):
         assert inputs_vision_embeds is not None, "inputs_vision_embeds is None"
  
         # concatenate text and vision embeddings
-        inputs_embeds = torch.cat((inputs_embeds, inputs_vision_embeds), dim=1)
+        inputs_embeds = torch.cat((inputs_embeds, inputs_vision_embeds), dim=1) 
 
 
         if cache_position is None:
@@ -1566,12 +1566,13 @@ class Qwen2VisionForCausalLM(Qwen2ForCausalLM):
         )
         return_dict = return_dict if return_dict is not None else self.config.use_return_dict
 
+
+        
         # decoder outputs consists of (dec_features, layer_state, dec_hidden, dec_attn)
         outputs = self.model(
             input_ids=input_ids,
             #  video vae idx
             input_vision_ids=input_vision_ids,
-
             attention_mask=attention_mask,
             position_ids=position_ids,
             past_key_values=past_key_values,
@@ -1581,18 +1582,19 @@ class Qwen2VisionForCausalLM(Qwen2ForCausalLM):
             output_hidden_states=output_hidden_states,
             return_dict=return_dict,
             cache_position=cache_position,
-        )
+        ) #  ['last_hidden_state', 'past_key_values']
  
         hidden_states = outputs[0]
 
         # == only need to compute vision tokens ==
         if num_logits_to_keep == 0:
-            num_logits_to_keep = input_vision_ids.shape[1]
+            assert input_vision_ids.shape[1] == labels.shape[1]-1, "labels should be shifted by one"
+            num_logits_to_keep = labels.shape[1]
 
         # Only compute necessary logits, and do not upcast them to float if we are not computing the loss
         logits = self.lm_vision_head(hidden_states[:, -num_logits_to_keep:, :])
 
-
+        # import ipdb; ipdb.set_trace()
         loss = None
         if labels is not None:
             # Upcast to float if we need to compute the loss to avoid potential precision issues
@@ -1602,7 +1604,8 @@ class Qwen2VisionForCausalLM(Qwen2ForCausalLM):
             shift_labels = labels[..., 1:].contiguous()
             # Flatten the tokens
             loss_fct = CrossEntropyLoss()
-            shift_logits = shift_logits.view(-1, self.config.vocab_size)
+            shift_logits = shift_logits.view(-1, self.config.vision_vocab_size)
+            # shift_logits = shift_logits.view(-1, self.config.vocab_size)
             shift_labels = shift_labels.view(-1)
             # Enable model parallelism
             shift_labels = shift_labels.to(shift_logits.device)

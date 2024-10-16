@@ -4,6 +4,8 @@ tmp
 cache
 cache_dir
 video_samples
+results*
+cloud_path_t2v
 
 
 # Byte-compiled / optimized / DLL files
