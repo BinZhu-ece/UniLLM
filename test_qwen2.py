@@ -32,13 +32,26 @@ def test_VisionQwen():
     # position_ids = torch.arange(sequence_length+video_sequence, dtype=torch.long).unsqueeze(0) # (1, 376)
     attention_mask = torch.ones((batch_size, sequence_length+video_sequence), dtype=torch.long) # (1, 376)
     
-    output = model(input_ids=input_ids, 
-                #    position_ids=position_ids, 
-                   attention_mask=attention_mask, 
-                   input_vision_ids=input_vision_ids[:, :-1],
-                   labels = input_vision_ids
-                   )
-    
+
+    training_flag = False
+    if training_flag == True:
+        output = model(input_ids=input_ids, 
+                    #    position_ids=position_ids, 
+                    attention_mask=attention_mask, 
+                    input_vision_ids=input_vision_ids[:, :-1],
+                    labels = input_vision_ids
+                    )
+    else:
+        import ipdb; ipdb.set_trace()
+        output = model(input_ids=input_ids, 
+                    #    position_ids=position_ids, 
+                    # attention_mask=attention_mask, 
+                    input_vision_ids=input_vision_ids,
+                    # output_hidden_states=True,
+                    # labels = input_vision_ids
+                    )
+        # logits  (n, 120+256, codebook_size, )
+        a=1
     print(output['loss'])
     
 

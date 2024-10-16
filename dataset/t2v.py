@@ -142,10 +142,11 @@ class T2V_dataset(Dataset):
     def __getitem__(self, idx):
      
         try:
-            
-
             # caption 
             text = random.choice(self.video_meta_info[idx]['cap'])
+
+
+            """  
             inputs = self.tokenizer(
                 text, return_tensors="pt",
                 padding="max_length",  # 使用最大长度进行填充
@@ -161,9 +162,14 @@ class T2V_dataset(Dataset):
             attention_mask = torch.cat(
                         (attention_mask, torch.ones(1, self.code_len)), 
                         dim=1
-                )
+                )  
+                
+                  
+            """
+            
             
             """
+            
             T  = self.tokenizer_max_len
             attn_mask = torch.tril(torch.ones(( T + self.code_len, 
                                                 T + self.code_len), 
@@ -171,7 +177,9 @@ class T2V_dataset(Dataset):
             attn_mask[:, :T] = attn_mask[:, :T] * emb_mask.unsqueeze(0)
             eye_matrix = torch.eye( T + self.code_len,  T + self.code_len)
             attn_mask = attn_mask * (1 - eye_matrix) + eye_matrix
-            attn_mask = attn_mask.unsqueeze(0).to(torch.bool) # === (1, T+code_len, T+code_len) ==="""
+            attn_mask = attn_mask.unsqueeze(0).to(torch.bool) # === (1, T+code_len, T+code_len) ===
+            
+            """
 
             # video
             video_path = os.path.join(self.data_root, self.video_meta_info[idx]['path'])
@@ -187,7 +195,8 @@ class T2V_dataset(Dataset):
                         *images.shape[2:],
                     )  # === (n_frame//4, 4, c, h, w) ===
             gc.collect()
-            return dict(input_ids=input_ids, attention_mask=attention_mask, video_data=images)
+            # return dict(input_ids=input_ids, attention_mask=attention_mask, video_data=images)
+            return dict(text=text, video_data=images)
         except Exception as e:
             print(e, '!!!!!!!!')
             return self.__getitem__(random.randint(0, self.__len__() - 1))

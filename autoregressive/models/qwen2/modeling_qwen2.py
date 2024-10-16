@@ -1187,13 +1187,15 @@ class Qwen2VisionModel(Qwen2Model):
             inputs_embeds = self.embed_tokens(input_ids)
 
         # vision embeddings
-        if inputs_vision_embeds is None:
+        if inputs_vision_embeds is None and input_vision_ids is not None:
             inputs_vision_embeds = self.vision_embed_tokens(input_vision_ids)
-
-        assert inputs_vision_embeds is not None, "inputs_vision_embeds is None"
+            # assert inputs_vision_embeds is not None, "inputs_vision_embeds is None"
  
         # concatenate text and vision embeddings
-        inputs_embeds = torch.cat((inputs_embeds, inputs_vision_embeds), dim=1) 
+        if inputs_vision_embeds is not None:
+            inputs_embeds = torch.cat((inputs_embeds, inputs_vision_embeds), dim=1) 
+        else:
+            inputs_embeds = inputs_embeds
 
 
         if cache_position is None:
@@ -1588,9 +1590,14 @@ class Qwen2VisionForCausalLM(Qwen2ForCausalLM):
 
         # == only need to compute vision tokens ==
         if num_logits_to_keep == 0:
-            assert input_vision_ids.shape[1] == labels.shape[1]-1, "labels should be shifted by one"
-            num_logits_to_keep = labels.shape[1]
-
+        
+            # train
+            if labels is not None:
+                assert input_vision_ids.shape[1] == labels.shape[1]-1, "labels should be shifted by one"
+                num_logits_to_keep = labels.shape[1]
+            # # infer
+            # else:
+            #     num_logits_to_keep = input_vision_ids.shape[1]
         # Only compute necessary logits, and do not upcast them to float if we are not computing the loss
         logits = self.lm_vision_head(hidden_states[:, -num_logits_to_keep:, :])
 

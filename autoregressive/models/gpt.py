@@ -329,6 +329,7 @@ class Transformer(nn.Module):
         assert grid_size * grid_size == self.block_size
         self.freqs_cis = precompute_freqs_cis_2d(grid_size, self.config.dim // self.config.n_head, self.config.rope_base, self.cls_token_num)
 
+
     def forward(
         self, 
         idx: torch.Tensor, 

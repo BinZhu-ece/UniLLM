@@ -70,7 +70,6 @@ def main(args):
     # training env
     logger.info(f"Starting rank={rank}, seed={seed}, world_size={dist.get_world_size()}.")
 
-
     # Setup model: language model & tokenizer
     from autoregressive.models.qwen2 import Qwen2VisionForCausalLM
     from transformers import AutoTokenizer
@@ -158,18 +157,46 @@ def main(args):
     start_time = time.time()
 
     logger.info(f"Training for {args.epochs} epochs...")
+
+    step_counter = 0
     for epoch in range(start_epoch, args.epochs):
         sampler.set_epoch(epoch)
         logger.info(f"Beginning epoch {epoch}...")
         # for x, y, attn_mask, valid in loader:
+
+
         for samples in loader:
+            step_counter += 1
+
 
             # text 
-            input_ids = samples['input_ids'].squeeze(1) # (bs, T)
+            text = samples['text']
+            inputs = tokenizer(
+                text, return_tensors="pt",
+                padding=True,  # 使用最大长度进行填充
+                max_length=args.tokenizer_max_len,    # 这里替换为你想要的固定长度
+                truncation=True        # 如果文本超过最大长度则截断
+                )
+            input_ids = inputs['input_ids'] # === (1, max_length) ===
+            attention_mask = inputs['attention_mask'] # === (1, max_length) ===
+
+
+            # attention_mask for (text & video)
+            T  = args.tokenizer_max_len
+            code_len = (32 ** 2) * (args.num_frames//4)
+            attention_mask = torch.cat(
+                        (attention_mask, torch.ones(attention_mask.shape[0], code_len)), 
+                        dim=1
+                )  
+
+
+
+            # text 
+            # input_ids = samples['input_ids'].squeeze(1) # (bs, T)
             input_ids = input_ids.to(device, non_blocking=True)
 
             # text&video attention mask
-            attention_mask = samples['attention_mask'].squeeze(1)   # (bs, T+code_len)
+            # attention_mask = samples['attention_mask'].squeeze(1)   # (bs, T+code_len)
             attention_mask = attention_mask.to(device, non_blocking=True)
 
             # text&video position_ids
@@ -193,16 +220,22 @@ def main(args):
                                labels=input_vision_ids)
                 loss = output['loss']
 
+
+            if args.gradient_accumulation_steps > 1:
+                loss = loss / args.gradient_accumulation_steps
+            
             # backward pass, with gradient scaling if training in fp16         
             scaler.scale(loss).backward()
-            if args.max_grad_norm != 0.0:
-                scaler.unscale_(optimizer)
-                torch.nn.utils.clip_grad_norm_(model.parameters(), args.max_grad_norm)
-            # step the optimizer and scaler if training in fp16
-            scaler.step(optimizer)
-            scaler.update()
-            # flush the gradients as soon as we can, no need for this memory anymore
-            optimizer.zero_grad(set_to_none=True)
+
+            if step_counter % args.gradient_accumulation_steps == 0:
+                if args.max_grad_norm != 0.0:
+                    scaler.unscale_(optimizer)
+                    torch.nn.utils.clip_grad_norm_(model.parameters(), args.max_grad_norm)
+                # step the optimizer and scaler if training in fp16
+                scaler.step(optimizer)
+                scaler.update()
+                # flush the gradients as soon as we can, no need for this memory anymore
+                optimizer.zero_grad(set_to_none=True)
 
             # Log loss values:
             running_loss += loss.item()
@@ -304,6 +337,9 @@ if __name__ == "__main__":
     parser.add_argument("--llm-ckpt", type=str, default=None, help="ckpt path for resume training")
     parser.add_argument("--video_meta_info_file", type=str, default='/storage/zhubin/liuyihang/add_aes/output/sucai_aes_1000.json')
     parser.add_argument("--data_root", type=str, default='/storage/dataset')
+
+    # gradient_accumulation_steps
+    parser.add_argument("--gradient_accumulation_steps", type=int, default=8, help="Number of steps to accumulate gradients over.")
 
 
     args = parser.parse_args()
