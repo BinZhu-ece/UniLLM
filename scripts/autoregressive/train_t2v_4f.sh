@@ -9,6 +9,8 @@ DATA_FILE='/storage/zhubin/video_statistics_data/task1.5/Final_format_dataset_da
 
 nnodes=1
 nproc_per_node=8
+
+
 export master_addr=127.0.0.1
 export master_port=29502
 export CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7
@@ -17,7 +19,7 @@ export CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7
 source  /storage/miniconda3/etc/profile.d/conda.sh 
 conda activate 
 
-torchrun \
+HF_DATASETS_OFFLINE=1 torchrun \
 --nnodes=$nnodes --nproc_per_node=$nproc_per_node  \
 --master_addr=$master_addr --master_port=$master_port \
 autoregressive/train/train_t2v.py \
@@ -30,8 +32,8 @@ autoregressive/train/train_t2v.py \
 --dataset t2v \
 --num-workers 16  \
 --log-every 30  \
---ckpt-every  1000  \
---results-dir results/1.5B-4f-256px \
+--ckpt-every  10000  \
+--results-dir results/1.5B-4f-256px-leftpad \
 --num-frames 4 \
 --llm_model_hub Qwen/Qwen2.5-1.5B \
 --tokenizer_max_len 512 \

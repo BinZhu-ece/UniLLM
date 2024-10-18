@@ -6,7 +6,7 @@ cache_dir
 video_samples
 results*
 cloud_path_t2v
-
+sample_results
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

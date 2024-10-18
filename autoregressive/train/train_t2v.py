@@ -180,6 +180,9 @@ def main(args):
             input_ids = inputs['input_ids'] # === (1, max_length) ===
             attention_mask = inputs['attention_mask'] # === (1, max_length) ===
 
+            # Reverse the order of an n-D tensor along given axis in dims.
+            input_ids = torch.flip(input_ids,  [1])
+            attention_mask  = torch.flip(attention_mask,  [1])
 
             # attention_mask for (text & video)
             T  = args.tokenizer_max_len
@@ -188,8 +191,6 @@ def main(args):
                         (attention_mask, torch.ones(attention_mask.shape[0], code_len)), 
                         dim=1
                 )  
-
-
 
             # text 
             # input_ids = samples['input_ids'].squeeze(1) # (bs, T)
@@ -219,6 +220,20 @@ def main(args):
                 output = model(input_ids=input_ids, attention_mask=attention_mask, input_vision_ids=input_vision_ids[:,:-1],
                                labels=input_vision_ids)
                 loss = output['loss']
+
+            if step_counter % 1000 == 1:
+                codes = torch.argmax(output['logits'], dim=1).reshape(-1, args.num_frames//4, 32, 32) #
+                with torch.no_grad():
+                    recon = vq_model.decode(codes) # (4, 4, 3, 256, 256)
+                # images = recon.reshape(16, 3, 256, 256)
+                recon = recon.view(-1, *recon.shape[2:])
+                recon_images = processor.postprocess(recon)["pixel_values"]
+
+                save_dir = './sample_results'; os.makedirs(save_dir, exist_ok=True)
+                for idx, im in enumerate(recon_images):
+                    im.save(f"{save_dir}/step_counter_{step_counter}_{idx}.png")
+ 
+
 
 
             if args.gradient_accumulation_steps > 1:
@@ -340,7 +355,9 @@ if __name__ == "__main__":
 
     # gradient_accumulation_steps
     parser.add_argument("--gradient_accumulation_steps", type=int, default=8, help="Number of steps to accumulate gradients over.")
-
-
+    
+    # 
+    parser.add_argument("--save_images", action='store_true')
+    
     args = parser.parse_args()
     main(args)

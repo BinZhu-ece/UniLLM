@@ -1530,6 +1530,8 @@ class Qwen2VisionForCausalLM(Qwen2ForCausalLM):
         cache_position: Optional[torch.LongTensor] = None,
         num_logits_to_keep: int = 0,
 
+        # save_images: bool = False,
+
     ) -> Union[Tuple, CausalLMOutputWithPast]:
         r"""
         Args:
@@ -1603,7 +1605,9 @@ class Qwen2VisionForCausalLM(Qwen2ForCausalLM):
 
         # import ipdb; ipdb.set_trace()
         loss = None
-        if labels is not None:
+
+
+        """if labels is not None:
             # Upcast to float if we need to compute the loss to avoid potential precision issues
             logits = logits.float()
             # Shift so that tokens < n predict n
@@ -1616,7 +1620,19 @@ class Qwen2VisionForCausalLM(Qwen2ForCausalLM):
             shift_labels = shift_labels.view(-1)
             # Enable model parallelism
             shift_labels = shift_labels.to(shift_logits.device)
-            loss = loss_fct(shift_logits, shift_labels)
+            loss = loss_fct(shift_logits, shift_labels)"""
+
+
+        if labels is not None:
+            # Upcast to float if we need to compute the loss to avoid potential precision issues
+            logits = logits.float()
+            loss_fct = CrossEntropyLoss()
+
+            logits = logits.view(-1, self.config.vision_vocab_size)
+            labels = labels.view(-1)
+            # Enable model parallelism
+            labels = labels.to(logits.device)
+            loss = loss_fct(logits, labels)
 
         if not return_dict:
             output = (logits,) + outputs[1:]

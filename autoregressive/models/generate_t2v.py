@@ -104,7 +104,9 @@ def decode_one_token(model, x: torch.Tensor, input_pos: torch.Tensor, cfg_scale:
 
 
 def decode_n_tokens(
-    model, input_ids: torch.Tensor,  num_new_tokens: int, 
+    model, input_ids: torch.Tensor, 
+    attention_mask: torch.Tensor, 
+    num_new_tokens: int, 
     cfg_scale: float, cfg_interval: int,
     **sampling_kwargs):
 
@@ -114,9 +116,11 @@ def decode_n_tokens(
     for i in tqdm(range(num_new_tokens)):
         with torch.backends.cuda.sdp_kernel(enable_flash=False, enable_mem_efficient=False, enable_math=True): # Actually better for Inductor to codegen attention here
 
-            output = model(input_ids=input_ids,  input_vision_ids=input_vision_ids,
+            output = model( input_ids=input_ids,  
+                            attention_mask = attention_mask,
+                            input_vision_ids=input_vision_ids,
                            
-                           num_logits_to_keep=1) # output_hidden_states=True,
+                            num_logits_to_keep=1) # output_hidden_states=True,
             # next_token_embeddings = output['hidden_states'][-1][:,-1:,:] # (bs, 1 ,dim)
             logits = output['logits'] # [:, -1, :] # (bs, 1, vocab_size)
             next_token = sample(logits, **sampling_kwargs)[0]
@@ -125,15 +129,15 @@ def decode_n_tokens(
                 input_vision_ids =  next_token.clone() 
             else:
                 input_vision_ids =  torch.cat([input_vision_ids, next_token.clone()], dim=1)
-
+            attention_mask = torch.cat([attention_mask, torch.ones_like(next_token, device=next_token.device)], dim=1)
          
             
-    return input_vision_ids, None
+    return input_vision_ids 
 
 
 
 @torch.no_grad()
-def generate(model, input_ids, max_new_tokens, cfg_scale=1.0, cfg_interval=-1, **sampling_kwargs):
+def generate(model, input_ids, attention_mask, max_new_tokens, cfg_scale=1.0, cfg_interval=-1, **sampling_kwargs):
 
     # if cfg_scale > 1.0:
     #     cond_null = torch.zeros_like(cond) + model.cls_embedding.uncond_embedding
@@ -146,25 +150,17 @@ def generate(model, input_ids, max_new_tokens, cfg_scale=1.0, cfg_interval=-1, *
     max_batch_size = input_ids.shape[0]
     device = input_ids.device
 
-    # create an empty tensor of the expected final shape and fill in the current tokens
-    seq = torch.empty((max_batch_size, T_new), dtype=torch.int, device=device)
 
     generated_tokens = decode_n_tokens(model, 
                                        input_ids=input_ids,
+                                       attention_mask= attention_mask,
                                        num_new_tokens=max_new_tokens,
                                        cfg_scale=cfg_scale, 
                                        cfg_interval=cfg_interval, **sampling_kwargs)
 
+ 
+    return generated_tokens
 
-    return seq[:, T:]
 
 
-
-    next_token = prefill(model, cond_combined, input_pos, cfg_scale, **sampling_kwargs)
-    seq[:, T:T+1] = next_token
-
-    input_pos = torch.tensor([T], device=device, dtype=torch.int)
-    generated_tokens, _ = decode_n_tokens(model, next_token, input_pos, max_new_tokens-1, cfg_scale, cfg_interval, **sampling_kwargs)
-    seq[:, T+1:] = torch.cat(generated_tokens, dim=1)
-
-    return seq[:, T:]
+ 

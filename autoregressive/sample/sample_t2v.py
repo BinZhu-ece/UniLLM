@@ -88,50 +88,67 @@ def main(args):
     # prompt = [
     #     "A dog is running.",
     # ]
-    prompt = [
-            # "The video showcases a person using a red tablet, which is mounted on a steering wheel, to interact with what appears to be a vehicle's infotainment system or diagnostic tool. Initially, the tablet displays a menu with various options, including \"Basic Settings\" and \"Live View Camera,\" highlighting the system's functionality within a vehicle context. The person's right hand is seen selecting or navigating through these options. As the video progresses, the screen changes to display a graph with a blue waveform, likely representing vehicle performance metrics such as engine RPM or tire pressure, indicating that the user has navigated to a performance monitoring or diagnostic menu. The person continues to interact with the tablet, adjusting settings or scrolling through the diagnostic information. Throughout these interactions, the focus remains on the tablet and the user's hands, with the background consistently blurred, emphasizing the detailed operation of the vehicle's infotainment system and the user's engagement with the device.",
-            "In the video, a person's hand is seen interacting with a tablet device, which is displaying a graphical user interface with a variety of numerical data and graphs. The tablet screen is filled with information, suggesting that the user might be monitoring or analyzing data in real-time or reviewing historical data. The graphs and numerical data indicate that the content is technical or scientific in nature, possibly related to engineering, physics, or another field that requires detailed analysis. The user's fingers are actively engaging with the touchscreen, possibly scrolling, tapping, or swiping to navigate through the application or to manipulate the data displayed. The overall scene conveys a sense of focus and engagement with the content on the tablet."
-        ]
+    # prompt = [
+    #         # "The video showcases a person using a red tablet, which is mounted on a steering wheel, to interact with what appears to be a vehicle's infotainment system or diagnostic tool. Initially, the tablet displays a menu with various options, including \"Basic Settings\" and \"Live View Camera,\" highlighting the system's functionality within a vehicle context. The person's right hand is seen selecting or navigating through these options. As the video progresses, the screen changes to display a graph with a blue waveform, likely representing vehicle performance metrics such as engine RPM or tire pressure, indicating that the user has navigated to a performance monitoring or diagnostic menu. The person continues to interact with the tablet, adjusting settings or scrolling through the diagnostic information. Throughout these interactions, the focus remains on the tablet and the user's hands, with the background consistently blurred, emphasizing the detailed operation of the vehicle's infotainment system and the user's engagement with the device.",
+    #         "In the video, a person's hand is seen interacting with a tablet device, which is displaying a graphical user interface with a variety of numerical data and graphs. The tablet screen is filled with information, suggesting that the user might be monitoring or analyzing data in real-time or reviewing historical data. The graphs and numerical data indicate that the content is technical or scientific in nature, possibly related to engineering, physics, or another field that requires detailed analysis. The user's fingers are actively engaging with the touchscreen, possibly scrolling, tapping, or swiping to navigate through the application or to manipulate the data displayed. The overall scene conveys a sense of focus and engagement with the content on the tablet."
+    #     ]
 
     MODEL_HUB =   "Qwen/Qwen2.5-1.5B"
     # caption_embs, emb_masks = t5_model.get_text_embeddings(prompts)
     tokenizer = AutoTokenizer.from_pretrained(MODEL_HUB, cache_dir='/storage/zhubin/UniLLM/cache_dir')
-    # prompt = "Hey, are you conscious? Can you talk to me?"
-    # inputs = tokenizer(prompt, return_tensors="pt", max_length=512, truncation=True, padding="max_length")
-    inputs = tokenizer(prompt, return_tensors="pt", max_length=512, truncation=True, padding=True)
-    input_ids  = inputs['input_ids'].to(device)
-    # input_ids  = inputs['input_ids'] 
 
-    # qzshape = [len(c_indices), args.codebook_embed_dim, latent_size, latent_size]
-    
-    t1 = time.time()
-    index_sample = generate(
-        gpt_model, input_ids,  
-        # max_new_tokens=(256//8)**2*16//4, 
-        max_new_tokens=(256//8)**2*4//4, 
-        cfg_scale=args.cfg_scale,
-        temperature=args.temperature, top_k=args.top_k,
-        top_p=args.top_p, sample_logits=True, 
-        ) # (1, 4*1*32*32)
-    sampling_time = time.time() - t1
-    print(f"Full sampling takes about {sampling_time:.2f} seconds.")    
-    
-    import ipdb; ipdb.set_trace()
-    codes = index_sample.reshape(-1, 1, 32, 32) # (4, 1, 32, 32)
- 
-    with torch.no_grad():
-        recon = vq_model.decode(codes) # (4, 4, 3, 256, 256)
-    # images = recon.reshape(16, 3, 256, 256)
-    recon = recon.view(-1, *recon.shape[2:])
-    recon_images = processor.postprocess(recon)["pixel_values"]
-    for idx, im in enumerate(recon_images):
-        im.save(f"recon_video_new_{idx}.png")
-    t2 = time.time()
-    decoder_time = time.time() - t2
-    print(f"decoder takes about {decoder_time:.2f} seconds.")
+    datafile = '/storage/zhubin/video_statistics_data/task1.5/Final_format_dataset_data_v2/step1.5_storyblocks_final_1270947_filter_1031888.json'
+    import json
+    with open(datafile, 'r') as f:
+        data = json.load(f)
 
-    # save_image(recon, "sample_{}.png".format(args.gpt_type), nrow=4, normalize=True, value_range=(-1, 1))
-    # print(f"image is saved to sample_{args.gpt_type}.png")
+
+  
+
+    for idx, item in enumerate(data):
+        prompt = item['cap']
+
+        # prompt = "Hey, are you conscious? Can you talk to me?"
+        # inputs = tokenizer(prompt, return_tensors="pt", max_length=512, truncation=True, padding="max_length")
+        inputs = tokenizer(prompt, return_tensors="pt", max_length=512, truncation=True, padding=True)
+        input_ids  = inputs['input_ids'].to(device)
+        attention_mask  = inputs['attention_mask'].to(device)
+        input_ids = torch.flip(input_ids,  [1])
+        attention_mask  = torch.flip(attention_mask, [1])
+        # input_ids  = inputs['input_ids'] 
+
+        # qzshape = [len(c_indices), args.codebook_embed_dim, latent_size, latent_size]
+        
+        t1 = time.time()
+        index_sample = generate(
+            gpt_model, input_ids,  attention_mask,
+            # max_new_tokens=(256//8)**2*16//4, 
+            max_new_tokens=(256//8)**2*4//4, 
+            cfg_scale=args.cfg_scale,
+            temperature=args.temperature, top_k=args.top_k,
+            top_p=args.top_p, sample_logits=True, 
+            ) # (1, 4*1*32*32)
+        sampling_time = time.time() - t1
+        print(f"Full sampling takes about {sampling_time:.2f} seconds.")    
+        
+        # import ipdb; ipdb.set_trace()
+        codes = index_sample.reshape(-1, 1, 32, 32) # (4, 1, 32, 32)
+    
+        with torch.no_grad():
+            recon = vq_model.decode(codes) # (4, 4, 3, 256, 256)
+        # images = recon.reshape(16, 3, 256, 256)
+        recon = recon.view(-1, *recon.shape[2:])
+        recon_images = processor.postprocess(recon)["pixel_values"]
+
+        save_dir = f"tmp/sample_videos/{idx}"; os.makedirs(save_dir, exist_ok=True)
+        for f_idx, im in enumerate(recon_images):
+            im.save(f"{save_dir}/recon_video_new_{f_idx}.png")
+        t2 = time.time()
+        decoder_time = time.time() - t2
+        print(f"decoder takes about {decoder_time:.2f} seconds.")
+
+        # save_image(recon, "sample_{}.png".format(args.gpt_type), nrow=4, normalize=True, value_range=(-1, 1))
+        # print(f"image is saved to sample_{args.gpt_type}.png")
 
 
 
@@ -189,16 +206,16 @@ if __name__ == "__main__":
     source  /storage/miniconda3/etc/profile.d/conda.sh 
     conda activate 
 
-    torchrun \
+    HF_DATASETS_OFFLINE=1  torchrun \
     --nnodes=$nnodes --nproc_per_node=$nproc_per_node  \
     --master_addr=$master_addr --master_port=$master_port \
     autoregressive/sample/sample_t2v.py \
-    --num-frames 16 \
+    --num-frames 4 \
     --llm_model_hub Qwen/Qwen2.5-1.5B \
     --tokenizer_max_len 512 \
     --vq-model   Emu3_VQ \
     --vq-repo  BAAI/Emu3-VisionTokenizer \
-    --llm-ckpt  /storage/zhubin/UniLLM/results/1.5B-16f-256px/007-Qwen##Qwen2.5-1.5B/checkpoints/0035000.pt
+    --llm-ckpt ./cloud_path_t2v/2024-10-18-00-13-13/004-Qwen##Qwen2.5-1.5B/checkpoints/0070000.pt
 
  
     
