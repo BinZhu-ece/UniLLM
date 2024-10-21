@@ -8,12 +8,12 @@ cd  /storage/zhubin/UniLLM
 DATA_FILE='/storage/zhubin/video_statistics_data/task1.5/Final_format_dataset_data_v2/step1.5_storyblocks_final_1270947_filter_1031888.json'
 
 nnodes=1
-nproc_per_node=6
+nproc_per_node=1
 batchsize_per_gpu=4
 
 
 export master_addr=127.0.0.1
-export master_port=29502
+export master_port=29503
 export CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7
 
 
@@ -34,7 +34,7 @@ autoregressive/train/train_t2v.py \
 --num-workers 16  \
 --log-every 30  \
 --ckpt-every  10000  \
---results-dir results/1.5B-4f-256px-leftpad-attnmatrix \
+--results-dir results/1.5B-4f-256px-leftpad \
 --num-frames 4 \
 --llm_model_hub Qwen/Qwen2.5-1.5B \
 --tokenizer_max_len 512 \

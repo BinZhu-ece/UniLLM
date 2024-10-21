@@ -77,31 +77,28 @@ class T2V_dataset(Dataset):
     def __init__(self, args,  tokenizer, 
                  processor, temporal_downsample_factor, 
                  data_repeat=10, tokenizer_max_len=120,
-                 latent_size=32):
+                 latent_size=32, OneNode_bs):
  
         self.data_root = args.data_root
         self.num_frames = args.num_frames
-        # self.transform = transform
-        # self.t5_xxl = t5_xxl
-        # self.t5_path = args.t5_path
-        # self.model_max_length = args.model_max_length
-        # self.v_decoder = DecordInit()
-        # video_meta_info_file
-        self.video_meta_info = self.read_jsonfile(args.video_meta_info_file)*data_repeat
+        
+        # new
+        self.OneNode_bs = OneNode_bs
+        self.training_sample_nums = args.training_sample_nums
+        self.video_ratio = args.video_ratio # 1/10  1/9  1/8
+        self.type_change_iter_nums = int(1/self.video_ratio) # 10  
+
+        if args.use_video_data:
+            assert args.video_meta_info_file is not None
+            self.video_meta_info = self.read_jsonfile(args.video_meta_info_file)
+        elif args.use_image_data:
+            assert args.image_meta_info_file is not None
+            self.image_meta_info = self.read_jsonfile(args.image_meta_info_file)
+        else:
+            raise ValueError('Please set use_video_data or use_image_data to True!')
+
         print(f'Data repeat {data_repeat} times during initialize dataset!')
         print(f'{args.video_meta_info_file=} is loaded successfully!')
-        # self.start_frame_ind = args.start_frame_ind # start from 1 s
-        # self.end_frame_ind = args.start_frame_ind + args.num_frames # 
-
-        # =================== !!!!!!!!!!!!!
-        # downsample_size:32,  video_t = len(frames)//4+1
-        # latent_size = args.image_size // args.downsample_size 
-        # self.code_len = (latent_size ** 2) * (args.num_frames//4) # video vae tokens
-        # self.t5_feature_max_len = 120
-        # self.t5_feature_dim = 2048
-        # self.max_seq_length = self.t5_feature_max_len + self.code_len
-
-
         # ========== new 
         self.tokenizer = tokenizer
         self.processor = processor
@@ -109,6 +106,7 @@ class T2V_dataset(Dataset):
         self.temporal_downsample_factor = temporal_downsample_factor
         self.tokenizer_max_len =  tokenizer_max_len
         self.code_len = (latent_size ** 2) * (args.num_frames//4) # video vae tokens
+        
 
 
     def read_jsonfile(self, jsonfile):
@@ -116,7 +114,8 @@ class T2V_dataset(Dataset):
             return json.load(f)
         
     def __len__(self):
-        return len(self.video_meta_info)
+        return self.training_sample_nums
+        # return len(self.video_meta_info)
 
     def read_video_frames(self, video_path, n_frames=16):
         """
@@ -140,60 +139,19 @@ class T2V_dataset(Dataset):
         return frames
 
     def __getitem__(self, idx):
-     
+    
+        # video
+        if idx % self.type_change_iter_nums == 0:
+            video_idx = idx // self.type_change_iter_nums
+            idx = video_idx % len(self.video_meta_info)
+
+        # image
+        else:
+            image_idx = idx - ( idx // self.type_change_iter_nums)
+            idx = image_idx % len(self.image_meta_info) 
+
         try:
-            # caption 
-            text = random.choice(self.video_meta_info[idx]['cap'])
-
-
-            """  
-            inputs = self.tokenizer(
-                text, return_tensors="pt",
-                padding="max_length",  # 使用最大长度进行填充
-                max_length=self.tokenizer_max_len,    # 这里替换为你想要的固定长度
-                truncation=True        # 如果文本超过最大长度则截断
-                )
-            input_ids = inputs['input_ids'] # === (1, max_length) ===
-            attention_mask = inputs['attention_mask'] # === (1, max_length) ===
-
-
-            # attention_mask for (text & video)
-            T  = self.tokenizer_max_len
-            attention_mask = torch.cat(
-                        (attention_mask, torch.ones(1, self.code_len)), 
-                        dim=1
-                )  
-                
-                  
-            """
-            
-            
-            """
-            
-            T  = self.tokenizer_max_len
-            attn_mask = torch.tril(torch.ones(( T + self.code_len, 
-                                                T + self.code_len), 
-                                               dtype=torch.long))
-            attn_mask[:, :T] = attn_mask[:, :T] * emb_mask.unsqueeze(0)
-            eye_matrix = torch.eye( T + self.code_len,  T + self.code_len)
-            attn_mask = attn_mask * (1 - eye_matrix) + eye_matrix
-            attn_mask = attn_mask.unsqueeze(0).to(torch.bool) # === (1, T+code_len, T+code_len) ===
-            
-            """
-
-            # video
-            video_path = os.path.join(self.data_root, self.video_meta_info[idx]['path'])
-            video = self.read_video_frames(video_path, n_frames=self.num_frames)
-
-            # import ipdb; ipdb.set_trace()
-            images = self.processor(video, return_tensors="pt")["pixel_values"]
-            images = images.unsqueeze(0) # (1, n_frame, c, h, w)
-            # import ipdb; ipdb.set_trace()
-            images = images.view(
-                        -1,
-                        self.temporal_downsample_factor,
-                        *images.shape[2:],
-                    )  # === (n_frame//4, 4, c, h, w) ===
+            images = self.get_video_data(idx)
             gc.collect()
             # return dict(input_ids=input_ids, attention_mask=attention_mask, video_data=images)
             return dict(text=text, video_data=images)
@@ -201,14 +159,26 @@ class T2V_dataset(Dataset):
             print(e, '!!!!!!!!')
             return self.__getitem__(random.randint(0, self.__len__() - 1))
 
+    def get_image_data(self, idx):
+        image_path = os.path.join(self.data_root, self.video_meta_info[idx]['path'])
+        
+        return self.get_video_data(idx)
 
-    def get_npy_path(self, item):
-        video_rela_path = item['path']
-        dir_name = os.path.dirname(video_rela_path)
-        filename = os.path.splitext(os.path.basename(video_rela_path))[0]    
-        npy_path = os.path.join(self.t5_path, dir_name, '{}.npy'.format(filename))
-        return npy_path
+    def get_video_data(self, idx):
+ 
+        video_path = os.path.join(self.data_root, self.video_meta_info[idx]['path'])
+        video = self.read_video_frames(video_path, n_frames=self.num_frames)
 
+        # import ipdb; ipdb.set_trace()
+        images = self.processor(video, return_tensors="pt")["pixel_values"]
+        images = images.unsqueeze(0) # (1, n_frame, c, h, w)
+        # import ipdb; ipdb.set_trace()
+        images = images.view(
+                    -1,
+                    self.temporal_downsample_factor,
+                    *images.shape[2:],
+                )  # === (n_frame//4, 4, c, h, w) ===
+        return images
 
     """def get_video(self, idx):
         

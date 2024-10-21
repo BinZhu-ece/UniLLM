@@ -168,7 +168,6 @@ def main(args):
         for samples in loader:
             step_counter += 1
 
-
             # text 
             text = samples['text']
             inputs = tokenizer(
@@ -185,24 +184,21 @@ def main(args):
             attention_mask  = torch.flip(attention_mask,  [1])
 
             # attention_mask for (text & video)
-            T  = args.tokenizer_max_len
+            T  = input_ids.shape[1]
             code_len = (32 ** 2) * (args.num_frames//4)
-            attention_mask = torch.cat(
-                        (attention_mask, torch.ones(attention_mask.shape[0], code_len)), 
-                        dim=1
-                )  
+            T_new = T + code_len
+            # attention_mask = torch.cat(
+            #             (attention_mask, torch.ones(attention_mask.shape[0], code_len)), 
+            #             dim=1
+            #     )  
+            attention_mask_matrix = torch.ones(attention_mask.shape[0], 1, T_new, T_new, dtype=torch.long)
+            attention_mask_matrix  = torch.tril(attention_mask_matrix).to(torch.bool)
 
             # text 
-            # input_ids = samples['input_ids'].squeeze(1) # (bs, T)
             input_ids = input_ids.to(device, non_blocking=True)
-
             # text&video attention mask
-            # attention_mask = samples['attention_mask'].squeeze(1)   # (bs, T+code_len)
             attention_mask = attention_mask.to(device, non_blocking=True)
-
-            # text&video position_ids
-            # position_ids = torch.arange(attention_mask.shape[-1], dtype=torch.long).unsqueeze(0) # (1, T+code_len)
-
+ 
             # video
             images = samples['video_data']  # torch.Size([bs, n_frame//4, 4, 3, 512, 512])
             (b, n_, t, c, h ,w) = images.shape # n_ = n // 4
@@ -217,7 +213,9 @@ def main(args):
             # import ipdb; ipdb.set_trace()
             with torch.cuda.amp.autocast(dtype=ptdtype):  
                 # _, loss = model(cond_idx=c_indices, idx=z_indices[:,:-1], targets=z_indices, mask=attn_mask[:, :, :-1,:-1], valid=valid)
-                output = model(input_ids=input_ids, attention_mask=attention_mask, input_vision_ids=input_vision_ids[:,:-1],
+                output = model(input_ids=input_ids, 
+                               attention_mask_matrix=attention_mask_matrix[:, :, :-1,:-1], 
+                               input_vision_ids=input_vision_ids[:,:-1],
                                labels=input_vision_ids)
                 loss = output['loss']
 
@@ -233,8 +231,6 @@ def main(args):
                 for idx, im in enumerate(recon_images):
                     im.save(f"{save_dir}/step_counter_{step_counter}_{idx}.png")
  
-
-
 
             if args.gradient_accumulation_steps > 1:
                 loss = loss / args.gradient_accumulation_steps

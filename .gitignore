@@ -7,6 +7,7 @@ video_samples
 results*
 cloud_path_t2v
 sample_results
+sample_results copy
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
