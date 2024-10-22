@@ -81,7 +81,7 @@ class SimpleDistributedSampler(Sampler):
                 epoch=1, video_sampler_batchsize=2, image_sampler_batchsize=3, video_data_step_ratio=1/4,
                 ):
         
-        self.data_source = data_source  
+        self.data_source = data_source # dataset
         # print(self.data_source)
         self.num_replicas = num_replicas if num_replicas is not None else torch.distributed.get_world_size()
         self.rank = rank if rank is not None else torch.distributed.get_rank()
@@ -92,52 +92,48 @@ class SimpleDistributedSampler(Sampler):
         
         # 数据总量对齐到进程数的倍数
         self.total_size = self.num_samples * self.num_replicas
-
-
         self.epoch = epoch
         self.video_data_step_ratio = video_data_step_ratio # 视频训练iteration占总iteration的比例
         self.video_sampler_batchsize = video_sampler_batchsize # getitem一次返回一个视频idx列表，列表长度为video_sampler_batchsize
         self.image_sampler_batchsize = image_sampler_batchsize # getitem一次返回一个图像idx列表，列表长度为image_sampler_batchsize
 
-        self.pad_data_source_len =  image_sampler_batchsize * (1/video_data_step_ratio-1)  / video_sampler_batchsize * len(self.data_source) 
-        self.pad_data_source_len = int(self.pad_data_source_len)
+        self.video_data_source_len = self.num_samples * self.num_replicas # video pad后的indices
+
+    
+        self.image_data_source_len =  image_sampler_batchsize * (1/video_data_step_ratio-1)  / video_sampler_batchsize * self.video_data_source_len
+        print(f'{self.video_data_source_len=}, {self.image_data_source_len=}')
 
     def __iter__(self):
 
         # 创建索引
-        indices = list(range(self.pad_data_source_len))
+        video_indices = list(range(int(self.video_data_source_len)))
+        image_indices = list(range(int(self.image_data_source_len)))
         # 如果需要 shuffle，则每个 epoch 打乱顺序
         if self.shuffle:
             g = torch.Generator()
             g.manual_seed(self.epoch)  # 使用epoch 作为种子
             indices = torch.randperm(self.pad_data_source_len, generator=g).tolist()
 
-        # 扩展到可以整除 num_replicas 的长度
-        indices += indices[:(self.total_size - len(indices))]
-
-        # 视频batch和图像batch完成一次交替需要的idx个数，与sampler_batchsize, video_data_step_ratio, image_scale_bs都有关
-        # idx_nums_of_data_type_change = self.video_sampler_batchsize * 1 + self.image_sampler_batchsize * (1/self.video_data_step_ratio - 1)
-        # idx_nums_of_data_type_change = int(idx_nums_of_data_type_change)
-
         # 每个gpu可以分到的indices个数, 一个idx本来是一个数字，现在变成了一个列表
-        indices = indices[self.rank:self.total_size:self.num_replicas]
-        len_of_indices = int(len(indices) // self.video_sampler_batchsize)
+        video_indices = video_indices[self.rank:self.total_size:self.num_replicas]
+        len_of_video_indices = int(len(video_indices) // self.video_sampler_batchsize)
         
         new_indices= []
-        for i in range(len_of_indices):
+        for idx in range(len_of_video_indices):
             # video_idx   第一个是视频idx_list, 长度为video_sampler_batchsize
-            s_videoidx1 = i * self.video_sampler_batchsize
-            e_videoidx1 = (i+1) * self.video_sampler_batchsize
-            item = indices[s_videoidx1:e_videoidx1] 
+            s_videoidx1 =  idx * self.video_sampler_batchsize
+            e_videoidx1 = ( idx+1) * self.video_sampler_batchsize
+            item = video_indices[s_videoidx1:e_videoidx1] 
             item.append('video')
             new_indices.append(item)
 
             # image_idx  if self.video_data_step_ratio==4 后面3个是图像idx_list， 每一个长度为image_sampler_batchsize
-            for i in range(int(1/self.video_data_step_ratio)-1):
-                s_imageidx = i * self.image_sampler_batchsize 
-                e_imageidx = (i+1) * self.image_sampler_batchsize
+            for image_idx in range(int(1/self.video_data_step_ratio)-1):
 
-                item = indices[s_imageidx:e_imageidx] 
+                s_imageidx =   ( idx * (int(1/self.video_data_step_ratio)-1) +  image_idx) * self.image_sampler_batchsize 
+                e_imageidx =   s_imageidx +  self.image_sampler_batchsize
+
+                item = image_indices[s_imageidx:e_imageidx] 
                 item.append('image')
                 new_indices.append(item)
 
@@ -154,27 +150,19 @@ class T2V_dataset(Dataset):
     def __init__(self, args,  tokenizer, 
                  processor, temporal_downsample_factor, 
                  data_repeat=10, tokenizer_max_len=120,
-                 latent_size=32):
+                 latent_size=32, video_sampler_batchsize = None):
  
-        self.data_root = args.data_root
+        self.video_data_root = args.video_data_root
+        self.image_data_root = args.image_data_root
         self.num_frames = args.num_frames
         
-        # new
-        self.training_sample_nums = args.training_sample_nums
-        self.video_ratio = args.video_ratio # 1/10  1/9  1/8
-        self.type_change_iter_nums = int(1/self.video_ratio) # 10  
+ 
+        assert args.video_meta_info_file is not None
+        self.video_meta_info = self.read_jsonfile(args.video_meta_info_file)[:10]
+        self.image_meta_info = self.read_jsonfile(args.image_meta_info_file)
 
-        if args.use_video_data:
-            assert args.video_meta_info_file is not None
-            self.video_meta_info = self.read_jsonfile(args.video_meta_info_file)
-        elif args.use_image_data:
-            assert args.image_meta_info_file is not None
-            self.image_meta_info = self.read_jsonfile(args.image_meta_info_file)
-        else:
-            raise ValueError('Please set use_video_data or use_image_data to True!')
-
-        print(f'Data repeat {data_repeat} times during initialize dataset!')
         print(f'{args.video_meta_info_file=} is loaded successfully!')
+        print(f'video_meta_info:{len(self.video_meta_info)}, image_meta_info:{len(self.image_meta_info)}!!!')
         # ========== new 
         self.tokenizer = tokenizer
         self.processor = processor
@@ -182,7 +170,7 @@ class T2V_dataset(Dataset):
         self.temporal_downsample_factor = temporal_downsample_factor
         self.tokenizer_max_len =  tokenizer_max_len
         self.code_len = (latent_size ** 2) * (args.num_frames//4) # video vae tokens
-        
+        self.video_sampler_batchsize = video_sampler_batchsize  
 
 
     def read_jsonfile(self, jsonfile):
@@ -190,8 +178,8 @@ class T2V_dataset(Dataset):
             return json.load(f)
         
     def __len__(self):
-        return self.training_sample_nums
-        # return len(self.video_meta_info)
+        # return self.training_sample_nums
+        return len(self.video_meta_info)
 
     def read_video_frames(self, video_path, n_frames=16):
         """
@@ -214,35 +202,58 @@ class T2V_dataset(Dataset):
 
         return frames
 
-    def __getitem__(self, idx):
+    def __getitem__(self, idx_list):
     
-        # video
-        if idx % self.type_change_iter_nums == 0:
-            video_idx = idx // self.type_change_iter_nums
-            idx = video_idx % len(self.video_meta_info)
-
-        # image
-        else:
-            image_idx = idx - ( idx // self.type_change_iter_nums)
-            idx = image_idx % len(self.image_meta_info) 
-
+        
+        assert type(idx_list) is list
         try:
-            images = self.get_video_data(idx)
+            # video
+            if idx_list[-1] == 'video':
+                videos, texts = [], []
+                video_idxs = idx_list[:-1]
+                for video_idx in video_idxs:
+                    video_idx = video_idx % len(self.video_meta_info)
+
+                    text =  self.video_meta_info[video_idx]['cap'][-1]
+                    images = self.get_video_data(video_idx) # (n_frame//4, 4, c, h, w)
+                    texts.append(text)
+                    videos.append(images)
+
+                return dict(text=text, visual_data=videos)
+
+            # image
+            elif idx_list[-1] == 'image':
+                # import ipdb; ipdb.set_trace()
+                images, texts = [], []
+                image_idxs = idx_list[:-1]
+                for image_idx in image_idxs:
+                    # print(f'{image_idx=}')
+                    image_idx = image_idx % len(self.image_meta_info)
+                    # if image_idx > len(self.image_meta_info):
+                    text =  self.image_meta_info[image_idx]['cap'][-1]
+                    image = self.get_image_data(image_idx) # (n_frame=1, 1, c, h, w)
+                    texts.append(text)
+                    images.append(image)
+                return dict(text=text, visual_data=images)
             gc.collect()
-            # return dict(input_ids=input_ids, attention_mask=attention_mask, video_data=images)
-            return dict(text=text, video_data=images)
+       
         except Exception as e:
             print(e, '!!!!!!!!')
-            return self.__getitem__(random.randint(0, self.__len__() - 1))
+            random_idx = random.randint(0, self.__len__() - 1)
+            idx = [ random_idx for i in range(self.video_sampler_batchsize)]
+            idx.append('video')
+            return self.__getitem__(idx)
 
     def get_image_data(self, idx):
-        image_path = os.path.join(self.data_root, self.video_meta_info[idx]['path'])
-        
-        return self.get_video_data(idx)
+        image_path = os.path.join(self.image_data_root, self.image_meta_info[idx]['path'])
+        image = Image.open(image_path)  
+        image = self.processor(image, return_tensors="pt")["pixel_values"] 
+        image = image.unsqueeze(0)  # (1, n_frame, c, h, w)
+        return image
 
     def get_video_data(self, idx):
  
-        video_path = os.path.join(self.data_root, self.video_meta_info[idx]['path'])
+        video_path = os.path.join(self.video_data_root, self.video_meta_info[idx]['path'])
         video = self.read_video_frames(video_path, n_frames=self.num_frames)
 
         # import ipdb; ipdb.set_trace()
@@ -308,15 +319,8 @@ class T2V_dataset(Dataset):
         video_data = video_data.permute(0, 3, 1, 2)  # (T, H, W, C) -> (T C H W)
         return video_data
 
-# from dataset.transform import ToTensorVideo, TemporalRandomCrop, RandomHorizontalFlipVideo, CenterCropResizeVideo, LongSideResizeVideo, SpatialStrideCropVideo
-# from CausalVideoVAE.causalvideovae.model import ae_norm, ae_denorm
-from torchvision.transforms import Lambda
-ae_norm = {
-    'CausalVAEModel_D4_2x8x8': Lambda(lambda x: 2. * x - 1.),
-    'CausalVAEModel_D8_2x8x8': Lambda(lambda x: 2. * x - 1.),
-    'CausalVAEModel_D4_4x8x8': Lambda(lambda x: 2. * x - 1.),
-    'CausalVAEModel_D8_4x8x8': Lambda(lambda x: 2. * x - 1.),
-}
+ 
+from dataset.augmentation import center_crop_arr
 from transformers import AutoTokenizer
 def tmp():
     import json
@@ -350,8 +354,8 @@ if __name__ == "__main__":
     parser.add_argument("--model_max_length", type=int, default=512)
     parser.add_argument("--start_frame_ind", type=int, default=25)
     parser.add_argument("--num_frames", type=int, default=16)
-    parser.add_argument("--data_root", type=str, default='/storage/dataset')
-
+    parser.add_argument("--video_data_root", type=str, default='/storage/dataset')
+    parser.add_argument("--image_data_root", type=str, default='/storage/zhubin/UniLLM')
     parser.add_argument("--image_size", type=int, default=256)
     parser.add_argument("--downsample-size", type=int, choices=[8, 16], default=16)
     parser.add_argument("--t-downsample-size", type=int, choices=[4, 8], default=4)
@@ -361,28 +365,15 @@ if __name__ == "__main__":
     parser.add_argument("--t5-path", type=str, required=True)
     parser.add_argument("--vq_model", type=str, default="Emu3_VQ")
     parser.add_argument("--vq_repo", type=str, default="BAAI/Emu3-VisionTokenizer") 
+
+
+    parser.add_argument("--image_meta_info_file", type=str, default='/storage/zhubin/UniLLM/tmp/image_data.json')
     args = parser.parse_args()
 
     init_distributed_mode(args)
 
-    # resize = [CenterCropResizeVideo((args.max_height, args.max_width)), ]
-    # norm_fun = ae_norm[args.ae]
-    # norm_fun = Lambda(lambda x: 2. * x - 1.)
-    # transform = transforms.Compose([
-    #     ToTensorVideo(),
-    #     *resize, 
-    #     # RandomHorizontalFlipVideo(p=0.5),  # in case their caption have position decription
-    #     norm_fun
-    # ])
-    from dataset.augmentation import center_crop_arr
-    # transform = transforms.Compose([
-    #     transforms.Lambda(lambda pil_image: center_crop_arr(pil_image, args.image_size)),
-    #     transforms.ToTensor(),
-    #     transforms.Normalize(mean=[0.5, 0.5, 0.5], std=[0.5, 0.5, 0.5], inplace=True)
-    # ])
+    
 
-    # tokenizer = AutoTokenizer.from_pretrained("/storage/ongoing/new/Open-Sora-Plan/cache_dir/mt5-xxl", cache_dir=args.cache_dir)
-    # assert os.path.exists(args.t5_model_path)
     device='cuda'
     precision = {'none': torch.float32, 'bf16': torch.bfloat16, 'fp16': torch.float16}[args.precision]
 
@@ -396,8 +387,10 @@ if __name__ == "__main__":
 
 
     from autoregressive.models.tokenizer.vq_models import VQ_models
-    vq_model, processor = VQ_models[args.vq_model]
-    vq_model =  vq_model.from_pretrained(args.vq_repo, trust_remote_code=True, cache_dir='./cache_dir').eval().to(device)
+
+    # import ipdb; ipdb.set_trace()
+    vq_model  = VQ_models[args.vq_model]
+    # vq_model =  vq_model.from_pretrained(args.vq_repo, trust_remote_code=True, cache_dir='/storage/zhubin/UniLLM/cache_dir').eval().to(device)
     
     
     MODEL_HUB =   "Qwen/Qwen2.5-1.5B"
@@ -413,26 +406,36 @@ if __name__ == "__main__":
     # }
     temporal_downsample_factor = 4
     
-    
+    video_sampler_batchsize = 2
     dataset = T2V_dataset(args=args, \
                           tokenizer=tokenizer, 
                           processor=processor, 
                           temporal_downsample_factor=temporal_downsample_factor, 
                           data_repeat=10, 
-                          tokenizer_max_len=120) # 
+                          tokenizer_max_len=120,
+                          video_sampler_batchsize = video_sampler_batchsize
+                          ) # 
     
     rank = dist.get_rank()
+    # args.world_size = dist.get_world_size()
     # dataloader = DataLoader(dataset, batch_size=2, shuffle=True, num_workers=0)
-    sampler = DistributedSampler(
-        dataset,
-        num_replicas=dist.get_world_size(),
-        rank=rank,
-        shuffle=True,
-        seed=args.global_seed
+    # sampler = DistributedSampler(
+    #     dataset,
+    #     num_replicas=dist.get_world_size(),
+    #     rank=rank,
+    #     shuffle=True,
+    #     seed=args.global_seed
+    # )
+
+    
+    sampler = SimpleDistributedSampler(
+        dataset, num_replicas=dist.get_world_size(), rank=rank,
+        video_sampler_batchsize=2, image_sampler_batchsize=3, video_data_step_ratio=1/4,
     )
+
     dataloader = DataLoader(
         dataset,
-        batch_size=int(args.global_batch_size // dist.get_world_size()),
+        batch_size=1,
         shuffle=False,
         sampler=sampler,
         num_workers=args.num_workers,
@@ -444,16 +447,20 @@ if __name__ == "__main__":
     # import ipdb; ipdb.set_trace()
     for idx, sample in enumerate(dataloader):
 
-        # torch.Size([2, 1, 120]) torch.Size([2, 1, 120]) torch.Size([2, 8, 4, 3, 512, 512])
-        print(sample['input_ids'].shape, sample['attention_mask'].shape, sample['video_data'].shape)
-
-        with torch.no_grad():
-            # encode
-            (b, n, t, c, h ,w) = sample['video_data'].shape # [2, 8, 4, 3, 512, 512] or [2, 8, 4, 3, 512, 512]
-            video_data_flat = sample['video_data'].reshape(b * n, t, c, h, w) # [16, 4, 3, 512, 512]  or  [16, 4, 3, 256, 256] 
-            codes = vq_model.encode(video_data_flat.to(device)) # [16, 1, 64, 64]  or  [16, 1, 32, 32]
-            codes = codes.reshape(b, -1) # torch.Size([2, 32768])  or  [2, 8192]
-            print(codes.shape)
+        # import ipdb; ipdb.set_trace()
+        # print(rank, sample)
+        # continue
+        texts = sample['text'] # list
+        visual_data = torch.cat(sample['visual_data'], dim=0) # (bs, n_frame//4, 4, c, h, w)
+        print(rank,idx, visual_data.shape)
+        # continue
+        # with torch.no_grad():
+        #     # encode
+        #     (b, n, t, c, h ,w) = sample['video_data'].shape # [2, 8, 4, 3, 512, 512] or [2, 8, 4, 3, 512, 512]
+        #     video_data_flat = sample['video_data'].reshape(b * n, t, c, h, w) # [16, 4, 3, 512, 512]  or  [16, 4, 3, 256, 256] 
+        #     codes = vq_model.encode(video_data_flat.to(device)) # [16, 1, 64, 64]  or  [16, 1, 32, 32]
+        #     codes = codes.reshape(b, -1) # torch.Size([2, 32768])  or  [2, 8192]
+        #     print(codes.shape)
 
             # bn, t_, h_ , w_ = codes.shape
             # codes = codes.reshape(b, n, t_, h_, w_) # [2, 8, 1, 64, 64]
@@ -463,26 +470,28 @@ if __name__ == "__main__":
 DATA_FILE='/storage/zhubin/video_statistics_data/task1.5/Final_format_dataset_data_v2/step1.5_coverr_final_3002.json'
  
 export master_addr=127.0.0.1
-export master_port=29507
-export CUDA_VISIBLE_DEVICES=6
-
+export master_port=29504
+export CUDA_VISIBLE_DEVICES=7
 cd  /storage/zhubin/UniLLM
-
 source  /storage/miniconda3/etc/profile.d/conda.sh 
 conda activate  
 
- 
-torchrun \
---nnodes=1  --nproc_per_node=1  \
+
+export http_proxy=127.0.0.1:7890
+export https_proxy=127.0.0.1:7890
+# HF_DATASETS_OFFLINE=1  
+HF_DATASETS_OFFLINE=1   torchrun  --nnodes=1  --nproc_per_node=1  \
 --master_addr=$master_addr --master_port=$master_port \
-dataset/t2v.py \
+dataset/t2iv.py \
 --video_meta_info_file $DATA_FILE \
 --num_frames 8 \
---data_root  /storage/dataset \
+--video_data_root  /storage/dataset \
+--image_data_root  /storage/zhubin/UniLLM  \
 --t5-path  /storage/zhubin/LlamaGen/dataset/storage_datasets_npy \
 --num-workers 0 \
 --vq_model   Emu3_VQ \
---vq_repo  BAAI/Emu3-VisionTokenizer 
+--vq_repo  BAAI/Emu3-VisionTokenizer \
+--image_meta_info_file   /storage/zhubin/UniLLM/tmp/image_data.json 
 
  
 """
