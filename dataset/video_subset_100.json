@@ -1,0 +1,2502 @@
+[
+    {
+        "cut": [
+            0,
+            115
+        ],
+        "crop": [
+            0,
+            1280,
+            0,
+            720
+        ],
+        "tech": 0.918,
+        "motion": 0.00505596911534667,
+        "fps": 23.979999542236328,
+        "num_frames": 115,
+        "resolution": {
+            "height": 720,
+            "width": 1280
+        },
+        "cap": [
+            "A wide-angle shot of a rugged, rocky landscape under a clear sky. The terrain is characterized by large, uneven boulders and sparse vegetation. In the distance, atop a rocky outcrop, there is a structure that appears to be an ancient ruin or fortification. The structure is surrounded by a few people, who seem to be tourists or visitors, standing and observing the surroundings. The lighting suggests that the time of day is either early morning or late afternoon, as the sun casts long shadows and the sky has a warm hue. The camera remains stationary for a moment, allowing viewers to take in the scene before slowly panning to the right. As the camera pans, the focus shifts slightly to reveal more of the rocky landscape and the structure in the distance. The people on the structure appear smaller and less distinct, emphasizing the vastness of the surrounding terrain. The video captures the serene and somewhat desolate beauty of the location, with the ancient ruins serving as a focal point amidst the natural landscape."
+        ],
+        "path": "storyblocks/videos_storyblocks_V7/6950227.mp4",
+        "aesthetic": 4.863163948059082
+    },
+    {
+        "cut": [
+            0,
+            117
+        ],
+        "crop": [
+            0,
+            1280,
+            0,
+            720
+        ],
+        "tech": 1.791,
+        "motion": 0.014492538757622242,
+        "fps": 25.0,
+        "num_frames": 117,
+        "resolution": {
+            "height": 720,
+            "width": 1280
+        },
+        "cap": [
+            "A close-up shot of a large, ancient stone structure, likely a temple or monument, characterized by its tall, slender columns. The columns are arranged in a grid-like pattern, with each column topped by a capital that appears to be Corinthian in style. The structure is weathered, with visible signs of age and erosion, indicating its historical significance and long-standing presence. The sky in the background is overcast, with a muted, grayish tone that contrasts with the warm, earthy tones of the stone. The camera remains steady, focusing on the structure, allowing viewers to appreciate the details of the architecture."
+        ],
+        "path": "istock/videos_istock_coco_part33/gm1074182476-287591743.mp4",
+        "aesthetic": 4.7750983238220215
+    },
+    {
+        "cut": [
+            0,
+            223
+        ],
+        "crop": [
+            0,
+            1280,
+            0,
+            720
+        ],
+        "tech": 1.335,
+        "motion": 0.023464495316147804,
+        "fps": 50.0,
+        "num_frames": 223,
+        "resolution": {
+            "height": 720,
+            "width": 1280
+        },
+        "cap": [
+            "A man playing an acoustic guitar in a dimly lit room. He is wearing a light-colored shirt and a protective face mask. The room appears to be a music studio or a practice space, as there are several musical instruments in the background, including an electric guitar and a drum set. The lighting is soft, with a warm glow coming from a window or a light source off-camera, casting shadows and creating a cozy atmosphere. The man is focused on his playing, with his head slightly bowed as he strums the guitar. The overall mood of the video is serene and contemplative, with the man deeply immersed in his musical performance."
+        ],
+        "path": "clipchamp/videos_clipchampblocks_coco_v2/stryb_v10883701.mp4",
+        "aesthetic": 5.010571241378784
+    },
+    {
+        "cut": [
+            10,
+            81
+        ],
+        "crop": [
+            0,
+            1280,
+            0,
+            720
+        ],
+        "tech": 1.619,
+        "motion": 0.003865668550133705,
+        "fps": 23.979999542236328,
+        "num_frames": 71,
+        "resolution": {
+            "height": 720,
+            "width": 1280
+        },
+        "cap": [
+            "A young child sitting indoors, likely in a playroom or a similar setting. The child has short, dark hair and is wearing a dark blue shirt. The child is holding a pencil in their right hand and appears to be in the middle of writing or drawing. The background features a yellow wall and various colorful toys and storage bins, suggesting a playful and organized environment. The child's expression is focused, and they seem to be concentrating on their task. The lighting in the room is bright, illuminating the child's face and the surrounding area clearly. There are no other visible people or animals in the frame. The overall scene conveys a sense of concentration and creativity."
+        ],
+        "path": "storyblocks/videos_storyblocks_V8/346666735.mp4",
+        "aesthetic": 4.974345684051514
+    },
+    {
+        "cut": [
+            0,
+            121
+        ],
+        "crop": [
+            0,
+            1280,
+            0,
+            720
+        ],
+        "tech": 2.0295,
+        "motion": 0.007991601713001728,
+        "fps": 25.0,
+        "num_frames": 121,
+        "resolution": {
+            "height": 720,
+            "width": 1280
+        },
+        "cap": [
+            "A dynamic and exhilarating scene from a ski lift ride. The perspective is from the seat of the ski lift, providing a first-person view of the surrounding landscape. The sky is clear and blue, with a bright sun shining directly overhead, casting a warm glow over the snowy mountains. The snow-covered slopes stretch out below, with occasional patches of bare ground visible, indicating the high altitude and the cold climate. As the ski lift ascends, the view opens up to reveal a vast expanse of snow-covered peaks and valleys. The terrain is rugged and majestic, with sharp, snow-capped mountain ranges in the distance. The ski lift itself is a sturdy structure, with metal cables and support beams visible. The seats are yellow, contrasting vividly against the white snow and blue sky. The camera angle changes slightly, offering different perspectives of the landscape as the lift moves. The view shifts to show more of the surrounding mountains and the occasional ski lift tower peeking through the snow. The sun's position remains constant, casting long shadows and highlighting the texture of the snow. Overall, the video conveys a sense of adventure and the beauty of a winter wonderland, with the ski lift ride providing a thrilling and immersive experience of the mountainous terrain."
+        ],
+        "path": "istock/videos_istock_coco_part4/gm1485816473-511710105.mp4",
+        "aesthetic": 5.26896333694458
+    },
+    {
+        "cut": [
+            0,
+            235
+        ],
+        "crop": [
+            0,
+            1280,
+            0,
+            720
+        ],
+        "tech": 2.0005,
+        "motion": 0.0016967863775789738,
+        "fps": 50.0,
+        "num_frames": 235,
+        "resolution": {
+            "height": 720,
+            "width": 1280
+        },
+        "cap": [
+            "A woman standing against a plain black background. She has long, straight dark hair that falls over her shoulders. She is wearing a bright red sweater. Her expression is neutral, and she is looking directly at the camera. The lighting is even, highlighting her features without casting any harsh shadows. The overall composition of the shot is simple and focused, with the woman being the central subject. There are no other objects or people visible in the frame. The video does not show any camera movements or transitions."
+        ],
+        "path": "storyblocks/videos_storyblocks_V7/11057188.mp4",
+        "aesthetic": 4.9972779750823975
+    },
+    {
+        "cut": [
+            0,
+            119
+        ],
+        "crop": [
+            0,
+            1280,
+            0,
+            720
+        ],
+        "tech": 1.006,
+        "motion": 0.08752903342247009,
+        "fps": 24.0,
+        "num_frames": 119,
+        "resolution": {
+            "height": 720,
+            "width": 1280
+        },
+        "cap": [
+            "A close-up view of a conveyor belt system, which is transporting numerous identical banknotes. The banknotes are arranged in neat rows, and each note appears to be a standard currency denomination, possibly a dollar bill, given the recognizable features such as the portrait of a president and the intricate design elements typical of such currency. The conveyor belt moves the notes in a linear fashion, creating a sense of continuous motion. The background is blurred, focusing attention on the banknotes and the conveyor belt mechanism. The lighting is bright, highlighting the details on the banknotes and the smooth, metallic surface of the conveyor belt. There are no other objects or characters present in the video, and the camera remains stationary, providing a clear and unobstructed view of the conveyor belt and the banknotes."
+        ],
+        "path": "storyblocks/videos_storyblocks_v4/6141800-3-d-printing-dollar-money-by-finn-moeller-artlist-4-k-348937033.mp4",
+        "aesthetic": 4.759278297424316
+    },
+    {
+        "cut": [
+            0,
+            37
+        ],
+        "crop": [
+            0,
+            1280,
+            0,
+            720
+        ],
+        "tech": 0.257,
+        "motion": 0.0373859703540802,
+        "fps": 25.0,
+        "num_frames": 37,
+        "resolution": {
+            "height": 720,
+            "width": 1280
+        },
+        "cap": [
+            "A dark, almost black background. A bright, golden light appears from the top left corner, moving diagonally downward and to the right. This light creates a trail of sparkling particles that follow its path, adding a sense of motion and energy to the scene. The light continues its trajectory, leaving a trail of shimmering particles behind it. The particles are small and circular, with a golden hue that matches the light, creating a cohesive visual effect. The light and particles eventually fade out of the frame, leaving the dark background unchanged. The video ends with the screen remaining dark."
+        ],
+        "path": "storyblocks/videos_storyblocks_v4/christmas-light-transitions-particle-lights-transition-for-christmas-project-348841892.mp4",
+        "aesthetic": 4.996911525726318
+    },
+    {
+        "cut": [
+            0,
+            117
+        ],
+        "crop": [
+            0,
+            1280,
+            0,
+            720
+        ],
+        "tech": 0.541,
+        "motion": 0.04046265780925751,
+        "fps": 25.0,
+        "num_frames": 117,
+        "resolution": {
+            "height": 720,
+            "width": 1280
+        },
+        "cap": [
+            "A serene outdoor scene with a white building featuring arched windows and columns. The building is set against a backdrop of lush greenery, including a large tree with a wide canopy. The sky is clear, suggesting a bright, sunny day.  In the foreground, two individuals dressed in traditional robes are walking past the building. They appear to be monks, given their attire, which is commonly associated with Buddhist monks. The robes are dark, possibly maroon or burgundy, and they are walking in a relaxed manner, suggesting a calm and contemplative atmosphere. The building's architecture is characterized by its white walls and large arched windows, which allow natural light to flood the interior. The columns supporting the arches are also white, creating a harmonious color scheme with the rest of the structure. In the background, through the arched windows, more greenery is visible, including trees and possibly a garden or park area. The overall scene conveys a sense of tranquility and connection with nature, typical of a peaceful environment such as a monastery or a place of spiritual significance."
+        ],
+        "path": "storyblocks/videos_storyblocks_V6/560606.mp4",
+        "aesthetic": 4.9274115562438965
+    },
+    {
+        "cut": [
+            0,
+            117
+        ],
+        "crop": [
+            0,
+            1280,
+            0,
+            720
+        ],
+        "tech": 2.019,
+        "motion": 0.01831805147230625,
+        "fps": 25.0,
+        "num_frames": 117,
+        "resolution": {
+            "height": 720,
+            "width": 1280
+        },
+        "cap": [
+            "A kitchen scene where a person is preparing a dish. The table is covered with various fresh vegetables and ingredients, including tomatoes, cucumbers, carrots, and leafy greens. There is also a plate with a mixture of chopped vegetables and herbs, and another plate with what appears to be a spread or dip. The person's hand is seen placing the plate with the spread on the table, indicating the next step in the cooking process. The overall atmosphere is one of a home kitchen, with a focus on fresh, healthy ingredients."
+        ],
+        "path": "istock/videos_istock_coco_part4/gm1465324627-497771702.mp4",
+        "aesthetic": 5.522225379943848
+    },
+    {
+        "cut": [
+            0,
+            131
+        ],
+        "crop": [
+            0,
+            1280,
+            0,
+            720
+        ],
+        "tech": 1.674,
+        "motion": 0.001057164277881384,
+        "fps": 30.0,
+        "num_frames": 131,
+        "resolution": {
+            "height": 720,
+            "width": 1280
+        },
+        "cap": [
+            "A close-up shot of a golden pharaoh mask, which is intricately detailed with hieroglyphics and a regal headdress. The mask is set against a dark, textured background that appears to be a wall or a piece of art, adding a sense of depth and mystery to the scene. The lighting is warm and golden, casting a soft glow on the mask and highlighting its features. As the video progresses, the camera angle shifts slightly, providing a different perspective of the mask, while the lighting remains consistent, maintaining the warm, golden ambiance. The background remains dark, ensuring that the focus remains on the pharaoh mask. The overall atmosphere of the video is one of ancient mystery and historical significance, with the pharaoh mask as the central focus."
+        ],
+        "path": "istock/videos_istock_coco_part1/gm1070188902-286316785.mp4",
+        "aesthetic": 5.397782325744629
+    },
+    {
+        "cut": [
+            0,
+            113
+        ],
+        "crop": [
+            0,
+            1280,
+            0,
+            720
+        ],
+        "tech": 1.328,
+        "motion": 0.1908467710018158,
+        "fps": 25.0,
+        "num_frames": 113,
+        "resolution": {
+            "height": 720,
+            "width": 1280
+        },
+        "cap": [
+            "A woman walking in an urban environment at night. She is dressed in a formal outfit, consisting of a dark blazer and light-colored pants. In her hands, she carries a laptop and a folder, suggesting she might be a professional or a student. The background features a cityscape with numerous illuminated buildings, indicating a bustling metropolis. The lighting in the scene is a mix of artificial city lights and a slightly pinkish hue, possibly from the camera's filter or lighting effect. The woman walks with a confident stride, her gaze directed forward, giving the impression of purpose and determination. The camera follows her movement, maintaining a steady pace and angle, ensuring she remains the focal point of the scene."
+        ],
+        "path": "storyblocks/videos_storyblocks_imagenet/financial-analyst-or-lawyer-walking-on-street-tracking-shoot-beautiful-night-new-york-city-skyline-with-skyscrapers-confident-businesswoman-casual-formal-wear-347282309.mp4",
+        "aesthetic": 5.320686340332031
+    },
+    {
+        "cut": [
+            0,
+            113
+        ],
+        "crop": [
+            0,
+            1280,
+            0,
+            720
+        ],
+        "tech": 1.8050000000000002,
+        "motion": 0.009882060810923576,
+        "fps": 23.979999542236328,
+        "num_frames": 113,
+        "resolution": {
+            "height": 720,
+            "width": 1280
+        },
+        "cap": [
+            "A scene set in a dimly lit room filled with multiple computer monitors displaying various data and screens. The room appears to be a high-tech workspace, possibly a hacker's den or a cybersecurity operation center. The individual in the room is wearing a white mask and a dark hoodie, sitting in a chair with their hands resting on their lap. The person is facing the camera, and their expression is neutral. In the background, there are several large monitors displaying complex data, charts, and maps. The screens show various pieces of information, including what appears to be network traffic, geographical data, and possibly security alerts. The room is furnished with multiple desks and chairs, each equipped with computer monitors and other electronic devices. The lighting is primarily coming from the screens, casting a glow on the room and the person's face. The overall atmosphere of the room suggests a high level of activity and focus, with the individual seemingly engrossed in their work or task. The presence of the mask adds an element of mystery and anonymity to the scene."
+        ],
+        "path": "storyblocks/videos_storyblocks_V6/10859049.mp4",
+        "aesthetic": 5.3358705043792725
+    },
+    {
+        "cut": [
+            0,
+            119
+        ],
+        "crop": [
+            0,
+            1280,
+            0,
+            720
+        ],
+        "tech": 0.287,
+        "motion": 0.051120225340127945,
+        "fps": 25.0,
+        "num_frames": 119,
+        "resolution": {
+            "height": 720,
+            "width": 1280
+        },
+        "cap": [
+            "A dynamic and fluid scene featuring a cluster of transparent, iridescent bubbles. These bubbles vary in size and are suspended in a light, almost ethereal environment. The bubbles exhibit a rainbow-like sheen, reflecting light in a spectrum of colors, which gives them a vibrant and almost iridescent appearance. The bubbles are in constant motion, with some merging together and others separating, creating a sense of fluidity and movement. The background is a soft, neutral color, which helps to highlight the bubbles and their iridescent properties. The overall effect is one of fluidity and lightness, with the bubbles appearing almost weightless and floating effortlessly."
+        ],
+        "path": "istock/videos_istock_coco_part4/gm1482787200-509606985.mp4",
+        "aesthetic": 5.114677429199219
+    },
+    {
+        "cut": [
+            0,
+            119
+        ],
+        "crop": [
+            0,
+            1280,
+            0,
+            720
+        ],
+        "tech": 2.3255,
+        "motion": 0.05144869163632393,
+        "fps": 25.0,
+        "num_frames": 119,
+        "resolution": {
+            "height": 720,
+            "width": 1280
+        },
+        "cap": [
+            "A scene where two individuals are engaged in a handshake. The setting appears to be an office environment, as evidenced by the presence of desks, chairs, and office supplies in the background. The individuals are standing close to each other, facing each other, and their hands are extended towards each other, indicating the act of shaking hands. The person on the left is wearing a blue and white striped shirt, while the person on the right is dressed in a light-colored shirt. The background includes various office items such as a blackboard, a desk with papers, and other office paraphernalia, suggesting a professional setting. The handshake is the central focus of the video, capturing a moment of agreement or greeting between the two individuals."
+        ],
+        "path": "istock/videos_istock_coco_part35/gm1600392883-530125029.mp4",
+        "aesthetic": 5.080655097961426
+    },
+    {
+        "cut": [
+            0,
+            149
+        ],
+        "crop": [
+            0,
+            1280,
+            0,
+            720
+        ],
+        "tech": 1.509,
+        "motion": 0.083779476583004,
+        "fps": 29.969999313354492,
+        "num_frames": 149,
+        "resolution": {
+            "height": 720,
+            "width": 1280
+        },
+        "cap": [
+            "A woman walking outdoors on a city street. She is dressed in a dark blue blouse with white polka dots and is wearing glasses. Her hair is curly and falls over her shoulders. She is holding a black folder or notebook in her right hand. The background shows a modern building with large glass windows reflecting the surroundings. The street is lined with trees and there are cars visible in the distance. The woman appears to be in motion, possibly walking towards or away from the camera. The overall scene suggests a professional or business setting."
+        ],
+        "path": "storyblocks/videos_storyblocks_V7/11119322.mp4",
+        "aesthetic": 5.304145336151123
+    },
+    {
+        "cut": [
+            0,
+            149
+        ],
+        "crop": [
+            0,
+            1280,
+            0,
+            720
+        ],
+        "tech": 0.58,
+        "motion": 0.0023626687470823526,
+        "fps": 29.969999313354492,
+        "num_frames": 149,
+        "resolution": {
+            "height": 720,
+            "width": 1280
+        },
+        "cap": [
+            "A dark, starry background, transitioning into a vibrant cosmic scene. The colors are predominantly green and yellow, with hints of other colors scattered throughout. The scene is filled with swirling clouds of gas and dust, creating a sense of depth and movement. Small, sparkling particles, resembling stars or distant galaxies, are scattered across the frame, adding to the celestial atmosphere. The overall effect is one of a dynamic, ever-changing space environment, with the colors and particles shifting subtly throughout the video."
+        ],
+        "path": "storyblocks/videos_storyblocks_V6/348794942.mp4",
+        "aesthetic": 5.439727306365967
+    },
+    {
+        "cut": [
+            24,
+            115
+        ],
+        "crop": [
+            0,
+            1280,
+            0,
+            720
+        ],
+        "tech": 0.596,
+        "motion": 0.010193499736487865,
+        "fps": 23.979999542236328,
+        "num_frames": 91,
+        "resolution": {
+            "height": 720,
+            "width": 1280
+        },
+        "cap": [
+            "A person sitting on a bed with their legs crossed. They are using a laptop, which is placed on their lap. The individual is wearing a white t-shirt and dark shorts, and they have a necklace around their neck. The bedspread is a light blue color with a subtle pattern. The room appears to be well-lit, suggesting it might be daytime. The person is typing on the laptop keyboard with both hands, indicating they are engaged in some form of work or leisure activity. The camera angle is from above, providing a clear view of the person and the laptop. There are no other visible objects or people in the frame."
+        ],
+        "path": "storyblocks/videos_storyblocks_imagenet_v2/handheld-shot-of-biracial-man-sitting-on-bed-using-laptop-347128417.mp4",
+        "aesthetic": 4.810704708099365
+    },
+    {
+        "cut": [
+            0,
+            107
+        ],
+        "crop": [
+            0,
+            1280,
+            0,
+            720
+        ],
+        "tech": 1.275,
+        "motion": 0.010295476764440536,
+        "fps": 24.0,
+        "num_frames": 107,
+        "resolution": {
+            "height": 720,
+            "width": 1280
+        },
+        "cap": [
+            "A close-up shot of a statue of the Virgin Mary, prominently displayed against a plain wall. The statue is intricately detailed, with the Virgin Mary depicted in a traditional pose, holding a child in her arms. She is adorned in a blue and gold robe, with a halo around her head, signifying her sanctity. Surrounding the statue are various flowers, adding a touch of color and life to the scene. The lighting is soft, casting gentle shadows and highlighting the textures of the statue and the flowers. The camera remains steady, focusing on the statue, allowing viewers to appreciate the craftsmanship and the religious significance of the image."
+        ],
+        "path": "istock/videos_istock_coco_part96/gm1473783380-503830410.mp4",
+        "aesthetic": 4.907174587249756
+    },
+    {
+        "cut": [
+            10,
+            107
+        ],
+        "crop": [
+            0,
+            1280,
+            0,
+            720
+        ],
+        "tech": 0.081,
+        "motion": 0.06356032192707062,
+        "fps": 23.979999542236328,
+        "num_frames": 97,
+        "resolution": {
+            "height": 720,
+            "width": 1280
+        },
+        "cap": [
+            "A man standing in a kitchen, facing away from the camera. He has dreadlocks and is wearing a blue shirt. The kitchen has wooden cabinets and a stainless steel refrigerator. The ceiling is wooden, and there is a clock on the wall. The man appears to be in the process of opening the refrigerator door. As the video progresses, the man turns around and starts walking towards the camera. He continues to walk, and the camera follows him. The kitchen is well-lit, and the man's movements are smooth and deliberate. The video captures the man's journey through the kitchen, from the refrigerator to the camera."
+        ],
+        "path": "storyblocks/videos_storyblocks_imagenet_v2/handheld-shot-of-african-american-man-packing-ingredients-into-fridge-347755840.mp4",
+        "aesthetic": 4.782311916351318
+    },
+    {
+        "cut": [
+            0,
+            115
+        ],
+        "crop": [
+            0,
+            1280,
+            0,
+            720
+        ],
+        "tech": 1.882,
+        "motion": 0.049934614449739456,
+        "fps": 25.0,
+        "num_frames": 115,
+        "resolution": {
+            "height": 720,
+            "width": 1280
+        },
+        "cap": [
+            "A moment on a rooftop overlooking a picturesque town. In the foreground, a bride in a flowing white wedding dress stands with her arms outstretched, seemingly embracing the view. She is accompanied by a man in a light blue shirt and gray pants, who is holding her hand, possibly assisting her in her pose. The background reveals a series of white-washed buildings with red-tiled roofs, characteristic of Mediterranean architecture, cascading down the hillside. The town appears to be Santorini, known for its stunning views and traditional Cycladic houses. The sky is clear, suggesting it is a sunny day, which enhances the vibrant colors of the scene. The camera remains steady, focusing on the couple and the town in the background, providing a sense of depth and scale to the video."
+        ],
+        "path": "storyblocks/videos_storyblocks_V6/1787655.mp4",
+        "aesthetic": 5.603046417236328
+    },
+    {
+        "cut": [
+            0,
+            73
+        ],
+        "crop": [
+            0,
+            1280,
+            0,
+            720
+        ],
+        "tech": 0.104,
+        "motion": 0.11736541241407394,
+        "fps": 23.979999542236328,
+        "num_frames": 73,
+        "resolution": {
+            "height": 720,
+            "width": 1280
+        },
+        "cap": [
+            "A family of four, consisting of two adults and two children, enjoying a day at the beach. The family is seen running along the shoreline, with the adults holding hands and the children holding hands with them. The beach is sandy, and the ocean waves are gently crashing onto the shore. The sky is clear with a few scattered clouds, indicating a bright and sunny day. The adults are dressed in casual beach attire, while the children are wearing brightly colored outfits. The family appears to be having a joyful time, with smiles on their faces as they run and play together. The camera follows the family as they move along the beach, capturing their movements and the surrounding scenery."
+        ],
+        "path": "storyblocks/videos_storyblocks_V6/278274.mp4",
+        "aesthetic": 4.920506000518799
+    },
+    {
+        "cut": [
+            0,
+            125
+        ],
+        "crop": [
+            0,
+            1280,
+            0,
+            720
+        ],
+        "tech": 1.803,
+        "motion": 0.018059201538562775,
+        "fps": 29.969999313354492,
+        "num_frames": 125,
+        "resolution": {
+            "height": 720,
+            "width": 1280
+        },
+        "cap": [
+            "A close-up shot of a pizza in a cardboard box. The pizza is cut into triangular slices and topped with various ingredients. The toppings include melted cheese, pieces of sausage, mushrooms, green peppers, and onions. The crust is golden brown and appears to be slightly crispy. The cheese is melted and bubbly, indicating that the pizza is freshly baked. The video then shows a hand reaching into the box, lifting a slice of pizza. The hand is seen holding the slice, and the pizza is slightly tilted, revealing more of the toppings. The background is blurred, keeping the focus on the pizza and the hand. The lighting is warm, highlighting the colors of the toppings and the golden crust. The video ends with the hand holding the slice of pizza, ready to be eaten."
+        ],
+        "path": "storyblocks/videos_storyblocks_v4/the-delicious-meat-lovers-pizza-with-french-writing-bon-apptit-on-the-closing-box-347692170.mp4",
+        "aesthetic": 4.831632137298584
+    },
+    {
+        "cut": [
+            18,
+            119
+        ],
+        "crop": [
+            0,
+            1280,
+            0,
+            720
+        ],
+        "tech": 2.366,
+        "motion": 0.002031058305874467,
+        "fps": 25.0,
+        "num_frames": 101,
+        "resolution": {
+            "height": 720,
+            "width": 1280
+        },
+        "cap": [
+            "A close-up shot of a person with short, light-colored hair. The individual is positioned in front of a plain, light pink background. The person's eyes are open, and they are looking directly at the camera. The lighting is soft, evenly illuminating the person's face, which includes visible details such as the nose, lips, and part of the chin. The person's expression is neutral, with a slight hint of a smile. The video does not show any other objects, actions, or movements beyond the person's face and the background."
+        ],
+        "path": "istock/videos_istock_coco_part11/gm1402669428-455482505.mp4",
+        "aesthetic": 5.270745277404785
+    },
+    {
+        "cut": [
+            0,
+            119
+        ],
+        "crop": [
+            0,
+            1280,
+            0,
+            720
+        ],
+        "tech": 1.614,
+        "motion": 0.0014150639763101935,
+        "fps": 24.0,
+        "num_frames": 119,
+        "resolution": {
+            "height": 720,
+            "width": 1280
+        },
+        "cap": [
+            "A serene outdoor scene featuring a lush, green garden with a variety of trees and shrubs. In the foreground, there are two white statues of women, each holding a flower pot. The statues are positioned on a grassy area, surrounded by well-maintained greenery. In the background, there is a building with a beige facade and large windows, partially obscured by the trees. The sky is clear, suggesting a bright, sunny day. The overall atmosphere of the video is calm and peaceful, with the statues adding an artistic touch to the natural setting."
+        ],
+        "path": "storyblocks/videos_storyblocks_V7/348410748.mp4",
+        "aesthetic": 4.916501998901367
+    },
+    {
+        "cut": [
+            2,
+            135
+        ],
+        "crop": [
+            0,
+            1280,
+            0,
+            720
+        ],
+        "tech": 2.362,
+        "motion": 0.03953677415847778,
+        "fps": 29.969999313354492,
+        "num_frames": 133,
+        "resolution": {
+            "height": 720,
+            "width": 1280
+        },
+        "cap": [
+            "A woman with long dark hair, who is standing outdoors with a natural, green background. She is wearing a sleeveless top. The woman is seen adjusting her hair with her right hand, and her facial expression appears to be one of contentment or mild amusement. The background consists of lush green foliage, suggesting a park or a garden setting. The lighting indicates it is daytime, with natural sunlight illuminating the scene. The woman's movements are gentle and deliberate, focusing on the action of adjusting her hair. There are no other visible objects or people in the frame, and the camera remains stationary, capturing the woman from the waist up."
+        ],
+        "path": "istock/videos_istock_coco_part91/gm637809900-118189861.mp4",
+        "aesthetic": 4.949836254119873
+    },
+    {
+        "cut": [
+            0,
+            115
+        ],
+        "crop": [
+            0,
+            1280,
+            0,
+            720
+        ],
+        "tech": 1.755,
+        "motion": 0.013414558954536915,
+        "fps": 25.0,
+        "num_frames": 115,
+        "resolution": {
+            "height": 720,
+            "width": 1280
+        },
+        "cap": [
+            "A man sitting on a gray couch in a room with a white brick wall in the background. He is wearing a casual gray T-shirt and has short, dark hair with a light beard. The man is holding a remote control in his right hand and appears to be smiling as he looks towards the television. He is using the remote to change channels or adjust the volume. The room has a modern, minimalist design with a gray couch and a white brick wall. The lighting in the room is soft and natural, suggesting it might be daytime. The man seems relaxed and content, enjoying his time in the living room."
+        ],
+        "path": "storyblocks/videos_storyblocks_V7/2849210.mp4",
+        "aesthetic": 5.687568664550781
+    },
+    {
+        "cut": [
+            0,
+            147
+        ],
+        "crop": [
+            0,
+            1280,
+            0,
+            720
+        ],
+        "tech": 1.852,
+        "motion": 0.022407853975892067,
+        "fps": 29.969999313354492,
+        "num_frames": 147,
+        "resolution": {
+            "height": 720,
+            "width": 1280
+        },
+        "cap": [
+            "Two men engaged in a conversation in what appears to be an office setting. Both men are dressed in formal attire, with one wearing a black suit and the other in a dark suit with a white shirt. They are seated at a table, with a laptop open in front of them. The man on the left is attentively listening, while the man on the right is gesturing with his hands, possibly explaining something or making a point. The background is blurred, but it suggests an indoor environment with light-colored walls and possibly some office furniture. The overall atmosphere seems professional and focused."
+        ],
+        "path": "storyblocks/videos_storyblocks_V7/348676901.mp4",
+        "aesthetic": 5.176980495452881
+    },
+    {
+        "cut": [
+            0,
+            271
+        ],
+        "crop": [
+            0,
+            1280,
+            0,
+            720
+        ],
+        "tech": 1.696,
+        "motion": 0.0016001093899831176,
+        "fps": 60.0,
+        "num_frames": 271,
+        "resolution": {
+            "height": 720,
+            "width": 1280
+        },
+        "cap": [
+            "A bakery display case filled with a variety of baked goods. The case is made of glass and contains an assortment of pastries, including croissants, muffins, and other items wrapped in paper. The pastries are neatly arranged, with some placed on a wire rack and others on a flat surface.  In the background, there is a person wearing a pink shirt, who appears to be interacting with the display case. The person is reaching into the case, possibly to select or purchase a pastry. The setting suggests a bakery or café environment, with the focus on the baked goods and the person's interaction with them. The overall atmosphere is casual and inviting, typical of a place where people come to enjoy freshly baked treats."
+        ],
+        "path": "istock/videos_istock_coco_part98/gm1664802219-535294530.mp4",
+        "aesthetic": 5.1204681396484375
+    },
+    {
+        "cut": [
+            0,
+            295
+        ],
+        "crop": [
+            0,
+            1280,
+            0,
+            720
+        ],
+        "tech": 2.0745,
+        "motion": 0.03720477223396301,
+        "fps": 60.0,
+        "num_frames": 295,
+        "resolution": {
+            "height": 720,
+            "width": 1280
+        },
+        "cap": [
+            "A large, intricately decorated statue of the Hindu deity Ganesha. The statue is adorned with various ornaments and is being held aloft by a crowd of people. The background is bustling with activity, with numerous individuals gathered around, some of whom are taking photographs or videos with their smartphones. The lighting is dim, suggesting that the event is taking place during the evening or night. The statue is prominently displayed, with its details clearly visible, including its large elephant head, four arms, and traditional attire. The crowd appears to be engaged and respectful, indicating a significant cultural or religious event. The overall atmosphere is one of reverence and celebration."
+        ],
+        "path": "istock/videos_istock_coco_part3/gm1741069150-542709824.mp4",
+        "aesthetic": 5.066738605499268
+    },
+    {
+        "cut": [
+            0,
+            119
+        ],
+        "crop": [
+            0,
+            1280,
+            0,
+            720
+        ],
+        "tech": 0.862,
+        "motion": 0.010242201387882233,
+        "fps": 23.976024627685547,
+        "num_frames": 119,
+        "resolution": {
+            "height": 720,
+            "width": 1280
+        },
+        "cap": [
+            "A serene mountainous landscape under a partly cloudy sky. The mountains are layered with varying shades of green and brown, indicating different vegetation and possibly the time of year. The sky above is a mix of blue and white, with clouds scattered across it, suggesting a calm weather condition. The mountains are devoid of any visible human activity, emphasizing the natural beauty and tranquility of the scene. The camera remains stationary, providing a wide-angle view of the landscape, allowing viewers to take in the expansive view of the mountains and the sky above."
+        ],
+        "path": "istock/videos_istock_coco_part14/gm1282151629-379966422.mp4",
+        "aesthetic": 4.88533353805542
+    },
+    {
+        "cut": [
+            38,
+            141
+        ],
+        "crop": [
+            0,
+            1280,
+            0,
+            720
+        ],
+        "tech": 1.515,
+        "motion": 0.037879083305597305,
+        "fps": 29.970029830932617,
+        "num_frames": 103,
+        "resolution": {
+            "height": 720,
+            "width": 1280
+        },
+        "cap": [
+            "A cheese storage room with multiple shelves lined with various types of cheese wheels. The room is well-lit, and the shelves are organized in a systematic manner, with each shelf containing several cheese wheels. The cheese wheels vary in size and color, indicating different types and stages of aging. The camera moves through the room, providing a clear view of the shelves and the cheese wheels. The video captures the meticulous arrangement of the cheese, highlighting the care taken in their storage. The environment appears to be controlled, likely to maintain optimal conditions for the aging process."
+        ],
+        "path": "istock/videos_istock_coco_part1/gm1421743847-467277386.mp4",
+        "aesthetic": 5.095578670501709
+    },
+    {
+        "cut": [
+            0,
+            235
+        ],
+        "crop": [
+            0,
+            1280,
+            0,
+            720
+        ],
+        "tech": 2.3945,
+        "motion": 0.01780902035534382,
+        "fps": 50.0,
+        "num_frames": 235,
+        "resolution": {
+            "height": 720,
+            "width": 1280
+        },
+        "cap": [
+            "Two young boys outdoors, engaged in a playful activity. They are standing in a grassy area with a blue inflatable pool visible in the background. The boy on the left is wearing a striped shirt and holding a red and yellow water gun, aiming it towards the camera. The boy on the right is wearing a green shirt and holding a green water gun, also aiming it in the direction of the camera. Both boys appear to be smiling and enjoying themselves. The scene is set during the day, as indicated by the bright sunlight and shadows cast on the ground. The boys seem to be having a fun time, likely playing a game of water gun fight."
+        ],
+        "path": "istock/videos_istock_coco_part33/gm1364184705-435470829.mp4",
+        "aesthetic": 4.8820250034332275
+    },
+    {
+        "cut": [
+            6,
+            113
+        ],
+        "crop": [
+            0,
+            1280,
+            0,
+            720
+        ],
+        "tech": 2.38,
+        "motion": 0.010993373580276966,
+        "fps": 25.0,
+        "num_frames": 107,
+        "resolution": {
+            "height": 720,
+            "width": 1280
+        },
+        "cap": [
+            "A person standing in a snowy forest. The individual is dressed in winter attire, including a brown beanie, an orange long-sleeve shirt, and a brown vest. They are holding ski poles in both hands, suggesting they are prepared for skiing. The background features tall trees covered in snow, creating a serene and wintry atmosphere. The ground is also covered in snow, indicating a cold, snowy environment. The person appears to be looking directly at the camera, giving the impression that they are posing for the shot. The overall scene conveys a sense of tranquility and the enjoyment of winter activities."
+        ],
+        "path": "storyblocks/videos_storyblocks_V8/347414472.mp4",
+        "aesthetic": 5.487420558929443
+    },
+    {
+        "cut": [
+            0,
+            147
+        ],
+        "crop": [
+            0,
+            1280,
+            0,
+            720
+        ],
+        "tech": 1.243,
+        "motion": 0.23236115276813507,
+        "fps": 29.969999313354492,
+        "num_frames": 147,
+        "resolution": {
+            "height": 720,
+            "width": 1280
+        },
+        "cap": [
+            "A serene coastal scene at sunset. The sky is painted with hues of orange and pink, transitioning into a soft blue as it meets the horizon. The sun is partially visible, casting a warm glow over the entire landscape. The water is calm, reflecting the colors of the sky and the silhouettes of the birds. In the foreground, there is a wooden structure, possibly a small pier or a feeding platform, surrounded by a group of seagulls. Some of the birds are perched on the structure, while others are in flight, soaring gracefully above the water. The birds are scattered across the frame, with some closer to the camera and others further away, creating a sense of depth. The water is relatively still, with gentle ripples visible on the surface. The horizon line is clearly defined, marking the boundary between the sea and the sky. The overall atmosphere of the video is peaceful and tranquil, with the natural beauty of the sunset and the birds adding to the serene ambiance."
+        ],
+        "path": "istock/videos_istock_coco_part94/gm1197214963-341736068.mp4",
+        "aesthetic": 5.358596324920654
+    },
+    {
+        "cut": [
+            0,
+            119
+        ],
+        "crop": [
+            0,
+            1280,
+            0,
+            720
+        ],
+        "tech": 1.707,
+        "motion": 0.012171769514679909,
+        "fps": 25.0,
+        "num_frames": 119,
+        "resolution": {
+            "height": 720,
+            "width": 1280
+        },
+        "cap": [
+            "A woman standing next to a metal fence. She is wearing a black top and a necklace. The background shows an urban setting with a bridge and a building with a red roof in the distance. The woman appears to be posing for the camera, with her body slightly turned to the side. The lighting suggests it might be early morning or late afternoon, as the shadows are long and the light is soft. The fence is made of metal and has a grid-like pattern. The woman's expression is calm and composed, and she seems to be enjoying the moment. The overall atmosphere of the video is serene and peaceful."
+        ],
+        "path": "istock/videos_istock_coco_part20/gm1336864129-417946448.mp4",
+        "aesthetic": 5.213450908660889
+    },
+    {
+        "cut": [
+            0,
+            111
+        ],
+        "crop": [
+            0,
+            1280,
+            0,
+            720
+        ],
+        "tech": 1.288,
+        "motion": 0.007748642936348915,
+        "fps": 23.979999542236328,
+        "num_frames": 111,
+        "resolution": {
+            "height": 720,
+            "width": 1280
+        },
+        "cap": [
+            "A serene pastoral scene featuring a group of horses grazing in a lush, green field. The sky above is a vibrant blue with scattered white clouds, suggesting a bright and sunny day. The field is expansive, filled with tall, verdant grass that stretches out to the horizon.  In the foreground, several horses are visible, each with distinct colors: one brown, one black, one white, and another with a mix of brown and white. They are standing and grazing, seemingly undisturbed by the camera's presence. The horses appear calm and at ease in their natural environment.  In the background, there are more horses, some of which are partially obscured by the foreground horses. The landscape includes a few trees and a fence, indicating that this field is part of a larger farm or ranch. The overall atmosphere of the video is peaceful and idyllic, capturing the beauty of rural life and the tranquility of horses in their natural habitat."
+        ],
+        "path": "storyblocks/videos_storyblocks_imagenet_v2/aerial-drone-4-k-footage-circling-farm-horses-horses-in-green-field-2-348481548.mp4",
+        "aesthetic": 4.873856544494629
+    },
+    {
+        "cut": [
+            0,
+            133
+        ],
+        "crop": [
+            0,
+            1280,
+            0,
+            720
+        ],
+        "tech": 1.619,
+        "motion": 0.008222839795053005,
+        "fps": 29.969999313354492,
+        "num_frames": 133,
+        "resolution": {
+            "height": 720,
+            "width": 1280
+        },
+        "cap": [
+            "A dynamic scene at a natural body of water, likely a lake or quarry, surrounded by rocky terrain and dense greenery. The sky appears overcast, suggesting a cloudy day. In the foreground, a person is seen diving into the water from a rocky outcrop. The individual is captured mid-air, with their body arched and legs extended, creating a splash as they hit the water. The water is calm, with gentle ripples spreading out from the point of impact. In the background, another person is swimming in the water, partially submerged and moving through the water. The surrounding area is lush with green foliage, and the rocky cliffs provide a rugged and natural setting. The overall atmosphere is one of adventure and enjoyment of the outdoors."
+        ],
+        "path": "storyblocks/videos_storyblocks_V5/extreme-sports-cliff-diving-347579981.mp4",
+        "aesthetic": 5.0104827880859375
+    },
+    {
+        "cut": [
+            0,
+            105
+        ],
+        "crop": [
+            0,
+            1280,
+            0,
+            720
+        ],
+        "tech": 1.417,
+        "motion": 0.01064281351864338,
+        "fps": 25.0,
+        "num_frames": 105,
+        "resolution": {
+            "height": 720,
+            "width": 1280
+        },
+        "cap": [
+            "A street scene with a focus on a group of people sitting on the ground next to a railway track. The individuals appear to be engaged in various activities, possibly waiting or resting. The railway track runs parallel to the street, and there are several colorful plastic buckets and other items scattered around them. The street is lined with buildings, and some of the structures have balconies with plants and other decorations. The overall atmosphere suggests a bustling urban environment, with people going about their daily lives. The camera remains stationary, capturing the scene from a slightly elevated angle, providing a clear view of the people and their surroundings."
+        ],
+        "path": "clipchamp/videos_clipchampblocks_coco_v2/stryb_v10894472.mp4",
+        "aesthetic": 5.290970325469971
+    },
+    {
+        "cut": [
+            0,
+            115
+        ],
+        "crop": [
+            0,
+            1280,
+            0,
+            720
+        ],
+        "tech": 1.73,
+        "motion": 0.016440682113170624,
+        "fps": 23.976024627685547,
+        "num_frames": 115,
+        "resolution": {
+            "height": 720,
+            "width": 1280
+        },
+        "cap": [
+            "A dog, specifically a Siberian Husky, in a snowy environment. The dog is seen walking through a field covered in snow, with its tail raised and ears perked up, indicating alertness and movement. The Husky's coat is a mix of white and grey, with distinctive black markings on its face and ears. The background is a winter landscape, with snow-covered ground and sparse vegetation peeking through the snow. The sky is overcast, suggesting a cold and possibly windy day. The dog appears to be moving at a steady pace, with its front paws lifting off the ground as it walks. The camera follows the dog's movement, maintaining a medium shot that captures the dog's full body and the surrounding snowy environment."
+        ],
+        "path": "istock/videos_istock_coco_part29/gm1333389323-415908190.mp4",
+        "aesthetic": 5.120449066162109
+    },
+    {
+        "cut": [
+            0,
+            231
+        ],
+        "crop": [
+            0,
+            1280,
+            0,
+            720
+        ],
+        "tech": 1.9,
+        "motion": 0.006475646514445543,
+        "fps": 50.0,
+        "num_frames": 231,
+        "resolution": {
+            "height": 720,
+            "width": 1280
+        },
+        "cap": [
+            "An aerial view of a coastal town. The town is situated along a body of water, likely an ocean or a large lake, with a clear blue sky overhead. The buildings are primarily modern, with a mix of residential and commercial structures. The architecture includes both flat and sloped roofs, and the town appears to be well-maintained. As the camera pans to the left, it captures a large, multi-story building with a distinctive roofline, possibly a hotel or a commercial establishment. The building is surrounded by a mix of smaller structures, including shops and possibly residential homes. The streets are lined with parked cars, and there are a few people visible on the sidewalks. The coastline is rocky, with some areas of exposed rocks and others where the water meets the shore. The water is calm, reflecting the clear sky. In the distance, the coastline extends further, with more buildings and possibly other towns or natural features visible. The video provides a serene and picturesque view of the coastal town, highlighting its architectural diversity and the natural beauty of the surrounding area."
+        ],
+        "path": "storyblocks/videos_storyblocks_v3/medieval-building-at-puerto-natales-magallanes-chile-cityscapes-puerto-natales-magallanes-nature-patagonia-snow-covered-forest-trees-nature-exterior-snow-covered-patagonia-stunning-348490033.mp4",
+        "aesthetic": 5.146876335144043
+    },
+    {
+        "cut": [
+            12,
+            119
+        ],
+        "crop": [
+            0,
+            1280,
+            0,
+            720
+        ],
+        "tech": 0.503,
+        "motion": 0.004430566914379597,
+        "fps": 25.0,
+        "num_frames": 107,
+        "resolution": {
+            "height": 720,
+            "width": 1280
+        },
+        "cap": [
+            "A close-up shot of a human eye. The eye is illuminated by a blue light, which casts a cool, vibrant hue over the scene. The iris is a rich brown color, and the pupil is constricted, reflecting the blue light. The eyelashes are long and dark, adding a dramatic effect to the overall appearance. The eye blinks once, and the light remains steady, highlighting the intricate details of the eye's structure. The background is dark, which makes the eye stand out even more prominently. The video focuses solely on the eye, with no other objects or characters present. The lighting and close-up shot create a sense of intimacy and focus on the eye's features."
+        ],
+        "path": "storyblocks/videos_storyblocks_v3/close-up-of-a-womans-eye-with-beautiful-make-up-opening-in-a-dark-blue-lighting-346785782.mp4",
+        "aesthetic": 5.0201029777526855
+    },
+    {
+        "cut": [
+            0,
+            123
+        ],
+        "crop": [
+            0,
+            1280,
+            0,
+            720
+        ],
+        "tech": 1.312,
+        "motion": 0.0038061223458498716,
+        "fps": 25.0,
+        "num_frames": 123,
+        "resolution": {
+            "height": 720,
+            "width": 1280
+        },
+        "cap": [
+            "A dramatic and dynamic scene of a river flowing rapidly through a forested area. The river appears to be in a state of high water, with its waters swirling and churning, creating a sense of urgency and power. The surrounding landscape is lush and green, with dense foliage and trees that frame the river. The sky is overcast, contributing to the overall moody and intense atmosphere of the scene. The river flows through a narrow valley, with steep, rocky cliffs on either side, adding to the sense of confinement and natural beauty. The video captures the raw and untamed power of nature, with the river's forceful movement and the rugged terrain surrounding it."
+        ],
+        "path": "storyblocks/videos_storyblocks_v4/floods-in-llierca-bridge-la-garrotxa-girona-spain-january-2020-348523862.mp4",
+        "aesthetic": 5.151225566864014
+    },
+    {
+        "cut": [
+            0,
+            107
+        ],
+        "crop": [
+            0,
+            1280,
+            0,
+            720
+        ],
+        "tech": 1.206,
+        "motion": 0.045444488525390625,
+        "fps": 24.0,
+        "num_frames": 107,
+        "resolution": {
+            "height": 720,
+            "width": 1280
+        },
+        "cap": [
+            "An aerial view of a cityscape at dusk. The sky is a gradient of dark blue transitioning to a lighter hue near the horizon, with scattered clouds that are tinged with the last light of the setting sun. The city is illuminated with a mix of warm and cool lights, highlighting the outlines of buildings and streets. The buildings are primarily high-rise residential complexes, with their windows glowing in various shades of light.  As the video progresses, the camera pans to the right, revealing more of the city's layout. The streets are lined with vehicles, their headlights and taillights creating a network of light trails. The camera angle provides a comprehensive view of the urban environment, including parks, roads, and other infrastructure. The lighting in the cityscape continues to change, with the artificial lights becoming more prominent as the natural light fades. The video captures the transition from dusk to night, with the city gradually becoming more illuminated. The clouds in the sky also change in color, reflecting the changing light conditions. The overall atmosphere is one of urban life at night, with the city's lights creating a vibrant and dynamic scene."
+        ],
+        "path": "storyblocks/videos_storyblocks_V6/7093303.mp4",
+        "aesthetic": 5.387986660003662
+    },
+    {
+        "cut": [
+            0,
+            115
+        ],
+        "crop": [
+            0,
+            1280,
+            0,
+            720
+        ],
+        "tech": 0.9303333333333333,
+        "motion": 0.004101835656911135,
+        "fps": 25.0,
+        "num_frames": 115,
+        "resolution": {
+            "height": 720,
+            "width": 1280
+        },
+        "cap": [
+            "A serene coastal scene with a focus on the ocean and distant landmasses. The foreground features a sandy beach with sparse vegetation, including a few bushes with green leaves. The ocean is a vibrant shade of blue, with gentle waves lapping against the shore. Several boats are visible on the water, scattered at various distances from the shore. The sky above is mostly clear with a few scattered clouds, suggesting a calm and sunny day. In the background, there are hills or low mountains with some structures visible on the land, indicating a coastal town or settlement. The overall atmosphere is peaceful and picturesque, capturing the beauty of a coastal landscape."
+        ],
+        "path": "istock/videos_istock_coco_part18/gm1315282140-403296201.mp4",
+        "aesthetic": 4.948780059814453
+    },
+    {
+        "cut": [
+            0,
+            119
+        ],
+        "crop": [
+            0,
+            1280,
+            0,
+            720
+        ],
+        "tech": 1.425,
+        "motion": 0.00915493257343769,
+        "fps": 23.976024627685547,
+        "num_frames": 119,
+        "resolution": {
+            "height": 720,
+            "width": 1280
+        },
+        "cap": [
+            "An aerial view of a coastal area featuring a cluster of residential houses situated along a sandy beach. The houses are predominantly white with grey roofs, and they are closely packed together, indicating a densely populated coastal community. The beachfront is bordered by a narrow strip of sand that separates the houses from the ocean.  In the background, there is a vast expanse of greenery, likely marshlands or wetlands, extending towards the horizon. The sky above is clear and blue, suggesting a sunny day with good visibility. The houses are surrounded by patches of greenery, indicating some landscaping or natural vegetation. As the video progresses, the camera appears to pan slightly to the right, revealing more of the coastal landscape. The houses remain the focal point, with their architectural style and proximity to the beach being consistent throughout the scene. The greenery in the background remains visible, providing a natural contrast to the man-made structures. The video captures the serene and picturesque nature of the coastal community, highlighting the close proximity of the houses to the ocean and the surrounding greenery. The clear sky and the calm waters suggest a peaceful and idyllic setting."
+        ],
+        "path": "istock/videos_istock_coco_part1/gm1425510889-469956334.mp4",
+        "aesthetic": 5.192653179168701
+    },
+    {
+        "cut": [
+            0,
+            123
+        ],
+        "crop": [
+            0,
+            1280,
+            0,
+            720
+        ],
+        "tech": 1.9085,
+        "motion": 0.009844931773841381,
+        "fps": 25.0,
+        "num_frames": 123,
+        "resolution": {
+            "height": 720,
+            "width": 1280
+        },
+        "cap": [
+            "A person standing in front of a door, with a unique and surreal element: the person has a television set as their head. The television screen displays an image of a dollar bill, with the face of a person visible on the bill. The person is wearing a plaid shirt and appears to be in a room with a worn, rustic appearance. The door behind them is slightly ajar, and the overall setting has a vintage or aged look, with peeling paint and a worn surface. The person's body is partially visible, and they seem to be in a relaxed stance. The video captures a moment of stillness, with no apparent movement or action taking place."
+        ],
+        "path": "istock/videos_istock_coco_part1/gm1253863943-366311252.mp4",
+        "aesthetic": 5.659565210342407
+    },
+    {
+        "cut": [
+            16,
+            115
+        ],
+        "crop": [
+            0,
+            1280,
+            0,
+            720
+        ],
+        "tech": 0.668,
+        "motion": 0.01972915418446064,
+        "fps": 23.979999542236328,
+        "num_frames": 99,
+        "resolution": {
+            "height": 720,
+            "width": 1280
+        },
+        "cap": [
+            "A person lying in bed, seemingly resting or sleeping. The individual has dreadlocks and is wearing a black shirt. The bed is made with white sheets and a white pillow. The room has a cozy ambiance, with a large green plant in the background, adding a touch of nature to the setting. The walls are painted in a dark blue color, and there is a window with yellow curtains that allow some light to filter into the room. The lighting in the room is soft, creating a calm and serene atmosphere. The person appears to be in a relaxed state, possibly indicating they are resting or sleeping. The overall scene suggests a peaceful and comfortable environment."
+        ],
+        "path": "storyblocks/videos_storyblocks_imagenet/handheld-shot-of-african-american-man-trying-to-fall-asleep-in-bed-347755535.mp4",
+        "aesthetic": 4.920507907867432
+    },
+    {
+        "cut": [
+            0,
+            119
+        ],
+        "crop": [
+            0,
+            1280,
+            0,
+            720
+        ],
+        "tech": 1.873,
+        "motion": 0.011652674525976181,
+        "fps": 25.0,
+        "num_frames": 119,
+        "resolution": {
+            "height": 720,
+            "width": 1280
+        },
+        "cap": [
+            "A group of four individuals sitting outdoors on a snowy day. They are all dressed in winter clothing, including coats, hats, and gloves, suggesting a cold environment. Each person is holding a cup, likely containing a warm beverage, which they are enjoying while engaging in conversation. The group appears to be having a good time, as evidenced by their laughter and animated gestures. The background shows a snowy landscape with a building and a fence, indicating that they are in a residential or recreational area. The camera remains stationary, focusing on the group as they interact with each other."
+        ],
+        "path": "istock/videos_istock_coco_part21/gm1443081254-482174133.mp4",
+        "aesthetic": 5.7396368980407715
+    },
+    {
+        "cut": [
+            0,
+            119
+        ],
+        "crop": [
+            0,
+            1280,
+            0,
+            720
+        ],
+        "tech": 1.7355,
+        "motion": 0.03856807202100754,
+        "fps": 25.0,
+        "num_frames": 119,
+        "resolution": {
+            "height": 720,
+            "width": 1280
+        },
+        "cap": [
+            "A woman standing against a plain, dark-colored wall. She is wearing a leopard print coat and a matching scarf. Her hair is long and curly, cascading down her shoulders. She is holding a smartphone in her right hand, which she is looking at intently. Her facial expression suggests she is focused on the content on the screen. The woman appears to be in an urban setting, possibly on a street or in a city environment, given the modern, minimalist background. The lighting is natural, indicating it might be daytime. There are no other people or objects in the frame, making the woman the sole focus of the video. The camera remains stationary throughout, providing a clear, unobstructed view of the woman and her actions."
+        ],
+        "path": "storyblocks/videos_storyblocks_V7/1857479.mp4",
+        "aesthetic": 5.095913887023926
+    },
+    {
+        "cut": [
+            0,
+            117
+        ],
+        "crop": [
+            0,
+            1280,
+            0,
+            720
+        ],
+        "tech": 2.1189999999999998,
+        "motion": 0.010239271447062492,
+        "fps": 25.0,
+        "num_frames": 117,
+        "resolution": {
+            "height": 720,
+            "width": 1280
+        },
+        "cap": [
+            "A close-up view of a single, delicate pink flower with a yellow center. The flower is surrounded by lush green leaves, which appear vibrant and healthy. The petals of the flower are soft and slightly ruffled, giving it a gentle and elegant appearance. The background is blurred, focusing attention on the flower and its immediate surroundings. The lighting is natural, suggesting that the video was taken outdoors, possibly in a garden or a natural setting. The overall composition of the video emphasizes the beauty and detail of the flower, highlighting its delicate structure and the contrast between the pink petals and the yellow center."
+        ],
+        "path": "istock/videos_istock_coco_part31/gm1367739526-437908820.mp4",
+        "aesthetic": 4.769200801849365
+    },
+    {
+        "cut": [
+            0,
+            133
+        ],
+        "crop": [
+            0,
+            1280,
+            0,
+            720
+        ],
+        "tech": 0.698,
+        "motion": 0.034831009805202484,
+        "fps": 29.969999313354492,
+        "num_frames": 133,
+        "resolution": {
+            "height": 720,
+            "width": 1280
+        },
+        "cap": [
+            "A scene of two individuals engaged in a business meeting. They are seated at a white table, which is adorned with a cup of coffee, a saucer, and a digital tablet. The individuals are dressed in formal attire, with one person wearing a black suit and the other in a dark-colored suit. Both are focused on a document that lies on the table, which appears to be a financial report or a business plan, given the presence of graphs and charts. One person is holding a pen, indicating they are either writing or pointing at specific sections of the document. The setting suggests a professional environment, possibly an office or a conference room. The camera angle is focused on the table and the individuals, providing a clear view of their actions and the items on the table."
+        ],
+        "path": "storyblocks/videos_storyblocks_V7/2745625.mp4",
+        "aesthetic": 4.751213550567627
+    },
+    {
+        "cut": [
+            0,
+            117
+        ],
+        "crop": [
+            0,
+            1280,
+            0,
+            720
+        ],
+        "tech": 0.971,
+        "motion": 0.002823170740157366,
+        "fps": 25.0,
+        "num_frames": 117,
+        "resolution": {
+            "height": 720,
+            "width": 1280
+        },
+        "cap": [
+            "A close-up shot of a tree trunk, which is the primary focus. The bark of the tree is rough and textured, with patches of different colors, including shades of brown, gray, and white. The camera angle is such that the tree trunk fills most of the frame, providing a detailed view of its surface. In the background, the scene gradually becomes blurred, creating a bokeh effect with out-of-focus lights. These lights appear to be from vehicles, suggesting that the video is set in an urban environment, possibly near a road or a street. The bokeh effect creates a sense of depth and movement, as if the lights are moving in the distance. As the video progresses, the focus remains on the tree trunk, with the background lights continuing to blur and create a bokeh effect. The camera does not move significantly, maintaining a steady shot on the tree trunk while the background remains out of focus. The overall atmosphere of the video is calm and serene, with the tree trunk being the central element of interest."
+        ],
+        "path": "istock/videos_istock_coco_part4/gm1340246530-420375160.mp4",
+        "aesthetic": 4.8795294761657715
+    },
+    {
+        "cut": [
+            0,
+            121
+        ],
+        "crop": [
+            0,
+            1280,
+            0,
+            720
+        ],
+        "tech": 2.0860000000000003,
+        "motion": 0.05139944702386856,
+        "fps": 25.0,
+        "num_frames": 121,
+        "resolution": {
+            "height": 720,
+            "width": 1280
+        },
+        "cap": [
+            "A skincare treatment session in a professional setting. A person is lying down on a treatment table, with their head resting on a white towel. The individual is wearing a white garment, possibly a robe, and is lying face up. The person's face is being attended to by a professional, who is wearing white gloves and a white lab coat. The professional is gently wiping the person's face with a cloth, starting from the forehead and moving downwards. The background is a clean, clinical environment with a white wall and a shelf holding various skincare products. The lighting is bright, suggesting a sterile and professional atmosphere. The professional's movements are deliberate and careful, indicating a focus on providing a thorough and gentle skincare treatment."
+        ],
+        "path": "istock/videos_istock_coco_part97/gm1398204779-452423287.mp4",
+        "aesthetic": 4.929310321807861
+    },
+    {
+        "cut": [
+            0,
+            121
+        ],
+        "crop": [
+            0,
+            1280,
+            0,
+            720
+        ],
+        "tech": 2.225,
+        "motion": 0.0039376006461679935,
+        "fps": 25.0,
+        "num_frames": 121,
+        "resolution": {
+            "height": 720,
+            "width": 1280
+        },
+        "cap": [
+            "A construction site with a clear blue sky in the background. In the foreground, a man is standing and holding a tablet. He is wearing a white hard hat, a high-visibility vest, and a dark shirt. His facial expression appears focused, and he is looking at the tablet while occasionally glancing around the construction site. Behind him, there are several cranes and partially constructed buildings, indicating an active construction area. The man seems to be inspecting or monitoring the construction progress using the tablet. The overall scene suggests a professional environment, likely involving engineering or construction management."
+        ],
+        "path": "storyblocks/videos_storyblocks_V7/4368891.mp4",
+        "aesthetic": 5.152249813079834
+    },
+    {
+        "cut": [
+            0,
+            149
+        ],
+        "crop": [
+            0,
+            1280,
+            0,
+            720
+        ],
+        "tech": 2.1085000000000003,
+        "motion": 0.018432745710015297,
+        "fps": 29.969999313354492,
+        "num_frames": 149,
+        "resolution": {
+            "height": 720,
+            "width": 1280
+        },
+        "cap": [
+            "A young woman standing outdoors in an urban setting. She has long, dark hair and is wearing a black leather jacket over a white top. Her expression is cheerful, and she is smiling broadly. Her right hand is raised, displaying a thumbs-up gesture. The background is slightly blurred, indicating a focus on the woman, but it appears to be a street scene with parked cars and buildings. The lighting suggests it might be evening or a cloudy day, as the sky is not visible. The woman's pose and expression convey a sense of approval or agreement."
+        ],
+        "path": "storyblocks/videos_storyblocks_V6/6019820.mp4",
+        "aesthetic": 5.718127250671387
+    },
+    {
+        "cut": [
+            0,
+            257
+        ],
+        "crop": [
+            0,
+            1280,
+            0,
+            720
+        ],
+        "tech": 2.0435,
+        "motion": 0.0033771151211112738,
+        "fps": 59.940059661865234,
+        "num_frames": 257,
+        "resolution": {
+            "height": 720,
+            "width": 1280
+        },
+        "cap": [
+            "A close-up shot of a red square dish placed on a wooden surface. Inside the dish, there are several pieces of a food item that appears to be a type of candy bar or snack. The candy bars are rectangular and have a golden-brown color, indicating they might be made of a caramel or toffee base. The surface of the candy bars is sprinkled with small, round, and shiny pieces, which are likely nuts or seeds, adding texture and contrast to the appearance. As the video progresses, a few peanuts start to fall onto the wooden surface from the top of the frame. The peanuts are small, round, and have a light brown color with a darker brown shell. They are scattered around the dish, some landing on the dish itself and others rolling off to the sides. The peanuts continue to fall in a steady stream, creating a dynamic visual effect as they interact with the static dish and candy bars. The camera remains stationary throughout the video, focusing on the dish and the peanuts as they fall. The lighting is natural, highlighting the textures and colors of the food items and the wooden surface. The overall scene is simple yet engaging, capturing the casual and playful interaction between the food items and the environment."
+        ],
+        "path": "istock/videos_istock_coco_part3/gm1282941847-380522071.mp4",
+        "aesthetic": 5.2588887214660645
+    },
+    {
+        "cut": [
+            0,
+            115
+        ],
+        "crop": [
+            0,
+            1280,
+            0,
+            720
+        ],
+        "tech": 2.1365,
+        "motion": 0.02265346609055996,
+        "fps": 23.979999542236328,
+        "num_frames": 115,
+        "resolution": {
+            "height": 720,
+            "width": 1280
+        },
+        "cap": [
+            "A scene of a mealtime setting. In the foreground, a young child is seated at a table, eagerly eating a piece of food with a fork. The child appears to be enjoying the meal, as indicated by their open mouth and the act of chewing. The child is wearing a dark-colored shirt and has short, light brown hair.  In the background, an older woman is also seated at the table, holding a fork and appearing to feed the child. She is wearing a light-colored top and has short, dark hair. The table is set with various dishes, including what looks like a plate of rice and some vegetables. The setting seems to be an outdoor area, possibly a patio or terrace, as indicated by the presence of plants and a bright, natural light. The overall atmosphere suggests a casual and intimate family meal."
+        ],
+        "path": "storyblocks/videos_storyblocks_imagenet/small-boy-eating-lunch-grandmother-feeds-child-grandson-food-healthy-nutrition-concept-348902456.mp4",
+        "aesthetic": 5.153031826019287
+    },
+    {
+        "cut": [
+            0,
+            117
+        ],
+        "crop": [
+            0,
+            1280,
+            0,
+            720
+        ],
+        "tech": 1.959,
+        "motion": 0.01159703079611063,
+        "fps": 23.976024627685547,
+        "num_frames": 117,
+        "resolution": {
+            "height": 720,
+            "width": 1280
+        },
+        "cap": [
+            "A close-up shot of a golden statue of a man, which appears to be a sculpture of a historical or mythological figure. The statue is positioned outdoors, with a clear blue sky in the background and some green foliage visible around it. The statue is holding a large, ornate weapon in one hand, and its posture suggests it is in a dynamic, possibly victorious or triumphant pose. The statue is mounted on a rocky surface, adding to the dramatic effect of the scene. The lighting indicates it is daytime, with sunlight casting shadows that highlight the details of the statue. The camera remains steady, focusing on the statue throughout the sequence."
+        ],
+        "path": "istock/videos_istock_coco_part7/gm1324788767-410016154.mp4",
+        "aesthetic": 4.92559289932251
+    },
+    {
+        "cut": [
+            0,
+            143
+        ],
+        "crop": [
+            0,
+            1280,
+            0,
+            720
+        ],
+        "tech": 1.9775,
+        "motion": 0.0955447256565094,
+        "fps": 29.969999313354492,
+        "num_frames": 143,
+        "resolution": {
+            "height": 720,
+            "width": 1280
+        },
+        "cap": [
+            "A close-up view of a person's hand stirring a mixture in a bowl. The bowl contains a mixture of ingredients, including what appears to be chopped vegetables, possibly including tomatoes and onions, along with some herbs and spices. The person is using a wooden spoon to mix the contents. The bowl is placed on a countertop, and there is a glimpse of another bowl in the background, which seems to contain a different food item. The scene suggests a cooking process, likely preparing a dish that involves mixing various ingredients together. The focus remains on the hand and the bowl, with no other significant movements or actions captured in the video."
+        ],
+        "path": "istock/videos_istock_coco_part97/gm1048800170-280511987.mp4",
+        "aesthetic": 4.966906309127808
+    },
+    {
+        "cut": [
+            0,
+            117
+        ],
+        "crop": [
+            0,
+            1280,
+            0,
+            720
+        ],
+        "tech": 0.66,
+        "motion": 0.04195908084511757,
+        "fps": 29.969999313354492,
+        "num_frames": 117,
+        "resolution": {
+            "height": 720,
+            "width": 1280
+        },
+        "cap": [
+            "A breathtaking aerial scene featuring two skydivers in mid-air, descending towards the ground. The skydivers are wearing colorful jumpsuits, with one in a predominantly red and yellow outfit and the other in a black and yellow one. They are positioned side by side, with the red and yellow skydiver slightly ahead and to the left of the black and yellow skydiver.  The landscape below them is a vast expanse of green fields, scattered with patches of trees and small clusters of buildings, indicating a rural or suburban area. The horizon is marked by a line of hills or low mountains, and the sky is a gradient of warm colors, suggesting either sunrise or sunset. The camera angle is from above, looking down at the skydivers and the landscape, giving a sense of height and perspective. As the video progresses, the skydivers maintain their formation, gliding smoothly over the landscape. The camera remains steady, capturing the serene and exhilarating moment of their descent. The skydivers appear to be in control, with their bodies oriented in a streamlined position, suggesting they are experienced in their craft. The overall atmosphere of the video is one of adventure and tranquility, with the natural beauty of the landscape providing a stunning backdrop to the daring activity of skydiving."
+        ],
+        "path": "istock/videos_istock_coco_part13/gm957562072-261471284.mp4",
+        "aesthetic": 5.345492839813232
+    },
+    {
+        "cut": [
+            30,
+            95
+        ],
+        "crop": [
+            0,
+            1280,
+            0,
+            720
+        ],
+        "tech": 2.328,
+        "motion": 0.0027174914721399546,
+        "fps": 25.0,
+        "num_frames": 65,
+        "resolution": {
+            "height": 720,
+            "width": 1280
+        },
+        "cap": [
+            "A man engaged in a professional setting. He is seated at a desk, wearing a dark suit and a white shirt, with a tie. The man is holding a smartphone to his ear with his left hand and appears to be in the middle of a conversation. His right hand is interacting with a laptop computer placed on the desk in front of him. The laptop screen is visible, and he seems to be typing or navigating the device. The background is plain and white, suggesting a studio or office environment. The man's posture is upright and focused, indicating he is attentive to both the phone call and the task at hand. There are no other objects or people visible in the frame, and the lighting is even, providing a clear view of the man and his activities."
+        ],
+        "path": "storyblocks/videos_storyblocks_v3/young-businessman-making-a-call-in-response-348624660.mp4",
+        "aesthetic": 5.317950248718262
+    },
+    {
+        "cut": [
+            0,
+            117
+        ],
+        "crop": [
+            0,
+            1280,
+            0,
+            720
+        ],
+        "tech": 0.844,
+        "motion": 0.07656177133321762,
+        "fps": 25.0,
+        "num_frames": 117,
+        "resolution": {
+            "height": 720,
+            "width": 1280
+        },
+        "cap": [
+            "A close-up shot of two sets of feet standing on a textured surface, likely a carpet or rug. The feet are bare, and the person standing appears to be wearing a pair of sandals. The lighting is warm, suggesting it might be indoors with natural light coming through a window. The camera angle is low, focusing on the feet and the ground, creating a sense of intimacy and connection with the viewer. The background is blurred, keeping the attention on the feet and the immediate surroundings. The video then transitions to a different scene where the same pair of feet is now barefoot, standing on a different textured surface, possibly a different type of carpet or rug. The lighting remains warm, and the camera angle is similar, maintaining the intimate and focused perspective. The background is still blurred, keeping the focus on the feet and the immediate surroundings. The video ends with the same pair of feet standing on the same textured surface, with the camera angle and lighting remaining consistent throughout. The overall mood of the video is calm and serene, with a focus on the simple act of standing and the textures of the surfaces beneath the feet."
+        ],
+        "path": "storyblocks/videos_storyblocks_V7/2449253.mp4",
+        "aesthetic": 4.765627861022949
+    },
+    {
+        "cut": [
+            0,
+            111
+        ],
+        "crop": [
+            0,
+            1280,
+            0,
+            720
+        ],
+        "tech": 1.719,
+        "motion": 0.008668285794556141,
+        "fps": 25.0,
+        "num_frames": 111,
+        "resolution": {
+            "height": 720,
+            "width": 1280
+        },
+        "cap": [
+            "A serene and picturesque natural scene. It features a wooden boardwalk that meanders through a rocky canyon. The boardwalk is constructed with sturdy wooden planks and is bordered by a wooden railing on one side, providing a safe and secure path for visitors. The canyon walls are rugged and steep, composed of dark, weathered rock formations that contrast with the vibrant blue-green hues of the flowing water below. The water cascades through the canyon, creating a tranquil and refreshing atmosphere. The surrounding vegetation is lush and green, adding to the overall beauty of the scene. The video captures the peacefulness and natural splendor of the location, inviting viewers to appreciate the stunning landscape."
+        ],
+        "path": "istock/videos_istock_coco_part97/gm472391446-64138337.mp4",
+        "aesthetic": 6.011648654937744
+    },
+    {
+        "cut": [
+            0,
+            279
+        ],
+        "crop": [
+            0,
+            1280,
+            0,
+            720
+        ],
+        "tech": 1.634,
+        "motion": 0.001436740392819047,
+        "fps": 59.939998626708984,
+        "num_frames": 279,
+        "resolution": {
+            "height": 720,
+            "width": 1280
+        },
+        "cap": [
+            "An elderly man sitting on a gray sofa in a living room. He is wearing a light-colored shirt and glasses, and he is holding a laptop in his lap. The man is also wearing white headphones and appears to be engaged in an activity on the laptop. He is smiling and making a playful gesture with his tongue sticking out. The background includes a window with light coming through, a plant, and a wooden shelf. The overall atmosphere of the scene is relaxed and casual, suggesting a comfortable home environment."
+        ],
+        "path": "storyblocks/videos_storyblocks_V6/346636450.mp4",
+        "aesthetic": 5.55911922454834
+    },
+    {
+        "cut": [
+            0,
+            81
+        ],
+        "crop": [
+            0,
+            1280,
+            0,
+            720
+        ],
+        "tech": 1.175,
+        "motion": 0.003371625440195203,
+        "fps": 25.0,
+        "num_frames": 81,
+        "resolution": {
+            "height": 720,
+            "width": 1280
+        },
+        "cap": [
+            "A woman seated outdoors, possibly in a park or garden, as indicated by the presence of greenery and natural light in the background. She is holding a smartphone in her hands, which she appears to be using. The smartphone is a modern model with a pink or light-colored case. The woman is wearing a sleeveless top, and her hair is tied back, suggesting a casual and relaxed setting. The camera is focused on her hands and the phone, capturing the moment as she engages with the device. The background is slightly blurred, emphasizing the subject and her interaction with the phone. The overall atmosphere of the video is calm and serene, with the natural setting providing a peaceful backdrop."
+        ],
+        "path": "storyblocks/videos_storyblocks_V7/347741051.mp4",
+        "aesthetic": 4.7785539627075195
+    },
+    {
+        "cut": [
+            0,
+            289
+        ],
+        "crop": [
+            0,
+            1280,
+            0,
+            720
+        ],
+        "tech": 1.287,
+        "motion": 0.014457802288234234,
+        "fps": 60.0,
+        "num_frames": 289,
+        "resolution": {
+            "height": 720,
+            "width": 1280
+        },
+        "cap": [
+            "A close-up shot of a grill, which is surrounded by a dark, smoky atmosphere. The grill is positioned outdoors, and the smoke is rising from it, indicating that it is actively cooking. On the grill, there are several sausages, which appear to be made of a mixture of meat and spices. The sausages are being cooked over an open flame, as evidenced by the smoke and the slight char marks on the sausages. The camera angle is slightly tilted, providing a clear view of the sausages and the grill. The lighting is dim, creating a moody and atmospheric effect. The video captures the process of grilling sausages, emphasizing the smoke and the cooking process."
+        ],
+        "path": "istock/videos_istock_coco_part4/gm1306525714-397082251.mp4",
+        "aesthetic": 5.086574077606201
+    },
+    {
+        "cut": [
+            0,
+            251
+        ],
+        "crop": [
+            0,
+            1280,
+            0,
+            720
+        ],
+        "tech": 0.285,
+        "motion": 0.0013053753646090627,
+        "fps": 60.0,
+        "num_frames": 251,
+        "resolution": {
+            "height": 720,
+            "width": 1280
+        },
+        "cap": [
+            "A black background. A green and white toggle switch appears in the center of the screen. The toggle switch is positioned horizontally, with the green section on the left and the white section on the right. The green section is slightly larger than the white section, indicating that the switch is currently in the \"on\" position. The toggle switch remains stationary for a few seconds before the green section starts to move towards the right, gradually transitioning to the white section. As the green section moves, it leaves a trail of light behind it, creating a visual effect of the switch turning off. The movement is smooth and continuous, and the switch eventually reaches the white section, indicating that the switch is now in the \"off\" position. The video ends with the toggle switch in the \"off\" position, with the white section fully visible on the right side of the screen."
+        ],
+        "path": "storyblocks/videos_storyblocks_V6/348662313.mp4",
+        "aesthetic": 5.104260444641113
+    },
+    {
+        "cut": [
+            0,
+            139
+        ],
+        "crop": [
+            0,
+            1280,
+            0,
+            720
+        ],
+        "tech": 2.074,
+        "motion": 0.001280199852772057,
+        "fps": 29.969999313354492,
+        "num_frames": 139,
+        "resolution": {
+            "height": 720,
+            "width": 1280
+        },
+        "cap": [
+            "A close-up shot of a woman with glasses, who appears to be engaged in some form of digital activity. She is wearing a formal outfit, including a white shirt and a dark blazer, and is seated in a chair with a cushioned backrest. The background is softly lit, with a warm, ambient glow that suggests an indoor setting, possibly an office or a home office. The woman's glasses reflect a screen, indicating that she is looking at a computer monitor or a similar device. Her expression is one of concentration and slight amusement, as she smiles subtly while looking away from the camera. The lighting in the room creates a cozy and professional atmosphere."
+        ],
+        "path": "storyblocks/videos_storyblocks_V6/348816442.mp4",
+        "aesthetic": 5.36031174659729
+    },
+    {
+        "cut": [
+            0,
+            107
+        ],
+        "crop": [
+            0,
+            1280,
+            0,
+            720
+        ],
+        "tech": 1.263,
+        "motion": 0.051971498876810074,
+        "fps": 23.979999542236328,
+        "num_frames": 107,
+        "resolution": {
+            "height": 720,
+            "width": 1280
+        },
+        "cap": [
+            "A woman seated in a moving vehicle, likely a bus, given the visible window and the blurred urban scenery outside. She is wearing a black hoodie and a light blue scarf wrapped around her neck. Her arms are crossed, and she appears to be looking out the window, possibly observing the passing landscape or lost in thought. The interior of the vehicle is well-lit, suggesting it is daytime. The background shows a cityscape with buildings, trees, and vehicles, indicating the bus is in an urban area. The woman's expression is calm and contemplative, and she seems to be enjoying the ride. The camera remains stationary, focusing on the woman as she gazes out the window."
+        ],
+        "path": "storyblocks/videos_storyblocks_V6/348545429.mp4",
+        "aesthetic": 4.9405670166015625
+    },
+    {
+        "cut": [
+            0,
+            255
+        ],
+        "crop": [
+            0,
+            1280,
+            0,
+            720
+        ],
+        "tech": 1.324,
+        "motion": 0.03107622265815735,
+        "fps": 60.0,
+        "num_frames": 255,
+        "resolution": {
+            "height": 720,
+            "width": 1280
+        },
+        "cap": [
+            "A scene outdoors, likely in an urban area, with a focus on a young girl and a boy. The girl, standing in the foreground, is holding a firework that is actively sparking and producing bright sparks. She appears to be observing the firework with interest. In the background, a boy is seen running towards the firework, possibly to interact with it or to watch the sparks more closely. The setting includes a paved area with some debris scattered around, and a metal fence is visible in the distance. The overall atmosphere suggests a casual, possibly festive environment where children are playing with fireworks."
+        ],
+        "path": "clipchamp/videos_clipchampblocks_coco/stryb_v346688078.mp4",
+        "aesthetic": 4.891327857971191
+    },
+    {
+        "cut": [
+            0,
+            145
+        ],
+        "crop": [
+            0,
+            1280,
+            0,
+            720
+        ],
+        "tech": 1.988,
+        "motion": 0.021075772121548653,
+        "fps": 29.969999313354492,
+        "num_frames": 145,
+        "resolution": {
+            "height": 720,
+            "width": 1280
+        },
+        "cap": [
+            "A young woman in a gym setting. She is wearing a black sports bra and appears to be taking a break from her workout. The woman is holding a clear plastic water bottle in her right hand and is drinking from it. Her expression is relaxed and content, suggesting she is enjoying a moment of hydration. The background is a light blue wall, which is typical of gym environments, providing a clean and bright atmosphere. The lighting is bright, likely from overhead lights, which illuminates the scene clearly. There are no other people or objects visible in the frame, focusing the viewer's attention solely on the woman and her actions. The video captures a simple yet effective moment of self-care during a workout routine."
+        ],
+        "path": "storyblocks/videos_storyblocks_V7/11067605.mp4",
+        "aesthetic": 4.982608795166016
+    },
+    {
+        "cut": [
+            0,
+            251
+        ],
+        "crop": [
+            0,
+            1280,
+            0,
+            720
+        ],
+        "tech": 2.126,
+        "motion": 0.0030605075880885124,
+        "fps": 59.939998626708984,
+        "num_frames": 251,
+        "resolution": {
+            "height": 720,
+            "width": 1280
+        },
+        "cap": [
+            "A serene forest scene with a tiger resting in the foreground. The tiger is lying on its side, facing away from the camera, with its body partially obscured by a tree trunk. The tiger's stripes are clearly visible, and it appears to be in a relaxed state, possibly dozing or simply observing its surroundings. The forest floor is covered with dry grass and fallen leaves, and there are several trees with bare branches, indicating a dry season. The background shows more trees and a slightly overcast sky, suggesting a natural, undisturbed habitat. The overall atmosphere of the video is calm and peaceful, capturing a moment of tranquility in the wild."
+        ],
+        "path": "istock/videos_istock_coco_part25/gm1204146574-346353887.mp4",
+        "aesthetic": 4.75065541267395
+    },
+    {
+        "cut": [
+            0,
+            119
+        ],
+        "crop": [
+            0,
+            1280,
+            0,
+            720
+        ],
+        "tech": 1.412,
+        "motion": 0.004458916373550892,
+        "fps": 24.0,
+        "num_frames": 119,
+        "resolution": {
+            "height": 720,
+            "width": 1280
+        },
+        "cap": [
+            "A serene underwater scene with a single, elongated, striped eel-like creature swimming gracefully in the deep blue ocean. The creature has a slender body with a series of dark stripes running along its length, creating a striking contrast against the surrounding water. The background is a gradient of deep blue, transitioning to a lighter blue near the surface, where a bright, sunburst effect is visible, suggesting the presence of sunlight filtering through the water. The creature appears to be moving slowly and smoothly, with its body undulating gently as it glides through the water. The overall atmosphere of the video is calm and tranquil, with the focus solely on the creature and its graceful movement through the ocean."
+        ],
+        "path": "istock/videos_istock_coco_part30/gm1534881835-525299369.mp4",
+        "aesthetic": 5.335209846496582
+    },
+    {
+        "cut": [
+            0,
+            131
+        ],
+        "crop": [
+            0,
+            1280,
+            0,
+            720
+        ],
+        "tech": 1.7005,
+        "motion": 0.034336596727371216,
+        "fps": 29.969999313354492,
+        "num_frames": 131,
+        "resolution": {
+            "height": 720,
+            "width": 1280
+        },
+        "cap": [
+            "Three young girls sitting at a table with a red background. They are all smiling and giving a thumbs-up gesture with both hands. In front of them on the table, there are several books and educational materials, including a book with colorful illustrations and a smartphone. The girls appear to be engaged and happy, possibly after completing a task or lesson. The scene suggests a learning environment, possibly a classroom or a study session. The girls are dressed in casual clothing, and the overall atmosphere is cheerful and positive."
+        ],
+        "path": "storyblocks/videos_storyblocks_V6/3198120.mp4",
+        "aesthetic": 4.897420644760132
+    },
+    {
+        "cut": [
+            0,
+            115
+        ],
+        "crop": [
+            0,
+            1280,
+            0,
+            720
+        ],
+        "tech": 2.441,
+        "motion": 0.021852238103747368,
+        "fps": 23.976024627685547,
+        "num_frames": 115,
+        "resolution": {
+            "height": 720,
+            "width": 1280
+        },
+        "cap": [
+            "An elderly man standing outdoors in what appears to be a city setting. He is wearing a light-colored suit jacket, a white shirt, and a wide-brimmed hat. His facial expression is friendly and welcoming, with a slight smile on his face. He is waving his right hand in a gesture that suggests he is greeting someone or acknowledging the presence of the camera. The background shows a street scene with buildings, some of which have signs and banners, and a few people walking by. The overall atmosphere is casual and relaxed, with the man appearing to be enjoying his time outdoors."
+        ],
+        "path": "istock/videos_istock_coco_part18/gm1490180656-514826809.mp4",
+        "aesthetic": 5.813309669494629
+    },
+    {
+        "cut": [
+            24,
+            113
+        ],
+        "crop": [
+            0,
+            1280,
+            0,
+            720
+        ],
+        "tech": 0.339,
+        "motion": 0.0048080915585160255,
+        "fps": 24.0,
+        "num_frames": 89,
+        "resolution": {
+            "height": 720,
+            "width": 1280
+        },
+        "cap": [
+            "A dark background, gradually transitioning into a mesmerizing display of light. A circular pattern emerges, starting from the center and expanding outward. The pattern is composed of multiple rays of light, each one slightly different in intensity and color. The rays are predominantly blue and white, creating a striking contrast against the dark backdrop. As the pattern grows, the rays become more pronounced, radiating outward in a symmetrical fashion. The light intensity increases, making the pattern appear more vibrant and dynamic. The rays continue to expand, filling the frame with a captivating display of light. The video ends with the pattern reaching its full extent, leaving a lasting impression of the mesmerizing light display."
+        ],
+        "path": "istock/videos_istock_coco_part1/gm1131786304-299791435.mp4",
+        "aesthetic": 5.436854839324951
+    },
+    {
+        "cut": [
+            0,
+            117
+        ],
+        "crop": [
+            0,
+            1280,
+            0,
+            720
+        ],
+        "tech": 2.125,
+        "motion": 0.014272934757173061,
+        "fps": 25.0,
+        "num_frames": 117,
+        "resolution": {
+            "height": 720,
+            "width": 1280
+        },
+        "cap": [
+            "A serene moment of a couple embracing on a beach during sunset. The man, wearing glasses and a white shirt, has his arm around the woman, who is dressed in a sleeveless top. The woman has long, wavy hair and is smiling as she looks at the man. The background is a beautiful gradient of orange and yellow hues, typical of a sunset over the sea. The water is calm, reflecting the warm colors of the sky. The couple appears to be enjoying a romantic moment, with the woman's hand resting gently on the man's shoulder. The overall atmosphere is peaceful and intimate, with the natural light creating a soft, warm glow around them."
+        ],
+        "path": "clipchamp/videos_clipchampblocks_coco_v2/stryb_v1786989.mp4",
+        "aesthetic": 5.55714750289917
+    },
+    {
+        "cut": [
+            0,
+            113
+        ],
+        "crop": [
+            0,
+            1280,
+            0,
+            720
+        ],
+        "tech": 1.75,
+        "motion": 0.02322559431195259,
+        "fps": 25.0,
+        "num_frames": 113,
+        "resolution": {
+            "height": 720,
+            "width": 1280
+        },
+        "cap": [
+            "Three women walking together in what appears to be a shopping mall or a similar public indoor space. They are all carrying red shopping bags, suggesting they have been shopping. The woman on the left has curly hair and is wearing a white top with black polka dots and blue jeans. The woman in the middle has long, straight blonde hair and is dressed in a black outfit. The woman on the right has long, straight dark hair and is wearing a black top and pants. They are all smiling and appear to be engaged in conversation, indicating they are enjoying their time together. The background shows other people and storefronts, typical of a busy shopping area. The lighting is bright, consistent with an indoor environment."
+        ],
+        "path": "storyblocks/videos_storyblocks_V7/509340.mp4",
+        "aesthetic": 5.178563594818115
+    },
+    {
+        "cut": [
+            0,
+            107
+        ],
+        "crop": [
+            0,
+            1280,
+            0,
+            720
+        ],
+        "tech": 1.721,
+        "motion": 0.015374351292848587,
+        "fps": 23.979999542236328,
+        "num_frames": 107,
+        "resolution": {
+            "height": 720,
+            "width": 1280
+        },
+        "cap": [
+            "A tender moment between two individuals standing outdoors. The setting appears to be a residential area with a building and trees in the background. The individuals are close to each other, with the person on the left having long, dark hair and wearing a gray coat. The person on the right has short, light-colored hair and is wearing a white shirt and a black vest. They are touching foreheads and appear to be engaged in a moment of affection. The camera is positioned at a medium distance, focusing on the couple, and there is no significant movement, allowing the viewer to observe the intimate interaction."
+        ],
+        "path": "clipchamp/videos_clipchampblocks_coco/stryb_v346725712.mp4",
+        "aesthetic": 4.98537015914917
+    },
+    {
+        "cut": [
+            0,
+            117
+        ],
+        "crop": [
+            0,
+            1280,
+            0,
+            720
+        ],
+        "tech": 1.4495,
+        "motion": 0.0036502336151897907,
+        "fps": 25.0,
+        "num_frames": 117,
+        "resolution": {
+            "height": 720,
+            "width": 1280
+        },
+        "cap": [
+            "A serene indoor scene featuring two white statues of seated figures, likely representing deities or spiritual beings, positioned on a stone platform. The statues are adorned in traditional robes and are seated in a meditative pose, one with hands clasped together and the other with hands resting on a stone table. The table holds a small collection of objects, possibly symbolic items or offerings. The background reveals a cave-like setting with rocky walls and a natural light source, possibly sunlight filtering through an opening, casting a soft glow on the scene. The floor is made of stone tiles, and there are a few scattered leaves, adding a touch of nature to the setting. The overall atmosphere is calm and contemplative, evoking a sense of tranquility and reverence."
+        ],
+        "path": "clipchamp/videos_clipchampblocks_coco/stryb_v10892787.mp4",
+        "aesthetic": 5.2003090381622314
+    },
+    {
+        "cut": [
+            0,
+            113
+        ],
+        "crop": [
+            0,
+            1280,
+            0,
+            720
+        ],
+        "tech": 0.077,
+        "motion": 0.00827881321310997,
+        "fps": 23.979999542236328,
+        "num_frames": 113,
+        "resolution": {
+            "height": 720,
+            "width": 1280
+        },
+        "cap": [
+            "A dimly lit bedroom scene at night. A person is lying on a bed, using a laptop. The room is softly illuminated by a small lamp on the bedside table, casting a warm glow. The bed has a metal frame and is covered with white sheets. The person appears to be focused on the laptop screen, possibly working or browsing the internet. The room has a cozy, intimate atmosphere, with the window letting in a small amount of light from the outside. The overall mood of the scene is calm and relaxed."
+        ],
+        "path": "storyblocks/videos_storyblocks_V9/347437572.mp4",
+        "aesthetic": 5.011746883392334
+    },
+    {
+        "cut": [
+            0,
+            117
+        ],
+        "crop": [
+            0,
+            1280,
+            0,
+            720
+        ],
+        "tech": 1.562,
+        "motion": 0.006703108083456755,
+        "fps": 24.0,
+        "num_frames": 117,
+        "resolution": {
+            "height": 720,
+            "width": 1280
+        },
+        "cap": [
+            "A view of a modern bedroom with a large bed positioned in the center. The bed is neatly made with a gray and white quilt, and it is adorned with several pillows. Above the bed, there is a headboard with a minimalist design. To the left of the bed, there is a tall, curved floor lamp with a black base and a white shade. The room features large windows that span almost the entire wall, offering an expansive view of the ocean and a city skyline. The windows are framed with white curtains that are partially drawn to the sides, allowing natural light to flood the room. Outside, the sky is clear with a few scattered clouds, and the ocean is visible with gentle waves. The cityscape includes tall buildings and greenery. The overall ambiance of the room is serene and inviting, with a blend of modern and minimalist design elements."
+        ],
+        "path": "storyblocks/videos_storyblocks_V6/348409949.mp4",
+        "aesthetic": 5.279304504394531
+    },
+    {
+        "cut": [
+            72,
+            141
+        ],
+        "crop": [
+            0,
+            1280,
+            0,
+            720
+        ],
+        "tech": 0.327,
+        "motion": 0.0666859820485115,
+        "fps": 30.0,
+        "num_frames": 69,
+        "resolution": {
+            "height": 720,
+            "width": 1280
+        },
+        "cap": [
+            "A stylized, animated sequence featuring a white silhouette of a tiger. The tiger is shown in various dynamic poses, suggesting movement and action. Initially, the tiger is depicted in a crouched position, with its front legs raised and its body low to the ground, as if it is about to pounce or leap. The silhouette then transitions into a running pose, with the tiger's legs extended and its body leaning forward, indicating rapid movement. The background is a solid black, which contrasts sharply with the white silhouette, emphasizing the tiger's form and motion. The video appears to be a loopable animation, as the tiger's movements are fluid and continuous. There is no indication of any other objects or characters in the scene, and the focus remains solely on the tiger's silhouette."
+        ],
+        "path": "istock/videos_istock_coco_part4/gm959098456-261893361.mp4",
+        "aesthetic": 5.018774509429932
+    },
+    {
+        "cut": [
+            0,
+            71
+        ],
+        "crop": [
+            0,
+            1280,
+            0,
+            720
+        ],
+        "tech": 1.402,
+        "motion": 0.05651523917913437,
+        "fps": 30.0,
+        "num_frames": 71,
+        "resolution": {
+            "height": 720,
+            "width": 1280
+        },
+        "cap": [
+            "A black panther in a dynamic pose against a plain white background. The panther is captured in mid-action, seemingly in the middle of a leap or jump. Its front legs are extended forward, and its hind legs are bent, suggesting a powerful movement. The panther's tail is extended backward, adding to the sense of motion. The animal's mouth is open, and its eyes are focused forward, indicating concentration and determination. The video is a single frame, and there are no visible changes or camera movements within this frame. The overall scene is devoid of any other objects or characters, emphasizing the solitary figure of the black panther."
+        ],
+        "path": "istock/videos_istock_coco_part4/gm959098456-261893361.mp4",
+        "aesthetic": 5.101168632507324
+    },
+    {
+        "cut": [
+            0,
+            107
+        ],
+        "crop": [
+            0,
+            1280,
+            0,
+            720
+        ],
+        "tech": 1.53,
+        "motion": 0.01643800176680088,
+        "fps": 23.979999542236328,
+        "num_frames": 107,
+        "resolution": {
+            "height": 720,
+            "width": 1280
+        },
+        "cap": [
+            "A person lying on a bed, using a smartphone. The individual has dreadlocks, which are a mix of orange and black colors, and is wearing a black long-sleeve shirt. The person is lying on their stomach, with their head resting on their hand, and is focused on the smartphone screen. The bed has a white sheet and a metal headboard. The room has a dark blue wall, and there is a small amount of light coming from the smartphone, illuminating the person's face and the immediate area around the phone. The person appears to be engaged with the content on the phone, possibly texting or browsing. The overall atmosphere of the scene is calm and relaxed."
+        ],
+        "path": "storyblocks/videos_storyblocks_V9/347755515.mp4",
+        "aesthetic": 5.127749919891357
+    },
+    {
+        "cut": [
+            0,
+            139
+        ],
+        "crop": [
+            0,
+            1280,
+            0,
+            720
+        ],
+        "tech": 1.93,
+        "motion": 0.0016833980334922671,
+        "fps": 29.970029830932617,
+        "num_frames": 139,
+        "resolution": {
+            "height": 720,
+            "width": 1280
+        },
+        "cap": [
+            "A serene landscape dominated by a wind turbine situated on a grassy hillside. The wind turbine, with its three blades, stands prominently against a backdrop of a rugged, rocky mountain. The sky above is clear and blue, indicating a bright, sunny day. Surrounding the wind turbine, there are patches of greenery, including trees and bushes, which add to the natural beauty of the scene. The terrain appears to be gently sloping, with the wind turbine positioned slightly off-center to the left of the frame. The overall atmosphere of the video is peaceful and undisturbed, with no visible movement or activity other than the implied motion of the wind turbine's blades."
+        ],
+        "path": "istock/videos_istock_coco_part1/gm1450004953-487036658.mp4",
+        "aesthetic": 4.875703811645508
+    },
+    {
+        "cut": [
+            0,
+            287
+        ],
+        "crop": [
+            0,
+            1280,
+            0,
+            720
+        ],
+        "tech": 2.207,
+        "motion": 0.01727939397096634,
+        "fps": 59.940059661865234,
+        "num_frames": 287,
+        "resolution": {
+            "height": 720,
+            "width": 1280
+        },
+        "cap": [
+            "A close-up view of a honeycomb frame filled with bees. The frame is made of wood and is covered with a dense cluster of bees, both on the surface and within the honeycomb cells. The bees are in various positions, some crawling along the frame, while others are inside the cells. The honeycomb cells are hexagonal and filled with honey, which appears as a golden liquid. The bees are primarily dark brown in color, with some lighter shades visible. The background is blurred, focusing attention on the honeycomb and the bees. The video captures the bees' activity, showing them moving around and interacting with each other and the honeycomb."
+        ],
+        "path": "istock/videos_istock_coco_part18/gm1438347321-478872289.mp4",
+        "aesthetic": 4.978128433227539
+    },
+    {
+        "cut": [
+            4,
+            109
+        ],
+        "crop": [
+            0,
+            1280,
+            0,
+            720
+        ],
+        "tech": 1.513,
+        "motion": 0.013129886239767075,
+        "fps": 24.0,
+        "num_frames": 105,
+        "resolution": {
+            "height": 720,
+            "width": 1280
+        },
+        "cap": [
+            "A close-up shot of a metallic, abstract structure against a dark background. The structure appears to be composed of numerous small, sharp, and pointed elements that are arranged in a symmetrical, upward-reaching pattern. The lighting is focused on the structure, highlighting its intricate details and giving it a metallic, reflective quality. The background is completely black, which contrasts sharply with the metallic structure, making it the sole focus of the scene. The camera remains stationary throughout the video, providing a stable and clear view of the structure. There are no visible movements or changes in the scene, as the structure remains static and the lighting remains consistent. The overall mood of the video is one of stillness and focus, with the metallic structure being the central element of interest."
+        ],
+        "path": "istock/videos_istock_coco_part38/gm1209182399-349799159.mp4",
+        "aesthetic": 5.319800853729248
+    },
+    {
+        "cut": [
+            0,
+            143
+        ],
+        "crop": [
+            0,
+            1280,
+            0,
+            720
+        ],
+        "tech": 2.174,
+        "motion": 0.017089487984776497,
+        "fps": 29.969999313354492,
+        "num_frames": 143,
+        "resolution": {
+            "height": 720,
+            "width": 1280
+        },
+        "cap": [
+            "A dental office setting. In the foreground, a young woman with long, dark hair is seated in a dental chair, smiling and giving a thumbs-up gesture with her right hand. She is wearing a white shirt. Behind her, a male dental professional, dressed in a blue uniform, is seated at a dental workstation. He appears to be working on dental equipment, possibly preparing for or in the midst of a procedure. The background is well-lit, with modern dental equipment visible, including a dental light and various tools and instruments. The overall atmosphere of the video suggests a professional and clean environment, typical of a dental clinic."
+        ],
+        "path": "storyblocks/videos_storyblocks_v3/dentist-is-drilling-the-patients-teeth-and-assistant-girl-smiles-and-thumbs-up-348559294.mp4",
+        "aesthetic": 5.251534461975098
+    },
+    {
+        "cut": [
+            0,
+            119
+        ],
+        "crop": [
+            0,
+            1280,
+            0,
+            720
+        ],
+        "tech": 1.269,
+        "motion": 0.0026327709201723337,
+        "fps": 25.0,
+        "num_frames": 119,
+        "resolution": {
+            "height": 720,
+            "width": 1280
+        },
+        "cap": [
+            "A serene and picturesque scene of a coastal area during sunset. The sky is painted with hues of orange, pink, and purple, transitioning into a darker blue as it stretches towards the horizon. The sun is partially visible, casting a warm glow over the entire landscape.  In the foreground, there is a rocky outcrop with a small temple structure perched on top. The temple is adorned with greenery and flowers, adding a touch of vibrancy to the scene. The waves gently crash against the rocks, creating a rhythmic sound that complements the peaceful atmosphere.  The water is a deep blue, reflecting the colors of the sky and adding depth to the scene. The waves are moderate, suggesting a calm sea. The overall composition of the video, with the temple, the sea, and the sunset, creates a tranquil and almost spiritual ambiance."
+        ],
+        "path": "istock/videos_istock_coco_part1/gm1845882440-551630634.mp4",
+        "aesthetic": 5.3445024490356445
+    },
+    {
+        "cut": [
+            0,
+            229
+        ],
+        "crop": [
+            0,
+            1280,
+            0,
+            720
+        ],
+        "tech": 1.6059999999999999,
+        "motion": 0.00913163274526596,
+        "fps": 50.0,
+        "num_frames": 229,
+        "resolution": {
+            "height": 720,
+            "width": 1280
+        },
+        "cap": [
+            "A close-up shot of a person wearing a blue surgical mask. The individual's eyes are closed, and the camera focuses on the mask, capturing the texture and details of the fabric. The background is blurred, drawing attention to the mask and the person's face. As the video progresses, the person slowly opens their eyes, revealing a pair of brown eyes. The light from the background illuminates the person's face, creating a soft glow around the eyes and the mask. The camera remains steady, maintaining the close-up shot, and the person's facial expression changes from closed eyes to open, revealing a sense of calm or contemplation. The video ends with the person still wearing the mask, eyes open, and the camera still focused on the face."
+        ],
+        "path": "istock/videos_istock_coco_part9/gm1222379734-358666085.mp4",
+        "aesthetic": 5.255957841873169
+    },
+    {
+        "cut": [
+            22,
+            149
+        ],
+        "crop": [
+            0,
+            1280,
+            0,
+            720
+        ],
+        "tech": 0.633,
+        "motion": 0.07526636123657227,
+        "fps": 29.969999313354492,
+        "num_frames": 127,
+        "resolution": {
+            "height": 720,
+            "width": 1280
+        },
+        "cap": [
+            "A large group of people standing on a stage, all dressed in colorful costumes. The audience is visible in the background, and the stage is well-lit with bright lights. The performers are holding colorful streamers, which they wave in the air. The crowd appears to be engaged and enthusiastic, with many people clapping and cheering. The performers then begin to dance, moving in unison and performing a choreographed routine. The dancers move fluidly, with their arms and legs swinging in rhythm. The streamers are used as props, with the performers twirling and tossing them in the air. The audience continues to cheer and clap as the performance progresses. The dancers maintain their formation, moving together in a coordinated manner. The video ends with the performers striking a final pose, holding their streamers high in the air."
+        ],
+        "path": "storyblocks/videos_storyblocks_V7/2637944.mp4",
+        "aesthetic": 4.76098108291626
+    },
+    {
+        "cut": [
+            0,
+            139
+        ],
+        "crop": [
+            0,
+            1280,
+            0,
+            720
+        ],
+        "tech": 1.013,
+        "motion": 0.0011941012926399708,
+        "fps": 29.970029830932617,
+        "num_frames": 139,
+        "resolution": {
+            "height": 720,
+            "width": 1280
+        },
+        "cap": [
+            "A blurry image of a wooden surface. In the foreground, there is a small glass bowl filled with a creamy substance, possibly a sauce or condiment. The background features two additional bowls, one containing a white substance that could be mayonnaise or sour cream, and the other holding a green substance that might be pickles or some type of vegetable. The focus gradually sharpens, bringing the details of the bowls and their contents into clearer view. The lighting remains consistent, highlighting the textures and colors of the substances within the bowls. The camera remains stationary throughout, allowing the viewer to focus on the gradual sharpening of the image."
+        ],
+        "path": "istock/videos_istock_coco_part1/gm1481872334-509047665.mp4",
+        "aesthetic": 4.8564982414245605
+    },
+    {
+        "cut": [
+            0,
+            115
+        ],
+        "crop": [
+            0,
+            1280,
+            0,
+            720
+        ],
+        "tech": 0.429,
+        "motion": 0.005154202226549387,
+        "fps": 25.0,
+        "num_frames": 115,
+        "resolution": {
+            "height": 720,
+            "width": 1280
+        },
+        "cap": [
+            "A residential area with multiple houses visible in the background. The roofs are covered with dark-colored tiles, and several chimneys protrude from the rooftops. The chimneys are of various designs, some with simple cylindrical shapes and others more ornate. In the foreground, there is a brick building with a flat roof. The roof has several vents and a chimney, from which a plume of white smoke is rising into the air. The smoke appears to be billowing upwards, indicating that something is being burned inside the building. The sky is clear, and the lighting suggests it is daytime. The overall scene is static, with no visible movement or action apart from the rising smoke."
+        ],
+        "path": "storyblocks/videos_storyblocks_v4/densely-built-urban-scenery-with-smoking-chimneys-on-an-early-winter-morning-extremely-long-shot-warm-air-distortion-visible-above-the-buildings-348952676.mp4",
+        "aesthetic": 5.243392467498779
+    },
+    {
+        "cut": [
+            0,
+            123
+        ],
+        "crop": [
+            0,
+            1280,
+            0,
+            720
+        ],
+        "tech": 1.439,
+        "motion": 0.01963968202471733,
+        "fps": 25.0,
+        "num_frames": 123,
+        "resolution": {
+            "height": 720,
+            "width": 1280
+        },
+        "cap": [
+            "A serene natural scene featuring a swan sitting on its nest in a marshy area. The swan is positioned in the center of the frame, surrounded by tall green reeds that extend upwards and outwards. The nest appears to be made of twigs and grass, providing a secure platform for the swan. The water is visible in the background, reflecting the sunlight and adding a tranquil ambiance to the setting. The lighting suggests that the scene is captured during the golden hour, with warm sunlight illuminating the swan and the surrounding vegetation. The camera angle is slightly elevated, providing a clear view of the swan and its nest amidst the reeds. There are no other animals or human-made objects visible in the frame, emphasizing the natural and undisturbed environment. The swan remains motionless, suggesting it is incubating its eggs."
+        ],
+        "path": "istock/videos_istock_coco_part17/gm1402528000-455397387.mp4",
+        "aesthetic": 4.912874698638916
+    },
+    {
+        "cut": [
+            0,
+            141
+        ],
+        "crop": [
+            0,
+            1280,
+            0,
+            720
+        ],
+        "tech": 1.041,
+        "motion": 0.10970272123813629,
+        "fps": 30.0,
+        "num_frames": 141,
+        "resolution": {
+            "height": 720,
+            "width": 1280
+        },
+        "cap": [
+            "A series of concentric circles that appear to be moving in a circular motion. The circles are of varying sizes, with the largest one in the center and the smallest ones surrounding it. The colors of the circles range from dark shades of black and gray to lighter hues of blue, yellow, and orange. The circles seem to be made of a metallic material, giving them a reflective quality. As the video progresses, the circles continue to move in a circular motion, creating a hypnotic effect. The background is completely black, which makes the colors of the circles stand out even more. The overall effect is a mesmerizing display of circular motion and color."
+        ],
+        "path": "istock/videos_istock_coco_part97/gm1131789222-299791458.mp4",
+        "aesthetic": 5.032329559326172
+    },
+    {
+        "cut": [
+            0,
+            149
+        ],
+        "crop": [
+            0,
+            1280,
+            0,
+            720
+        ],
+        "tech": 1.523,
+        "motion": 0.006137804128229618,
+        "fps": 29.969999313354492,
+        "num_frames": 149,
+        "resolution": {
+            "height": 720,
+            "width": 1280
+        },
+        "cap": [
+            "A man standing behind a podium in what appears to be a church or chapel setting. The man is wearing a black robe with a cross on the chest, suggesting he may be a clergy member or a person of religious significance. He is holding a white cloth or towel in his right hand and is speaking into a microphone. The podium is adorned with a floral arrangement of pink and white flowers in a gold vase, adding a decorative touch to the setting. The background features an arched ceiling with a patterned design, and there are additional floral arrangements on either side of the podium. The overall atmosphere suggests a formal or ceremonial occasion, possibly a religious service or a speech. The man's expression and body language indicate he is engaged in delivering a message or sermon."
+        ],
+        "path": "storyblocks/videos_storyblocks_V6/347086964.mp4",
+        "aesthetic": 5.447036266326904
+    },
+    {
+        "cut": [
+            0,
+            83
+        ],
+        "crop": [
+            0,
+            1280,
+            0,
+            720
+        ],
+        "tech": 1.882,
+        "motion": 0.0028331659268587828,
+        "fps": 23.979999542236328,
+        "num_frames": 83,
+        "resolution": {
+            "height": 720,
+            "width": 1280
+        },
+        "cap": [
+            "An elderly woman seated in what appears to be a kitchen or dining area. She is wearing a floral-patterned blouse and glasses. The woman has short, light-colored hair and is holding her hand to her chest, possibly indicating a gesture of surprise, concern, or reflection. The background shows a window with sunlight streaming through, casting shadows and creating a warm, natural light. The kitchen features tiled walls and a countertop with various items, though they are not clearly identifiable. The overall atmosphere of the scene is calm and serene, with the woman appearing to be in a moment of contemplation or emotional response."
+        ],
+        "path": "storyblocks/videos_storyblocks_imagenet/happy-pensive-elderly-woman-standing-by-window-at-kitchen-thoughtful-older-female-person-in-80-s-daydreaming-and-contemplating-life-348515648.mp4",
+        "aesthetic": 4.772611618041992
+    },
+    {
+        "cut": [
+            0,
+            109
+        ],
+        "crop": [
+            0,
+            1280,
+            0,
+            720
+        ],
+        "tech": 1.902,
+        "motion": 0.018409617245197296,
+        "fps": 25.0,
+        "num_frames": 109,
+        "resolution": {
+            "height": 720,
+            "width": 1280
+        },
+        "cap": [
+            "A close-up shot of an elderly man's face. The man has white hair and is shown in profile, looking slightly to the side. His facial expression appears contemplative or focused. The background is blurred, making it difficult to discern specific details, but it seems to be an indoor setting with some light sources visible. The man's skin shows signs of aging, with wrinkles and some discoloration. The lighting in the scene is soft, casting gentle shadows on his face. There are no other visible objects or people in the frame. The camera remains stationary throughout the video, maintaining a close-up shot of the man's face."
+        ],
+        "path": "clipchamp/videos_clipchampblocks_coco/stryb_v10951247.mp4",
+        "aesthetic": 5.498518943786621
+    }
+]

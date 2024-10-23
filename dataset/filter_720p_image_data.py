@@ -19,7 +19,7 @@ if __name__ == '__main__':
             if item['resolution']["height"]>512 and item['resolution']["width"]>512:        
                 new_data.append(item)
         print(f'new_data:{len(new_data)}!')
-        if len(new_data) > 12000000:
+        if len(new_data) > 100:
             break
-    with open(f'/storage/zhubin/UniLLM/dataset/recap_final_512+_{len(new_data)}.json', 'w') as f:
-        json.dump(new_data, f, indent=4, ensure_ascii=False)
+    with open(f'/storage/zhubin/UniLLM/dataset/image_subst_{len(new_data[:100])}.json', 'w') as f:
+        json.dump(new_data[:100], f, indent=4, ensure_ascii=False)

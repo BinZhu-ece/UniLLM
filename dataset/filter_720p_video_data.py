@@ -18,5 +18,7 @@ if __name__ == '__main__':
                                     "width": 1280
                                     }:
             new_data.append(item)
-    with open(f'/storage/zhubin/UniLLM/dataset/sucai_final_720p_{len(new_data)}.json', 'w') as f:
-        json.dump(new_data, f, indent=4, ensure_ascii=False)
+            if len(new_data) == 100:
+                break
+    with open(f'/storage/zhubin/UniLLM/dataset/video_subset_{len(new_data[:100])}.json', 'w') as f:
+        json.dump(new_data[:100], f, indent=4, ensure_ascii=False)

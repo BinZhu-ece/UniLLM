@@ -182,8 +182,8 @@ def main(args):
             inputs = tokenizer(
                 text, 
                 return_tensors="pt",
-                # padding=True,  # 使用最大长度进行填充
-                padding='max_length', 
+                padding=True,  # 使用最大长度进行填充
+                # padding='max_length', 
                 max_length=args.tokenizer_max_len,    # 这里替换为你想要的固定长度
                 truncation=True        # 如果文本超过最大长度则截断
                 )

@@ -48,4 +48,3 @@ def random_crop_arr(pil_image, image_size, min_crop_frac=0.8, max_crop_frac=1.0)
     crop_y = random.randrange(arr.shape[0] - image_size + 1)
     crop_x = random.randrange(arr.shape[1] - image_size + 1)
     return Image.fromarray(arr[crop_y : crop_y + image_size, crop_x : crop_x + image_size])
-
