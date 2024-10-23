@@ -73,7 +73,6 @@ def main(args):
     logger.info(f"{args}")
     # training env
     logger.info(f"Starting rank={rank}, seed={seed}, world_size={dist.get_world_size()}.")
-
     # Setup model: language model & tokenizer
     from autoregressive.models.qwen2 import Qwen2VisionForCausalLM
     from transformers import AutoTokenizer
@@ -86,7 +85,6 @@ def main(args):
         # MODEL_HUB = args.vq_repo # "BAAI/Emu3-VisionTokenizer"
         vq_model = VQ_models[args.vq_model]
         vq_model =  vq_model.from_pretrained(args.vq_repo,  cache_dir='./cache_dir').eval().to(device) # trust_remote_code=True,
-
         processor = Emu3VisionVQImageProcessor.from_pretrained(args.vq_repo, cache_dir="/storage/zhubin/UniLLM/cache_dir") # trust_remote_code=True, 
         # 暂时修改
         processor.max_pixels = 256*256
@@ -108,7 +106,6 @@ def main(args):
                             data_repeat=1, 
                             tokenizer_max_len=args.tokenizer_max_len       
                             )
-    
     # sampler = DistributedSampler(
     #     dataset,
     #     num_replicas=dist.get_world_size(),
@@ -176,10 +173,7 @@ def main(args):
         sampler.set_epoch(epoch)
         logger.info(f"Beginning epoch {epoch}...")
         # for x, y, attn_mask, valid in loader:
-
-
         for samples in loader:
-
             step_counter += 1
             # text 
             text = []
@@ -223,7 +217,7 @@ def main(args):
             attention_mask = attention_mask.to(device, non_blocking=True)
  
             # video
-            import ipdb; ipdb.set_trace()
+            # import ipdb; ipdb.set_trace()
             visual_data = torch.cat(samples['visual_data'], dim=0) # (bs, n_frame//4, 4, c, h, w)
             (b, n, t, c, h ,w) = visual_data.shape # [2, 2, 4, 3, 256, 256]  or  [2, 1, 1, 3, 512, 512]
             if data_type == 'video':

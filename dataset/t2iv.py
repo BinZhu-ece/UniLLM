@@ -170,7 +170,10 @@ class T2IV_dataset(Dataset):
         self.temporal_downsample_factor = temporal_downsample_factor
         self.tokenizer_max_len =  tokenizer_max_len
         self.code_len = (latent_size ** 2) * (args.num_frames//4) # video vae tokens
-        self.video_sampler_batchsize = video_sampler_batchsize  
+        self.video_sampler_batchsize = video_sampler_batchsize 
+
+        self.do_image_center_crop = args.do_image_center_crop # True
+        self.image_crop_size = args.image_crop_size # 256
 
 
     def read_jsonfile(self, jsonfile):
@@ -197,7 +200,8 @@ class T2IV_dataset(Dataset):
         for i in range(1, n_frames+1, 1):
             frame = vr[i]  # 通过索引获取帧
             img = Image.fromarray(frame.asnumpy())  # 转换为 PIL.Image.Image
-            img_resized = img.resize((256, 256))  # 调整大小为 256x256
+            img_resized = img
+            # img_resized = img.resize((256, 256))  # 调整大小为 256x256
             frames.append(img_resized)
 
         return frames
@@ -244,9 +248,44 @@ class T2IV_dataset(Dataset):
             idx.append('video')
             return self.__getitem__(idx)
 
+
+    def resize_and_center_crop(self, image_path, output_size=512):
+
+        # 打开图片
+        image = Image.open(image_path)
+        
+        # 获取图片的原始尺寸
+        width, height = image.size
+        
+        # 计算新的尺寸，保持宽高比
+        if width < height:
+            new_width = output_size
+            new_height = int(output_size * height / width)
+        else:
+            new_width = int(output_size * width / height)
+            new_height = output_size
+        
+        # 调整图片大小
+        image = image.resize((new_width, new_height))
+        
+        # 计算中心裁剪的位置
+        left = (new_width - output_size) // 2
+        top = (new_height - output_size) // 2
+        right = left + output_size
+        bottom = top + output_size
+        
+        # 进行中心裁剪
+        image = image.crop((left, top, right, bottom))
+        
+        return image
+
+
     def get_image_data(self, idx):
         image_path = os.path.join(self.image_data_root, self.image_meta_info[idx]['path'])
-        image =  Image.open(image_path) 
+        if self.do_image_center_crop:
+            image = self.resize_and_center_crop(image_path, output_size=self.image_crop_size)
+        else:
+            image =  Image.open(image_path) 
         image = self.processor(image, return_tensors="pt")["pixel_values"] 
         image = image.unsqueeze(0)  # (1, n_frame, c, h, w)
         return image
@@ -366,8 +405,10 @@ if __name__ == "__main__":
     parser.add_argument("--vq_model", type=str, default="Emu3_VQ")
     parser.add_argument("--vq_repo", type=str, default="BAAI/Emu3-VisionTokenizer") 
 
-
     parser.add_argument("--image_meta_info_file", type=str, default='/storage/zhubin/UniLLM/tmp/image_data.json')
+    parser.add_argument("--do_image_center_crop", action="store_true")
+    parser.add_argument("--image_crop_size", type=int, default=256)
+    
     args = parser.parse_args()
 
     init_distributed_mode(args)
@@ -396,10 +437,10 @@ if __name__ == "__main__":
     
     # import ipdb; ipdb.set_trace()
     processor = Emu3VisionVQImageProcessor.from_pretrained("BAAI/Emu3-VisionTokenizer", trust_remote_code=True, cache_dir="/storage/zhubin/UniLLM/cache_dir")
-    processor.max_pixels = 256*256
+    processor.max_pixels = 512*512
     processor.min_pixels = 256*256
     processor.size = {
-        "max_pixels": 256*256,
+        "max_pixels": 512*512,
         "min_pixels": 256*256
     }
     temporal_downsample_factor = 4
@@ -468,11 +509,14 @@ if __name__ == "__main__":
  
 
 """
-DATA_FILE='/storage/zhubin/video_statistics_data/task1.5/Final_format_dataset_data_v2/step1.5_coverr_final_3002.json'
- 
+VIDEO_DATA_FILE='/storage/zhubin/UniLLM/dataset/sucai_final_720p_2490942.json'
+IMAGE_DATA_FILE='/storage/zhubin/UniLLM/dataset/recap_final_512+_3796513.json'
+
+
 export master_addr=127.0.0.1
-export master_port=29504
+export master_port=29505
 export CUDA_VISIBLE_DEVICES=7
+
 cd  /storage/zhubin/UniLLM
 source  /storage/miniconda3/etc/profile.d/conda.sh 
 conda activate  
@@ -480,19 +524,21 @@ conda activate
 
 export http_proxy=127.0.0.1:7890
 export https_proxy=127.0.0.1:7890
-# HF_DATASETS_OFFLINE=1  
+
 HF_DATASETS_OFFLINE=1   torchrun  --nnodes=1  --nproc_per_node=1  \
 --master_addr=$master_addr --master_port=$master_port \
 dataset/t2iv.py \
---video_meta_info_file $DATA_FILE \
+--video_meta_info_file $VIDEO_DATA_FILE \
 --num_frames 16 \
 --video_data_root  /storage/dataset \
---image_data_root  /storage/zhubin/UniLLM  \
+--image_data_root  /storage/dataset/recap_datacomp_1b_data/output  \
 --t5-path  /storage/zhubin/LlamaGen/dataset/storage_datasets_npy \
 --num-workers 0 \
 --vq_model   Emu3_VQ \
 --vq_repo  BAAI/Emu3-VisionTokenizer \
---image_meta_info_file   /storage/zhubin/UniLLM/tmp/image_data.json 
+--image_meta_info_file  $IMAGE_DATA_FILE \
+--image_crop_size   256 \
+--do_image_center_crop  
 
  
 """

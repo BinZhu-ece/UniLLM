@@ -42,7 +42,7 @@ def main(args):
     
     # Setup DDP:
     init_distributed_mode(args)
-    assert args.global_batch_size % dist.get_world_size() == 0, f"Batch size must be divisible by world size."
+    # assert args.global_batch_size % dist.get_world_size() == 0, f"Batch size must be divisible by world size."
     rank = dist.get_rank()
     device = rank % torch.cuda.device_count()
     seed = args.global_seed * dist.get_world_size() + rank
@@ -144,9 +144,12 @@ def main(args):
         checkpoint = torch.load(args.llm_ckpt, map_location="cpu")
         model.load_state_dict(checkpoint["model"], strict=True)
         optimizer.load_state_dict(checkpoint["optimizer"])
+
         train_steps = checkpoint["steps"] if "steps" in checkpoint else int(args.llm_ckpt.split('/')[-1].split('.')[0])
-        start_epoch = int(train_steps / int(len(dataset) / args.global_batch_size))
-        train_steps = int(start_epoch * int(len(dataset) / args.global_batch_size))
+       
+        start_epoch = checkpoint['epoch']
+
+        # train_steps = int(start_epoch * int(len(dataset) / args.global_batch_size))
         del checkpoint
         logger.info(f"Resume training from checkpoint: {args.llm_ckpt}")
         logger.info(f"Initial state: steps={train_steps}, epochs={start_epoch}")
@@ -171,16 +174,29 @@ def main(args):
 
     logger.info(f"Training for {args.epochs} epochs...")
 
-    step_counter = 0
+   
+
+    # image loss weight
+    def linear_decay(step, total_steps=10000, start_value=1.0, end_value=0.005):
+        if step >= total_steps:
+            return end_value
+        return start_value - (start_value - end_value) * (step / total_steps)
+
+    # image loss weight
+    def exponential_decay(step, total_steps=10000, start_value=1.0, end_value=0.005):
+        if step >= total_steps:
+            return end_value
+        decay_rate = (end_value / start_value) ** (1 / total_steps)
+        return start_value * (decay_rate ** step)
+
+
     for epoch in range(start_epoch, args.epochs):
         sampler.set_epoch(epoch)
         logger.info(f"Beginning epoch {epoch}...")
         # for x, y, attn_mask, valid in loader:
 
-
         for samples in loader:
-
-            step_counter += 1
+   
             # text 
             text = []
             for text_item in samples['text']:
@@ -223,7 +239,7 @@ def main(args):
             attention_mask = attention_mask.to(device, non_blocking=True)
  
             # video
-            import ipdb; ipdb.set_trace()
+            # import ipdb; ipdb.set_trace()
             visual_data = torch.cat(samples['visual_data'], dim=0) # (bs, n_frame//4, 4, c, h, w)
             (b, n, t, c, h ,w) = visual_data.shape # [2, 2, 4, 3, 256, 256]  or  [2, 1, 1, 3, 512, 512]
             if data_type == 'video':
@@ -238,7 +254,7 @@ def main(args):
             with torch.no_grad():
                 codes = vq_model.encode(visual_data_flat)
             input_vision_ids =  codes.reshape(b, -1) # torch.Size([2, 32768])  or  [2, 8192]
-            print(f'{data_type} input_vision_ids.shape: {input_vision_ids.shape}')
+            # print(f'{data_type} input_vision_ids.shape: {input_vision_ids.shape}')
             
             # import ipdb; ipdb.set_trace() # print(input_ids.shape, input_vision_ids.shape, attention_mask_matrix.shape)
             with torch.cuda.amp.autocast(dtype=ptdtype):  
@@ -248,11 +264,11 @@ def main(args):
                                labels=input_vision_ids)
                 loss = output['loss']
 
-            if step_counter % 10 == 1:
+            if train_steps % 1000 == 1:
                 if data_type == 'video':
-                    codes = torch.argmax(output['logits'], dim=1).reshape(-1, args.num_frames//4, 32, 32) #
+                    codes = torch.argmax(output['logits'], dim=1).reshape(-1, args.num_frames//4, h//8, w//8) #
                 elif data_type == 'image':
-                    codes = torch.argmax(output['logits'], dim=1).reshape(-1, 1, 32, 32) #
+                    codes = torch.argmax(output['logits'], dim=1).reshape(-1, 1, h//8, w//8) #
 
                 with torch.no_grad():
                     recon = vq_model.decode(codes) # (4, 4, 3, 256, 256)
@@ -262,16 +278,20 @@ def main(args):
 
                 save_dir = './sample_results_new'; os.makedirs(save_dir, exist_ok=True)
                 for idx, im in enumerate(recon_images):
-                    im.save(f"{save_dir}/step_counter_{step_counter}_{idx}.png")
+                    im.save(f"{save_dir}/step_counter_{train_steps}_{idx}.png")
  
-
+            # import ipdb; ipdb.set_trace()
             if args.gradient_accumulation_steps > 1:
                 loss = loss / args.gradient_accumulation_steps
-            
+                if data_type == 'image':
+                    image_loss_weight = linear_decay(train_steps, total_steps=len(loader)*args.epochs, start_value=1.0, end_value=0.001)
+                    loss *= image_loss_weight
+                    # print(f'{train_steps=} image_loss_weight: {image_loss_weight}, {len(loader)*args.epochs}')
+
             # backward pass, with gradient scaling if training in fp16         
             scaler.scale(loss).backward()
 
-            if step_counter % args.gradient_accumulation_steps == 0:
+            if train_steps % args.gradient_accumulation_steps == 0:
                 if args.max_grad_norm != 0.0:
                     scaler.unscale_(optimizer)
                     torch.nn.utils.clip_grad_norm_(model.parameters(), args.max_grad_norm)
@@ -311,7 +331,8 @@ def main(args):
                         "model": model_weight,
                         "optimizer": optimizer.state_dict(),
                         "steps": train_steps,
-                        "args": args
+                        "args": args,
+                        'epoch': epoch,
                     }
                     if not args.no_local_save:
                         checkpoint_path = f"{checkpoint_dir}/{train_steps:07d}.pt"
@@ -324,8 +345,8 @@ def main(args):
                 dist.barrier()
 
 
-            del input_ids, attention_mask, visual_data_flat, codes
-            torch.cuda.empty_cache()  # 手动清理显存
+            # del input_ids, attention_mask, visual_data_flat, codes
+            # torch.cuda.empty_cache()  # 手动清理显存
 
     model.eval()  # important! This disables randomized embedding dropout
     # do any sampling/FID calculation/etc. with ema (or model) in eval mode ...
@@ -400,5 +421,9 @@ if __name__ == "__main__":
     # --image_sampler_batchsize 3
     parser.add_argument("--video_sampler_batchsize", type=int, default=2, help="Number of steps to accumulate gradients over.")
     parser.add_argument("--image_sampler_batchsize", type=int, default=3, help="Number of steps to accumulate gradients over.")
+
+    parser.add_argument("--do_image_center_crop", action="store_true")
+    parser.add_argument("--image_crop_size", type=int, default=256)
+    
     args = parser.parse_args()
     main(args)
