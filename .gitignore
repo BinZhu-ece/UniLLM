@@ -13,6 +13,9 @@ sample_results_new
 dataset/recap_final_512+_3796513.json
 dataset/recap_final_512+_12516581.json
 dataset/sucai_final_720p_2490942.json
+sample_results_new
+
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
