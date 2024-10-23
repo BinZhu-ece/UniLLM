@@ -146,7 +146,7 @@ class SimpleDistributedSampler(Sampler):
         # 在分布式训练时更新 epoch，从而保证每个 epoch 的 shuffle 不同
         self.epoch = epoch
         
-class T2V_dataset(Dataset):
+class T2IV_dataset(Dataset):
     def __init__(self, args,  tokenizer, 
                  processor, temporal_downsample_factor, 
                  data_repeat=10, tokenizer_max_len=120,
@@ -158,7 +158,7 @@ class T2V_dataset(Dataset):
         
  
         assert args.video_meta_info_file is not None
-        self.video_meta_info = self.read_jsonfile(args.video_meta_info_file)[:10]
+        self.video_meta_info = self.read_jsonfile(args.video_meta_info_file) # [:10]
         self.image_meta_info = self.read_jsonfile(args.image_meta_info_file)
 
         print(f'{args.video_meta_info_file=} is loaded successfully!')
@@ -219,7 +219,7 @@ class T2V_dataset(Dataset):
                     texts.append(text)
                     videos.append(images)
 
-                return dict(text=text, visual_data=videos)
+                return dict(text=texts, visual_data=videos, data_type='video')
 
             # image
             elif idx_list[-1] == 'image':
@@ -234,7 +234,7 @@ class T2V_dataset(Dataset):
                     image = self.get_image_data(image_idx) # (n_frame=1, 1, c, h, w)
                     texts.append(text)
                     images.append(image)
-                return dict(text=text, visual_data=images)
+                return dict(text=texts, visual_data=images, data_type='image')
             gc.collect()
        
         except Exception as e:
@@ -246,7 +246,7 @@ class T2V_dataset(Dataset):
 
     def get_image_data(self, idx):
         image_path = os.path.join(self.image_data_root, self.image_meta_info[idx]['path'])
-        image = Image.open(image_path)  
+        image =  Image.open(image_path) 
         image = self.processor(image, return_tensors="pt")["pixel_values"] 
         image = image.unsqueeze(0)  # (1, n_frame, c, h, w)
         return image
@@ -333,8 +333,8 @@ def tmp():
     with open('/storage/zhubin/liuyihang/add_aes/output/sucai_aes_1000.json', 'w') as file:
         json.dump(new_data, file, ensure_ascii=False, indent=4)
 
-def build_t2v(args, tokenizer, processor, temporal_downsample_factor, data_repeat, tokenizer_max_len):
-    return T2V_dataset(args, tokenizer, processor, temporal_downsample_factor, data_repeat, tokenizer_max_len)
+def build_t2iv(args, tokenizer, processor, temporal_downsample_factor, data_repeat, tokenizer_max_len):
+    return T2IV_dataset(args, tokenizer, processor, temporal_downsample_factor, data_repeat, tokenizer_max_len)
 
 
 if __name__ == "__main__":
@@ -385,12 +385,10 @@ if __name__ == "__main__":
     from autoregressive.models.tokenizer.emu3   import Emu3VisionVQImageProcessor
     
 
-
     from autoregressive.models.tokenizer.vq_models import VQ_models
-
     # import ipdb; ipdb.set_trace()
     vq_model  = VQ_models[args.vq_model]
-    # vq_model =  vq_model.from_pretrained(args.vq_repo, trust_remote_code=True, cache_dir='/storage/zhubin/UniLLM/cache_dir').eval().to(device)
+    vq_model =  vq_model.from_pretrained(args.vq_repo, trust_remote_code=True, cache_dir='/storage/zhubin/UniLLM/cache_dir').eval().to(device)
     
     
     MODEL_HUB =   "Qwen/Qwen2.5-1.5B"
@@ -398,16 +396,16 @@ if __name__ == "__main__":
     
     # import ipdb; ipdb.set_trace()
     processor = Emu3VisionVQImageProcessor.from_pretrained("BAAI/Emu3-VisionTokenizer", trust_remote_code=True, cache_dir="/storage/zhubin/UniLLM/cache_dir")
-    # processor.max_pixels = 512*512
-    # processor.min_pixels = 256*256
-    # processor.size = {
-    #     "max_pixels": 512*512,
-    #     "min_pixels": 256*256
-    # }
+    processor.max_pixels = 256*256
+    processor.min_pixels = 256*256
+    processor.size = {
+        "max_pixels": 256*256,
+        "min_pixels": 256*256
+    }
     temporal_downsample_factor = 4
     
     video_sampler_batchsize = 2
-    dataset = T2V_dataset(args=args, \
+    dataset = T2IV_dataset(args=args, \
                           tokenizer=tokenizer, 
                           processor=processor, 
                           temporal_downsample_factor=temporal_downsample_factor, 
@@ -427,7 +425,6 @@ if __name__ == "__main__":
     #     seed=args.global_seed
     # )
 
-    
     sampler = SimpleDistributedSampler(
         dataset, num_replicas=dist.get_world_size(), rank=rank,
         video_sampler_batchsize=2, image_sampler_batchsize=3, video_data_step_ratio=1/4,
@@ -443,24 +440,28 @@ if __name__ == "__main__":
         drop_last=True
     )
     
-
     # import ipdb; ipdb.set_trace()
     for idx, sample in enumerate(dataloader):
 
         # import ipdb; ipdb.set_trace()
         # print(rank, sample)
         # continue
-        texts = sample['text'] # list
+        texts = sample['text'] # list      sample['data_type'][0] 
         visual_data = torch.cat(sample['visual_data'], dim=0) # (bs, n_frame//4, 4, c, h, w)
-        print(rank,idx, visual_data.shape)
+        data_type = sample['data_type'][0]
+        print(rank,idx, visual_data.shape, data_type)
         # continue
-        # with torch.no_grad():
-        #     # encode
-        #     (b, n, t, c, h ,w) = sample['video_data'].shape # [2, 8, 4, 3, 512, 512] or [2, 8, 4, 3, 512, 512]
-        #     video_data_flat = sample['video_data'].reshape(b * n, t, c, h, w) # [16, 4, 3, 512, 512]  or  [16, 4, 3, 256, 256] 
-        #     codes = vq_model.encode(video_data_flat.to(device)) # [16, 1, 64, 64]  or  [16, 1, 32, 32]
-        #     codes = codes.reshape(b, -1) # torch.Size([2, 32768])  or  [2, 8192]
-        #     print(codes.shape)
+        with torch.no_grad():
+            # encode      visual_data_flat = visual_data.reshape(b * n, c, h, w)
+            (b, n, t, c, h ,w) = visual_data.shape # [2, 8, 4, 3, 512, 512] or [2, 8, 4, 3, 512, 512]
+            if data_type == 'video':
+                visual_data_flat = visual_data.reshape(b * n, t, c, h, w) # [16, 4, 3, 512, 512]  or  [16, 4, 3, 256, 256] 
+            elif data_type == 'image':
+                visual_data = visual_data[:,0]
+                visual_data_flat = visual_data.reshape(b * n, c, h, w)
+            codes = vq_model.encode( visual_data_flat.to(device)) # [16, 1, 64, 64]  or  [16, 1, 32, 32]
+            codes = codes.reshape(b, -1) # torch.Size([2, 32768])  or  [2, 8192]
+            print(codes.shape)
 
             # bn, t_, h_ , w_ = codes.shape
             # codes = codes.reshape(b, n, t_, h_, w_) # [2, 8, 1, 64, 64]
@@ -484,7 +485,7 @@ HF_DATASETS_OFFLINE=1   torchrun  --nnodes=1  --nproc_per_node=1  \
 --master_addr=$master_addr --master_port=$master_port \
 dataset/t2iv.py \
 --video_meta_info_file $DATA_FILE \
---num_frames 8 \
+--num_frames 16 \
 --video_data_root  /storage/dataset \
 --image_data_root  /storage/zhubin/UniLLM  \
 --t5-path  /storage/zhubin/LlamaGen/dataset/storage_datasets_npy \
