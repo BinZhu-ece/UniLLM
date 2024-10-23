@@ -5,8 +5,8 @@
 # debug and save_train_video_latent
 
 cd  /storage/zhubin/UniLLM
-VIDEO_DATA_FILE='/storage/zhubin/UniLLM/dataset/sucai_final_720p_2490942.json'
-IMAGE_DATA_FILE='/storage/zhubin/UniLLM/dataset/recap_final_512+_12516581.json'
+VIDEO_DATA_FILE='/storage/zhubin/UniLLM/dataset/video_subset_100.json'
+IMAGE_DATA_FILE='/storage/zhubin/UniLLM/dataset/image_subst_100.json'
 IMAGE_DATA_ROOT='/storage/dataset/recap_datacomp_1b_data/output'
 VIDEO_DATA_ROOT='/storage/dataset'
 NUM_FRAMES=16
