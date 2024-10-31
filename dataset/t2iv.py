@@ -49,7 +49,6 @@ video_meta_info_file
 """
 
 from torch.utils.data import Dataset, DataLoader
-
 from language.t5 import T5Embedder
 
 
@@ -113,7 +112,6 @@ class SimpleDistributedSampler(Sampler):
             g = torch.Generator()
             g.manual_seed(self.epoch)  # 使用epoch 作为种子
             indices = torch.randperm(self.pad_data_source_len, generator=g).tolist()
-
         # 每个gpu可以分到的indices个数, 一个idx本来是一个数字，现在变成了一个列表
         video_indices = video_indices[self.rank:self.total_size:self.num_replicas]
         len_of_video_indices = int(len(video_indices) // self.video_sampler_batchsize)
@@ -155,15 +153,24 @@ class T2IV_dataset(Dataset):
         self.video_data_root = args.video_data_root
         self.image_data_root = args.image_data_root
         self.num_frames = args.num_frames
+        self.dataset = args.dataset
         
- 
-        assert args.video_meta_info_file is not None
-        self.video_meta_info = self.read_jsonfile(args.video_meta_info_file) # [:10]
-        self.image_meta_info = self.read_jsonfile(args.image_meta_info_file)
+        if args.dataset == 't2i':
+            assert args.image_meta_info_file is not None
+            self.image_meta_info = self.read_jsonfile(args.image_meta_info_file)
+            print(f'image_meta_info:{len(self.image_meta_info)}!!!')
+        elif args.dataset == 't2v':
+            assert args.video_meta_info_file is not None
+            self.video_meta_info = self.read_jsonfile(args.video_meta_info_file) # [:10]
+            print(f'video_meta_info:{len(self.video_meta_info)}!!!')
+        elif args.dataset == 't2iv':
+            assert args.image_meta_info_file is not None
+            assert args.video_meta_info_file is not None
+            self.video_meta_info = self.read_jsonfile(args.video_meta_info_file) # [:10]
+            self.image_meta_info = self.read_jsonfile(args.image_meta_info_file)
+            print(f'video_meta_info:{len(self.video_meta_info)}, image_meta_info:{len(self.image_meta_info)}!!!')
 
-        print(f'{args.video_meta_info_file=} is loaded successfully!')
-        print(f'video_meta_info:{len(self.video_meta_info)}, image_meta_info:{len(self.image_meta_info)}!!!')
-        # ========== new 
+        # ========== new ========
         self.tokenizer = tokenizer
         self.processor = processor
         self.num_frames = args.num_frames
@@ -174,15 +181,19 @@ class T2IV_dataset(Dataset):
 
         self.do_image_center_crop = args.do_image_center_crop # True
         self.image_crop_size = args.image_crop_size # 256
-
+        
 
     def read_jsonfile(self, jsonfile):
         with open(jsonfile, 'r', encoding='utf-8') as f:
             return json.load(f)
         
     def __len__(self):
-        # return self.training_sample_nums
-        return len(self.video_meta_info)
+        if self.dataset == 't2v':
+            return len(self.video_meta_info)
+        elif self.dataset == 't2i':
+            return len(self.image_meta_info)
+        elif self.dataset == 't2iv':
+            return len(self.video_meta_info) 
 
     def read_video_frames(self, video_path, n_frames=16):
         """
@@ -207,46 +218,58 @@ class T2IV_dataset(Dataset):
         return frames
 
     def __getitem__(self, idx_list):
-    
-        
-        assert type(idx_list) is list
-        try:
-            # video
-            if idx_list[-1] == 'video':
-                videos, texts = [], []
-                video_idxs = idx_list[:-1]
-                for video_idx in video_idxs:
-                    video_idx = video_idx % len(self.video_meta_info)
-
-                    text =  self.video_meta_info[video_idx]['cap'][-1]
-                    images = self.get_video_data(video_idx) # (n_frame//4, 4, c, h, w)
-                    texts.append(text)
-                    videos.append(images)
-
-                return dict(text=texts, visual_data=videos, data_type='video')
-
-            # image
-            elif idx_list[-1] == 'image':
-                # import ipdb; ipdb.set_trace()
-                images, texts = [], []
-                image_idxs = idx_list[:-1]
-                for image_idx in image_idxs:
-                    # print(f'{image_idx=}')
-                    image_idx = image_idx % len(self.image_meta_info)
-                    # if image_idx > len(self.image_meta_info):
-                    text =  self.image_meta_info[image_idx]['cap'][-1]
-                    image = self.get_image_data(image_idx) # (n_frame=1, 1, c, h, w)
-                    texts.append(text)
-                    images.append(image)
-                return dict(text=texts, visual_data=images, data_type='image')
-            gc.collect()
-       
-        except Exception as e:
-            print(e, '!!!!!!!!')
-            random_idx = random.randint(0, self.__len__() - 1)
-            idx = [ random_idx for i in range(self.video_sampler_batchsize)]
-            idx.append('video')
-            return self.__getitem__(idx)
+        if self.dataset == 't2v':
+            try:
+                video_idx = idx_list
+                text =  self.video_meta_info[video_idx]['cap'][-1]
+                video = self.get_video_data(video_idx) # (n_frame//4, 4, c, h, w)
+                return dict(text=text, visual_data=video, data_type='video')
+            except Exception as e:
+                print(f"Error processing video {video_idx}: {e}")
+                random_idx = random.randint(0, self.__len__() - 1)
+                return self.__getitem__(random_idx)
+        elif self.dataset == 't2i':
+            try:
+                image_idx = idx_list
+                text =  self.image_meta_info[image_idx]['cap'][-1]
+                image = self.get_image_data(image_idx) # (n_frame=1, 1, c, h, w)
+                return dict(text=text, visual_data=image, data_type='image')
+            except Exception as e:
+                print(f"Error processing image {image_idx}: {e}")
+                random_idx = random.randint(0, self.__len__() - 1)
+                return self.__getitem__(random_idx)
+        elif self.dataset == 't2iv':
+            assert type(idx_list) is list
+            try:
+                # video
+                if idx_list[-1] == 'video':
+                    videos, texts = [], []
+                    video_idxs = idx_list[:-1]
+                    for video_idx in video_idxs:
+                        video_idx = video_idx % len(self.video_meta_info)
+                        text =  self.video_meta_info[video_idx]['cap'][-1]
+                        images = self.get_video_data(video_idx) # (n_frame//4, 4, c, h, w)
+                        texts.append(text)
+                        videos.append(images)
+                    return dict(text=texts, visual_data=videos, data_type='video')
+                # image
+                elif idx_list[-1] == 'image':
+                    images, texts = [], []
+                    image_idxs = idx_list[:-1]
+                    for image_idx in image_idxs:
+                        image_idx = image_idx % len(self.image_meta_info)
+                        text =  self.image_meta_info[image_idx]['cap'][-1]
+                        image = self.get_image_data(image_idx) # (n_frame=1, 1, c, h, w)
+                        texts.append(text)
+                        images.append(image)
+                    return dict(text=texts, visual_data=images, data_type='image')
+                gc.collect()
+            except Exception as e:
+                print(e, '!!!!!!!!')
+                random_idx = random.randint(0, self.__len__() - 1)
+                idx = [ random_idx for i in range(self.video_sampler_batchsize)]
+                idx.append('video')
+                return self.__getitem__(idx)
 
 
     def resize_and_center_crop(self, image_path, output_size=512):
@@ -306,49 +329,6 @@ class T2IV_dataset(Dataset):
                 )  # === (n_frame//4, 4, c, h, w) ===
         return images
 
-    """def get_video(self, idx):
-        
-        video_path = os.path.join(self.data_root, self.video_meta_info[idx]['path'])
-        # filter video seconds less than 2s, start_idx=25, end_idx=25+self.num_frames
-        video = self.decord_read(video_path)
-
-        # import ipdb; ipdb.set_trace()
-        video = self.transform(video)  # T C H W -> T C H W
-        video = video.transpose(0, 1)  # T C H W -> C T H W
-
-
-        text = random.choice(self.video_meta_info[idx]['cap'])
-        # return dict(video=video, text=text)
-        text = text_preprocessing(text)
-
-        t5_file = self.get_npy_path(self.video_meta_info[idx])
-        assert os.path.isfile(t5_file), 't5_file {} does not exist!'.format(t5_file)
-        t5_feat_padding = torch.zeros((1, self.t5_feature_max_len, self.t5_feature_dim))
-        t5_feat = torch.from_numpy(np.load(t5_file))
-        
-        t5_feat_len = t5_feat.shape[1] 
-        feat_len = min(self.t5_feature_max_len, t5_feat_len)
-        
- 
-
-        # import ipdb; ipdb.set_trace()
-        t5_feat_padding[:, -feat_len:] = t5_feat[:, :feat_len]
-        emb_mask = torch.zeros((self.t5_feature_max_len,))
-        emb_mask[-feat_len:] = 1
-        attn_mask = torch.tril(torch.ones(self.max_seq_length, self.max_seq_length))
-        T = self.t5_feature_max_len # 120
-        attn_mask[:, :T] = attn_mask[:, :T] * emb_mask.unsqueeze(0)
-        eye_matrix = torch.eye(self.max_seq_length, self.max_seq_length)
-        attn_mask = attn_mask * (1 - eye_matrix) + eye_matrix
-        attn_mask = attn_mask.unsqueeze(0).to(torch.bool)
-
-        # os.makedirs('visual_attnmask', exist_ok=True)
-        # visualize_attn_mask(attn_mask, f'visual_attnmask/{idx}_attn_mask.png')
-
-        valid = 1
-        return dict(video=video, t5_feat_padding=t5_feat_padding, attn_mask=attn_mask, valid = torch.tensor(valid), text=text)
-
- """
     def decord_read(self, path):
         decord_vr = self.v_decoder(path)
         # Sampling video frames
@@ -403,7 +383,6 @@ if __name__ == "__main__":
     # dataset & dataloader
     # parser.add_argument("--dataset", type=str, required=True)
     # parser.add_argument("--data", type=str, required='')
-    parser.add_argument("--video_meta_info_file", type=str, default='/storage/zhubin/liuyihang/add_aes/output/sucai_aes_1000.json')
     # parser.add_argument("--sample_rate", type=int, default=1)
     # parser.add_argument("--cache_dir", type=str, required='')
     # parser.add_argument("--t5-model-path", type=str, default='./pretrained_models/t5-ckpt')
@@ -426,12 +405,21 @@ if __name__ == "__main__":
     parser.add_argument("--vq_model", type=str, default="Emu3_VQ")
     parser.add_argument("--vq_repo", type=str, default="BAAI/Emu3-VisionTokenizer") 
 
+    parser.add_argument("--video_meta_info_file", type=str, default='/storage/zhubin/liuyihang/add_aes/output/sucai_aes_1000.json')
     parser.add_argument("--image_meta_info_file", type=str, default='/storage/zhubin/UniLLM/tmp/image_data.json')
     parser.add_argument("--do_image_center_crop", action="store_true")
     parser.add_argument("--image_crop_size", type=int, default=256)
-    
+    parser.add_argument("--dataset", type=str, default='t2iv')
+    parser.add_argument("--video_sampler_batchsize", type=int, default=1)
+    parser.add_argument("--image_sampler_batchsize", type=int, default=1)
+    parser.add_argument("--video_data_step_ratio", type=float, default=1/3)
+    parser.add_argument("--num_workers", type=int, default=3)
     args = parser.parse_args()
 
+    """
+    video_sampler_batchsize=args.video_sampler_batchsize, 
+            image_sampler_batchsize=args.image_sampler_batchsize, 
+    """
     init_distributed_mode(args)
 
     
@@ -466,14 +454,14 @@ if __name__ == "__main__":
     }
     temporal_downsample_factor = 4
     
-    video_sampler_batchsize = 2
+ 
     dataset = T2IV_dataset(args=args, \
                           tokenizer=tokenizer, 
                           processor=processor, 
                           temporal_downsample_factor=temporal_downsample_factor, 
                           data_repeat=10, 
                           tokenizer_max_len=120,
-                          video_sampler_batchsize = video_sampler_batchsize
+                          video_sampler_batchsize = args.video_sampler_batchsize
                           ) # 
     
     rank = dist.get_rank()
@@ -487,7 +475,7 @@ if __name__ == "__main__":
     #     seed=args.global_seed
     # )
 
-    sampler = SimpleDistributedSampler(
+    """sampler = SimpleDistributedSampler(
         dataset, num_replicas=dist.get_world_size(), rank=rank,
         video_sampler_batchsize=2, image_sampler_batchsize=3, video_data_step_ratio=1/4,
     )
@@ -500,18 +488,59 @@ if __name__ == "__main__":
         num_workers=args.num_workers,
         pin_memory=True,
         drop_last=True
-    )
+    )"""
+
+    if args.dataset == 't2i' or args.dataset == 't2v':
+        sampler = DistributedSampler(
+            dataset,
+            num_replicas=dist.get_world_size(),
+            rank=rank,
+            shuffle=True,
+            seed=args.global_seed
+        )
+        batch_size = 3
+
+    elif args.dataset == 't2iv':
+        sampler = SimpleDistributedSampler(
+            dataset, 
+            num_replicas=dist.get_world_size(),
+            rank=dist.get_rank(),
+            video_sampler_batchsize=args.video_sampler_batchsize, 
+            image_sampler_batchsize=args.image_sampler_batchsize, 
+            video_data_step_ratio=args.video_data_step_ratio,
+        )
+        batch_size = 1
+
+    # import ipdb; ipdb.set_trace()
+    dataloader = DataLoader(
+        dataset,
+        # batch_size=int(args.global_batch_size // dist.get_world_size()),
+        batch_size=batch_size,
+        shuffle=False,
+        sampler=sampler,
+        num_workers=args.num_workers,
+        pin_memory=True,
+        drop_last=True,
+        prefetch_factor=18,
+    ) 
     
+
     # import ipdb; ipdb.set_trace()
     for idx, sample in enumerate(dataloader):
 
         # import ipdb; ipdb.set_trace()
         # print(rank, sample)
         # continue
-        texts = sample['text'] # list      sample['data_type'][0] 
-        visual_data = torch.cat(sample['visual_data'], dim=0) # (bs, n_frame//4, 4, c, h, w)
-        data_type = sample['data_type'][0]
-        print(rank,idx, visual_data.shape, data_type)
+        if args.dataset == 't2iv':
+            texts = sample['text'] # list      sample['data_type'][0] 
+            visual_data = torch.cat(sample['visual_data'], dim=0) # (bs, n_frame//4, 4, c, h, w)
+            data_type = sample['data_type'][0]
+            print(rank,idx, visual_data.shape, data_type)
+        elif args.dataset == 't2i' or args.dataset == 't2v':
+            texts = sample['text']
+            visual_data = sample['visual_data'] # (bs, n_frame//4, 4, c, h, w)
+            data_type = sample['data_type'][0]
+            print(rank,idx, visual_data.shape, data_type)
         # continue
         with torch.no_grad():
             # encode      visual_data_flat = visual_data.reshape(b * n, c, h, w)
@@ -546,6 +575,9 @@ conda activate
 export http_proxy=127.0.0.1:7890
 export https_proxy=127.0.0.1:7890
 
+# ============= t2iv =============  
+
+
 HF_DATASETS_OFFLINE=1   torchrun  --nnodes=1  --nproc_per_node=1  \
 --master_addr=$master_addr --master_port=$master_port \
 dataset/t2iv.py \
@@ -559,7 +591,47 @@ dataset/t2iv.py \
 --vq_repo  BAAI/Emu3-VisionTokenizer \
 --image_meta_info_file  $IMAGE_DATA_FILE \
 --image_crop_size   256 \
---do_image_center_crop  
+--dataset t2iv \
+--do_image_center_crop  \
+--num_workers 3 
 
- 
+# ============= t2i =============  
+
+HF_DATASETS_OFFLINE=1   torchrun  --nnodes=1  --nproc_per_node=1  \
+--master_addr=$master_addr --master_port=$master_port \
+dataset/t2iv.py \
+--video_meta_info_file $VIDEO_DATA_FILE \
+--num_frames 16 \
+--video_data_root  /storage/dataset \
+--image_data_root  /storage/dataset/recap_datacomp_1b_data/output  \
+--t5-path  /storage/zhubin/LlamaGen/dataset/storage_datasets_npy \
+--num-workers 0 \
+--vq_model   Emu3_VQ \
+--vq_repo  BAAI/Emu3-VisionTokenizer \
+--image_meta_info_file  $IMAGE_DATA_FILE \
+--image_crop_size   256 \
+--dataset t2i \
+--do_image_center_crop  \
+--num_workers 3 
+
+
+# ============= t2v =============  
+
+HF_DATASETS_OFFLINE=1   torchrun  --nnodes=1  --nproc_per_node=1  \
+--master_addr=$master_addr --master_port=$master_port \
+dataset/t2iv.py \
+--num_frames 16 \
+--video_data_root  /storage/dataset \
+--image_data_root  /storage/dataset/recap_datacomp_1b_data/output  \
+--t5-path  /storage/zhubin/LlamaGen/dataset/storage_datasets_npy \
+--num-workers 0 \
+--vq_model   Emu3_VQ \
+--vq_repo  BAAI/Emu3-VisionTokenizer \
+--video_meta_info_file $VIDEO_DATA_FILE \
+--image_crop_size   256 \
+--dataset t2v \
+--do_image_center_crop  \
+--num_workers 3 
+
+
 """

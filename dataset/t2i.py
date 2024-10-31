@@ -49,38 +49,23 @@ class Text2ImgDatasetImg(Dataset):
 
 class Text2ImgDataset(Dataset):
     def __init__(self, args, transform):
-        img_path_list = []
-        valid_file_path = []
-        # collect valid jsonl file path
-        for lst_name in sorted(os.listdir(args.data_path)):
-            if not lst_name.endswith('.jsonl'):
-                continue
-            file_path = os.path.join(args.data_path, lst_name)
-            valid_file_path.append(file_path)           
         
-        for file_path in valid_file_path:
-            with open(file_path, 'r') as file:
-                for line_idx, line in enumerate(file):
-                    data = json.loads(line)
-                    img_path = data['image_path']
-                    code_dir = file_path.split('/')[-1].split('.')[0]
-                    img_path_list.append((img_path, code_dir, line_idx))
-        self.img_path_list = img_path_list
-        self.transform = transform
+      
+        self.image_data_root = args.image_data_root
+        self.dataset = args.dataset
+        
+        assert args.dataset == 't2i'
+        assert args.image_meta_info_file is not None
+        self.image_meta_info = self.read_jsonfile(args.image_meta_info_file)
+        print(f'image_meta_info:{len(self.image_meta_info)}!!!')
 
-        self.t5_feat_path = args.t5_feat_path
-        self.short_t5_feat_path = args.short_t5_feat_path
-        self.t5_feat_path_base = self.t5_feat_path.split('/')[-1]
-        if self.short_t5_feat_path is not None:
-            self.short_t5_feat_path_base = self.short_t5_feat_path.split('/')[-1]
-        else:
-            self.short_t5_feat_path_base = self.t5_feat_path_base
-        self.image_size = args.image_size
-        latent_size = args.image_size // args.downsample_size
-        self.code_len = latent_size ** 2
-        self.t5_feature_max_len = 120
-        self.t5_feature_dim = 2048
-        self.max_seq_length = self.t5_feature_max_len + self.code_len
+        # ========== new ========
+        self.tokenizer = tokenizer
+        self.processor = processor
+        self.tokenizer_max_len =  tokenizer_max_len
+        self.code_len = (latent_size ** 2) # image vae tokens
+        self.do_image_center_crop = args.do_image_center_crop # True
+        self.image_crop_size = args.image_crop_size # 256
 
     def __len__(self):
         return len(self.img_path_list)

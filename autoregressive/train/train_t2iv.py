@@ -109,24 +109,24 @@ def main(args):
     model = model.eval().to(device)
     logger.info(f"model Parameters: {sum(p.numel() for p in model.parameters()):,}")
 
-    if  args.dataset == 't2v' or args.dataset == 't2iv':
-        # MODEL_HUB = args.vq_repo # "BAAI/Emu3-VisionTokenizer"
-        vq_model = VQ_models[args.vq_model]
-        vq_model =  vq_model.from_pretrained(args.vq_repo,  cache_dir='./cache_dir').eval().to(device) # trust_remote_code=True,
+    # if  args.dataset == 't2v' or args.dataset == 't2iv':
+    # MODEL_HUB = args.vq_repo # "BAAI/Emu3-VisionTokenizer"
+    vq_model = VQ_models[args.vq_model]
+    vq_model =  vq_model.from_pretrained(args.vq_repo,  cache_dir='./cache_dir').eval().to(device) # trust_remote_code=True,
 
-        processor = Emu3VisionVQImageProcessor.from_pretrained(args.vq_repo, cache_dir="/storage/zhubin/UniLLM/cache_dir") # trust_remote_code=True, 
-        # 暂时修改
-        processor.max_pixels = 256*256
-        processor.min_pixels = 256*256
-        processor.size = {
-            "max_pixels": 256*256,
-            "min_pixels": 256*256
-        },
+    processor = Emu3VisionVQImageProcessor.from_pretrained(args.vq_repo, cache_dir="/storage/zhubin/UniLLM/cache_dir") # trust_remote_code=True, 
+    # 暂时修改
+    processor.max_pixels = 256*256
+    processor.min_pixels = 256*256
+    processor.size = {
+        "max_pixels": 256*256,
+        "min_pixels": 256*256
+    },
         
     # Setup optimizer
     optimizer = creat_optimizer(model, args.weight_decay, args.lr, (args.beta1, args.beta2), logger)
 
-    # import ipdb; ipdb.set_trace()
+    # build_t2iv
     dataset = build_dataset(
                             args, 
                             tokenizer= tokenizer, 
@@ -135,28 +135,30 @@ def main(args):
                             data_repeat=1, 
                             tokenizer_max_len=args.tokenizer_max_len       
                             )
-    
-    # sampler = DistributedSampler(
-    #     dataset,
-    #     num_replicas=dist.get_world_size(),
-    #     rank=rank,
-    #     shuffle=True,
-    #     seed=args.global_seed
-    # )
-
-    sampler = SimpleDistributedSampler(
-        dataset, 
-        num_replicas=dist.get_world_size(),
-        rank=dist.get_rank(),
-        video_sampler_batchsize=args.video_sampler_batchsize, 
-        image_sampler_batchsize=args.image_sampler_batchsize, 
-        video_data_step_ratio=args.video_data_step_ratio,
-    )
+    if args.dataset == 't2i' or args.dataset == 't2v':
+        sampler = DistributedSampler(
+            dataset,
+            num_replicas=dist.get_world_size(),
+            rank=rank,
+            shuffle=True,
+            seed=args.global_seed
+        )
+        batch_size = int(args.global_batch_size // dist.get_world_size())
+    elif args.dataset == 't2iv':
+        sampler = SimpleDistributedSampler(
+            dataset, 
+            num_replicas=dist.get_world_size(),
+            rank=dist.get_rank(),
+            video_sampler_batchsize=args.video_sampler_batchsize, 
+            image_sampler_batchsize=args.image_sampler_batchsize, 
+            video_data_step_ratio=args.video_data_step_ratio,
+        )
+        batch_size = 1
 
     loader = DataLoader(
         dataset,
         # batch_size=int(args.global_batch_size // dist.get_world_size()),
-        batch_size=1,
+        batch_size=batch_size,
         shuffle=False,
         sampler=sampler,
         num_workers=args.num_workers,
@@ -164,6 +166,7 @@ def main(args):
         drop_last=True,
         prefetch_factor=18,
     )
+
     logger.info(f"Dataset contains {len(dataset):,} images")
 
     # Prepare models for training:
@@ -221,13 +224,18 @@ def main(args):
         sampler.set_epoch(epoch)
         logger.info(f"Beginning epoch {epoch}...")
         # for x, y, attn_mask, valid in loader:
+        print(f'Loader: {len(loader)}!!!!!!!!!!!!!')
 
         for samples in loader:
-   
             # text 
-            text = []
-            for text_item in samples['text']:
-                text.extend(text_item)
+            if args.dataset == 't2iv':
+                text = []
+                for text_item in samples['text']:
+                    text.extend(text_item)
+            elif  args.dataset == 't2i' or args.dataset == 't2v':
+                text = samples['text']
+
+
             inputs = tokenizer(
                 text, 
                 return_tensors="pt",
@@ -245,7 +253,6 @@ def main(args):
             # attention_mask for (text & video)
             data_type = samples['data_type'][0]
             T  = input_ids.shape[1]
-
             (h, w) = samples['visual_data'][0].shape[-2:]
             if data_type == 'video':
                 code_len = ((h//8) * (w//8)) * (args.num_frames//4)
@@ -255,10 +262,6 @@ def main(args):
                 raise ValueError("data_type must be video or image")
                 
             T_new = T + code_len
-            """attention_mask = torch.cat(
-                        (attention_mask, torch.ones(attention_mask.shape[0], code_len)), 
-                        dim=1
-                )  """
             attention_mask_matrix = torch.ones(attention_mask.shape[0], 1, T_new, T_new, dtype=torch.long)
             attention_mask_matrix  = torch.tril(attention_mask_matrix).to(torch.bool)
 
@@ -266,8 +269,11 @@ def main(args):
             attention_mask = attention_mask.to(device, non_blocking=True)
  
             # video
-            # import ipdb; ipdb.set_trace()
-            visual_data = torch.cat(samples['visual_data'], dim=0) # (bs, n_frame//4, 4, c, h, w)
+            if args.dataset == 't2iv':
+                visual_data = torch.cat(samples['visual_data'], dim=0) # (bs, n_frame//4, 4, c, h, w)
+            elif args.dataset == 't2i' or args.dataset == 't2v':
+                visual_data = samples['visual_data'] # (bs, n_frame//4, 4, c, h, w)
+
             (b, n, t, c, h ,w) = visual_data.shape # [2, 2, 4, 3, 256, 256]  or  [2, 1, 1, 3, 512, 512]
             if data_type == 'video':
                 visual_data_flat = visual_data.reshape(b * n, t, c, h, w) # [16, 4, 3, 512, 512]  or  [16, 4, 3, 256, 256] 
@@ -291,6 +297,7 @@ def main(args):
                                labels=input_vision_ids)
                 loss = output['loss']
 
+
             if train_steps % 1000 == 1:
                 if data_type == 'video':
                     codes = torch.argmax(output['logits'], dim=1).reshape(-1, args.num_frames//4, h//8, w//8) #
@@ -311,7 +318,8 @@ def main(args):
             if args.gradient_accumulation_steps > 1:
                 loss = loss / args.gradient_accumulation_steps
                 if data_type == 'image':
-                    image_loss_weight = linear_decay(train_steps, total_steps=len(loader)*args.epochs, start_value=1.0, end_value=0.001)
+                    # image_loss_weight = linear_decay(train_steps, total_steps=len(loader)*args.epochs, start_value=1.0, end_value=0.001)
+                    image_loss_weight = 1
                     loss *= image_loss_weight
                     # print(f'{train_steps=} image_loss_weight: {image_loss_weight}, {len(loader)*args.epochs}')
 
@@ -372,8 +380,8 @@ def main(args):
                 dist.barrier()
 
 
-            del input_ids, attention_mask, visual_data_flat, codes
-            torch.cuda.empty_cache()  # 手动清理显存
+            # del input_ids, attention_mask, visual_data_flat, codes
+            # torch.cuda.empty_cache()  # 手动清理显存
 
     model.eval()  # important! This disables randomized embedding dropout
     # do any sampling/FID calculation/etc. with ema (or model) in eval mode ...

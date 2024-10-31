@@ -5,8 +5,12 @@ from dataset.t2iv import build_t2iv
 
 
 def build_dataset(args, **kwargs):
-    if args.dataset == 't2v':
-        return build_t2v(args, **kwargs)
-    if args.dataset == 't2iv':
-        return build_t2iv(args, **kwargs)
-    raise ValueError(f'dataset {args.dataset} is not supported')
+    return build_t2iv(args, **kwargs)
+    
+    # if args.dataset == 't2i':
+    #     return build_t2i(args, **kwargs)
+    # if args.dataset == 't2v':
+    #     return build_t2v(args, **kwargs)
+    # if args.dataset == 't2iv':
+    #     return build_t2iv(args, **kwargs)
+    # raise ValueError(f'dataset {args.dataset} is not supported')
